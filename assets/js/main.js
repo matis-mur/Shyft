@@ -33,7 +33,7 @@
   const text2 = document.getElementById('gooeyText2');
   if (!text1 || !text2) return;
 
-  const texts = ['avec soin.', 'en équipe.', 'en 30 jours.', 'pour durer.'];
+  const texts = ['pilotée.', 'incarnée.', 'livrée.', 'accélérée.'];
   const morphTime = 1;
   const cooldownTime = 2.2;
   let textIndex = texts.length - 1;
