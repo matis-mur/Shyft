@@ -276,6 +276,12 @@ body::after {
 }
 
 .logo-mark {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  flex-shrink: 0;
+}
+.logo-mark-icon {
   width: 42px;
   height: 42px;
   border-radius: 10px;
@@ -286,8 +292,29 @@ body::after {
   overflow: hidden;
   transition: transform 0.3s var(--ease-out);
 }
-.logo-mark:hover { transform: rotate(-6deg); }
-.logo-mark img { width: 100%; height: 100%; display: block; }
+.logo-mark-icon img { width: 100%; height: 100%; display: block; }
+.logo-mark:hover .logo-mark-icon { transform: rotate(-6deg); }
+
+/* Wordmark "shyft" affiché à l'état initial, masqué quand la nav se contracte
+   (couleur fixée via fill="#EFE9DD" directement dans le SVG) */
+.logo-wordmark {
+  height: 22px;
+  width: auto;
+  max-width: 110px;
+  opacity: 1;
+  transition:
+    max-width 0.45s var(--ease-out),
+    opacity 0.3s var(--ease-out),
+    margin-left 0.45s var(--ease-out),
+    transform 0.45s var(--ease-out);
+}
+.site-header.scrolled .logo-wordmark {
+  max-width: 0;
+  opacity: 0;
+  margin-left: -0.65rem; /* compense le gap pour ne pas laisser de vide */
+  transform: translateX(-4px);
+  pointer-events: none;
+}
 
 .nav-links {
   display: flex;
@@ -549,66 +576,41 @@ body::after {
   .hero-scroll-cue-line { height: 28px; }
 }
 
+/* Espace entre les boxes (le grid utilise gap maintenant) */
+.hero-bottom {
+  gap: 1rem;
+}
+
+/* Box centrée avec bordure fine arrondie */
 .hero-stat {
   position: relative;
-  padding: 0.25rem 1.75rem;
+  padding: 1.75rem 1.25rem;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  text-align: center;
   gap: 0.85rem;
-  transition: transform 0.45s var(--ease-out);
+  border: 1px solid rgba(242, 235, 220, 0.08);
+  border-radius: 14px;
+  background: rgba(242, 235, 220, 0.015);
+  transition: transform 0.4s var(--ease-out),
+              border-color 0.4s var(--ease-out),
+              background 0.4s var(--ease-out);
 }
-.hero-stat:first-child { padding-left: 0; }
-.hero-stat:last-child { padding-right: 0; }
-
-/* Séparateur vertical fin entre stats */
-.hero-stat:not(:first-child)::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 50%;
-  transform: translateY(-50%);
-  width: 1px;
-  height: 70%;
-  background: linear-gradient(
-    to bottom,
-    transparent,
-    rgba(242, 235, 220, 0.18),
-    transparent
-  );
+.hero-stat:hover {
+  transform: translateY(-3px);
+  border-color: rgba(212, 165, 55, 0.3);
+  background: rgba(212, 165, 55, 0.04);
 }
 
-/* Filet doré au survol */
-.hero-stat::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  width: 0;
-  height: 1px;
-  background: var(--gold);
-  transition: width 0.5s var(--ease-out);
-}
-.hero-stat:hover { transform: translateY(-2px); }
-.hero-stat:hover::after { width: 100%; }
-.hero-stat:first-child::after { left: 0; }
-
-/* Indice 01 — 04 */
+/* Indice 01 — 04 : centré, plus de filet à gauche */
 .hero-stat-index {
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   letter-spacing: 0.18em;
   color: var(--gold);
   opacity: 0.7;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.55rem;
-}
-.hero-stat-index::before {
-  content: '';
-  width: 16px;
-  height: 1px;
-  background: var(--gold);
-  opacity: 0.6;
+  display: inline-block;
 }
 
 /* Chiffre principal */
@@ -621,6 +623,7 @@ body::after {
   letter-spacing: -0.035em;
   display: inline-flex;
   align-items: baseline;
+  justify-content: center;
   gap: 0.06em;
 }
 .hero-stat-num em {
@@ -632,11 +635,12 @@ body::after {
   margin-left: 0.04em;
 }
 
-/* Labels */
+/* Labels centrés */
 .hero-stat-lab {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
+  align-items: center;
+  gap: 0.15rem;
   margin-top: 0.15rem;
 }
 .hero-stat-lab-main {
@@ -659,11 +663,8 @@ body::after {
 }
 
 @media (max-width: 768px) {
-  .hero-bottom { grid-template-columns: repeat(2, 1fr); row-gap: 2.5rem; padding-top: 2.5rem; }
-  .hero-stat { padding: 0.25rem 1.25rem; }
-  .hero-stat:nth-child(odd) { padding-left: 0; }
-  .hero-stat:nth-child(even) { padding-right: 0; }
-  .hero-stat:nth-child(3)::before { display: none; }
+  .hero-bottom { grid-template-columns: repeat(2, 1fr); row-gap: 1rem; padding-top: 2rem; }
+  .hero-stat { padding: 1.25rem 1rem; gap: 0.65rem; }
   .hero-stat-num { font-size: 2rem; }
   .hero-stat-lab-main, .hero-stat-lab-sub { font-size: 0.875rem; }
 }
@@ -941,9 +942,9 @@ section { position: relative; }
 .heritage-track {
   display: inline-flex;
   align-items: center;
-  gap: 2.5rem;
+  gap: 4rem;
   white-space: nowrap;
-  padding-right: 2.5rem; /* respiration entre boucles */
+  padding-right: 4rem; /* respiration entre boucles */
   will-change: transform;
 }
 
@@ -970,27 +971,32 @@ section { position: relative; }
   animation-play-state: paused;
 }
 
+/* Logos : hauteur fixée, largeur auto avec un max-width raisonnable.
+   Pattern classique des bandeaux logos (Vercel, Linear). Combiné aux viewBox
+   re-trimmées sans whitespace, donne une cohérence visuelle correcte. */
 .heritage-brand {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 3vw, 2.5rem);
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--cream);
-  opacity: 0.45;
-  transition: opacity 0.35s var(--ease-out), color 0.35s;
+  height: clamp(2.25rem, 3.2vw, 2.75rem);
+  width: auto;
+  max-width: 220px;
+  object-fit: contain;
+  object-position: center;
   flex-shrink: 0;
-  text-transform: uppercase;
+  display: block;
+  /* Désature et reblanchit le logo pour avoir un rendu uniforme */
+  filter: brightness(0) invert(1);
+  opacity: 0.6;
+  transition: opacity 0.35s var(--ease-out);
 }
 .heritage-brand:hover {
   opacity: 1;
-  color: var(--gold);
 }
 
 .heritage-dot {
   color: var(--gold);
-  opacity: 0.5;
-  font-size: 0.5em;
+  opacity: 0.55;
+  font-size: clamp(0.4rem, 0.7vw, 0.55rem);
   flex-shrink: 0;
+  line-height: 1;
 }
 
 /* Reduced motion : pause les animations */
@@ -2781,4 +2787,27 @@ footer:hover .footer-mark-svg--spot { opacity: 1; }
 :focus-visible {
   outline: 2px solid var(--gold);
   outline-offset: 4px;
+}
+
+/* Ajustements individuels de taille */
+.heritage-brand[src*="bioderma"] {
+  transform: scale(1.6);
+}
+.heritage-brand[src*="upsa"] {
+  transform: scale(1.3);
+}
+.heritage-brand[src*="cofidis"] {
+  transform: scale(0.7);  /* le réduire au lieu de l'agrandir */
+}
+.heritage-brand[src*="auchan"] {
+  transform: scale(0.9);  /* le réduire au lieu de l'agrandir */
+}
+.heritage-brand[src*="decathlon"] {
+  transform: scale(0.8);  /* le réduire au lieu de l'agrandir */
+}
+.heritage-brand[src*="monext"] {
+  transform: scale(1.5);  /* le réduire au lieu de l'agrandir */
+}
+.heritage-brand[src*="credit-agricole"] {
+  transform: scale(1.8);  /* le réduire au lieu de l'agrandir */
 }
