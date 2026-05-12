@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Flashy · Vestiaire monochrome</title>
+<meta name="description" content="Flashy, marque de vestiaire monochrome. Pièces noires et roses, conçues à Paris, fabriquées au Portugal." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<header class="topbar">
+  <a href="#" class="topbar__mark" aria-label="Flashy">
+    <svg viewBox="0 0 32 32" width="22" height="22" aria-hidden="true">
+      <path d="M6 14 L14 14 L14 6 L18 6 L18 14 L26 14 L26 18 L18 18 L18 26 L14 26 L14 18 L6 18 Z M2 14 L4 14 L4 18 L2 18 Z M28 14 L30 14 L30 18 L28 18 Z" fill="currentColor"/>
+    </svg>
+  </a>
+
+  <nav class="topbar__nav">
+    <a href="#shop">Boutique</a>
+    <a href="#bag">Panier <span class="topbar__count">(0)</span></a>
+    <ul class="swatches" aria-label="Couleurs">
+      <li class="swatch swatch--pink is-active"></li>
+      <li class="swatch swatch--cream"></li>
+      <li class="swatch swatch--black"></li>
+    </ul>
+  </nav>
+</header>
+
+<!-- ============ WORDMARK ============ -->
+<section class="wordmark">
+  <h1 class="wordmark__text">
+    FLASHY<sup class="wordmark__r">®</sup>
+  </h1>
+</section>
+
+<!-- ============ INFO ROW ============ -->
+<section class="info">
+  <div class="info__col">
+    <h5 class="info__label">Flashy</h5>
+  </div>
+
+  <div class="info__col info__col--center">
+    <h5 class="info__label">Pourquoi</h5>
+    <p class="info__body">
+      Vestiaire monochrome conçu à Paris, fabriqué au Portugal.
+      Petites séries, jamais ressorties. Une pièce noire, une pièce rose,
+      rien entre les deux.
+    </p>
+  </div>
+
+  <div class="info__col info__col--right">
+    <h5 class="info__label">Visiter le site</h5>
+    <h5 class="info__label info__label--mt">Retours & livraison</h5>
+    <span class="info__copy">© 2026</span>
+  </div>
+</section>
+
+<!-- ============ PRODUCT GRID ============ -->
+<section id="shop" class="grid">
+  <a href="#" class="card card--pink">
+    <div class="card__media">
+      <img src="product-01.webp" alt="Casquette deux tons et sweat noir"/>
+    </div>
+    <div class="card__info">
+      <span class="card__name">; sweat (n°01)</span>
+      <span class="card__price">120 €</span>
+    </div>
+  </a>
+
+  <a href="#" class="card card--black">
+    <div class="card__media">
+      <img src="product-02.jpg" alt="Manteau rose long ceinturé"/>
+    </div>
+    <div class="card__info">
+      <span class="card__name">; cap (n°02)</span>
+      <span class="card__price">45 €</span>
+    </div>
+  </a>
+
+  <a href="#" class="card card--pink">
+    <div class="card__media">
+      <img src="product-03.jpg" alt="Ensemble chemise rayée et pantalon rose"/>
+    </div>
+    <div class="card__info">
+      <span class="card__name">; tee (n°03)</span>
+      <span class="card__price">55 €</span>
+    </div>
+  </a>
+
+  <a href="#" class="card card--black">
+    <div class="card__media">
+      <img src="product-04.jpg" alt="Tailleur rose vif avec sac à fleurs"/>
+    </div>
+    <div class="card__info">
+      <span class="card__name">; tote (n°04)</span>
+      <span class="card__price">95 €</span>
+    </div>
+  </a>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <span>Flashy® 2026 · Tous droits réservés</span>
+  <nav>
+    <a href="#">Instagram</a>
+    <a href="#">Newsletter</a>
+    <a href="#">Mentions légales</a>
+  </nav>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

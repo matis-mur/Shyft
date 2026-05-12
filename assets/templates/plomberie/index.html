@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Qondui · La plomberie de vos immeubles, gérée.</title>
+<meta name="description" content="Qondui dispatche un plombier qualifié sur tous vos sites. Pour les foncières, hôteliers et property managers." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <a href="#" class="brand">
+    Qondui
+  </a>
+  <nav class="nav__links">
+    <a href="#produit">Produit</a>
+    <a href="#reseau">Réseau</a>
+    <a href="#clients">Clients</a>
+  </nav>
+  <a href="#demo" class="btn btn--primary">Demander une démo</a>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <div class="hero__inner">
+    <p class="eyebrow">Pour les foncières & property managers</p>
+    <h1 class="hero__title">
+      La plomberie de vos immeubles,<br/>
+      <span class="hero__title-soft">gérée.</span>
+    </h1>
+    <p class="hero__lead">
+      Un plombier qualifié sur site en deux heures,<br/>
+      partout en France. Vous n'avez plus rien à faire.
+    </p>
+    <div class="hero__cta">
+      <a href="#demo" class="btn btn--primary btn--lg">Demander une démo</a>
+      <a href="#produit" class="link">Voir comment ça marche <span>→</span></a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ PILLIERS ============ -->
+<section id="produit" class="pillars">
+  <div class="pillar">
+    <span class="pillar__num">01</span>
+    <h2>Sur site en 2h</h2>
+    <p>SLA contractuel sur tous vos immeubles. Délais garantis par écrit, non par publicité.</p>
+  </div>
+  <div class="pillar">
+    <span class="pillar__num">02</span>
+    <h2>400 plombiers vérifiés</h2>
+    <p>Chaque artisan est diplômé, assuré et noté par les concierges qui le reçoivent. Pas un de plus.</p>
+  </div>
+  <div class="pillar">
+    <span class="pillar__num">03</span>
+    <h2>Une seule facture</h2>
+    <p>Vos 200 immeubles, vos 50 villes, vos mille interventions par an · un relevé mensuel.</p>
+  </div>
+</section>
+
+<!-- ============ CITATION ============ -->
+<section class="quote">
+  <p>
+    « On a remplacé trente prestataires locaux par Qondui.<br/>
+    Mon équipe a récupéré quatre jours par semaine. »
+  </p>
+  <cite>
+    · Hélène Vasseur · Directrice Patrimoine, Foncière Aurore
+  </cite>
+</section>
+
+<!-- ============ VISUEL ============ -->
+<section class="visual">
+  <figure class="visual__figure">
+    <img src="https://images.unsplash.com/photo-1502602898657-3e91760cbb34?auto=format&fit=crop&w=1800&q=80"
+         alt="Façades haussmanniennes parisiennes"/>
+    <figcaption>
+      <span class="visual__num">214</span>
+      <span class="visual__label">immeubles équipés Qondui<br/>à Paris intra-muros</span>
+    </figcaption>
+  </figure>
+</section>
+
+<!-- ============ CTA ============ -->
+<section id="demo" class="cta">
+  <h2 class="cta__title">Une démo de 30 minutes suffit.</h2>
+  <p class="cta__lead">
+    On branche Qondui sur un de vos sites pilotes. Vous voyez la première intervention partir avant la fin du call.
+  </p>
+  <form class="cta__form" onsubmit="event.preventDefault(); this.querySelector('input').value=''; this.querySelector('input').placeholder='Merci, on vous rappelle sous 24h.';">
+    <input type="email" placeholder="email@entreprise.com" required />
+    <button type="submit" class="btn btn--primary">Réserver la démo</button>
+  </form>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer__left">
+    <a href="#" class="brand">
+      <span class="brand__dot"></span>
+      Qondui
+    </a>
+    <span>© 2026 · Paris</span>
+  </div>
+  <nav class="footer__links">
+    <a href="#">Mentions légales</a>
+    <a href="#">RGPD</a>
+    <a href="#">Contact</a>
+  </nav>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

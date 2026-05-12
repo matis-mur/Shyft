@@ -1,5 +1,5 @@
 /* ============================================
-   STICKY HEADER — pill on scroll (seuil 50px)
+   STICKY HEADER · pill on scroll (seuil 50px)
    ============================================ */
 (function() {
   const header = document.getElementById('siteHeader');
@@ -248,7 +248,7 @@
 })();
 
 /* ============================================
-   RADIAL ORBITAL TIMELINE — Méthode Shyft
+   RADIAL ORBITAL TIMELINE · Méthode Shyft
    ============================================ */
 (function() {
   const stage = document.getElementById('orbital');
@@ -284,7 +284,7 @@
     btn.className = 'orbital-node-btn';
     btn.type = 'button';
     btn.textContent = step.num;
-    btn.setAttribute('aria-label', `${step.title} — ${step.date}`);
+    btn.setAttribute('aria-label', `${step.title} · ${step.date}`);
     btn.setAttribute('aria-expanded', 'false');
 
     const label = document.createElement('span');
@@ -462,7 +462,7 @@
 })();
 
 /* ============================================
-   FOOTER MARK — spotlight qui suit la souris
+   FOOTER MARK · spotlight qui suit la souris
    ============================================ */
 (function() {
   const mark = document.getElementById('footerMark');
@@ -526,7 +526,7 @@
 })();
 
 /* ============================================
-   CONTACT FORM — soumission via mailto enrichi
+   CONTACT FORM · soumission via mailto enrichi
    À remplacer plus tard par Formspree / Netlify Forms / API custom.
    ============================================ */
 (function() {
@@ -540,14 +540,14 @@
       return;
     }
     const data = new FormData(form);
-    const subject = `Projet Shyft — ${data.get('societe') || data.get('nom') || 'Nouveau contact'}`;
+    const subject = `Projet Shyft · ${data.get('societe') || data.get('nom') || 'Nouveau contact'}`;
     const body =
       `Prénom : ${data.get('prenom')}\n` +
       `Nom : ${data.get('nom')}\n` +
       `Société : ${data.get('societe')}\n` +
       `Email : ${data.get('email')}\n` +
-      `Téléphone : ${data.get('tel') || '—'}\n` +
-      `Site actuel : ${data.get('site') || '—'}\n` +
+      `Téléphone : ${data.get('tel') || 'non renseigné'}\n` +
+      `Site actuel : ${data.get('site') || 'non renseigné'}\n` +
       `Rôle : ${data.get('role')}\n\n` +
       `Message :\n${data.get('message')}\n`;
     window.location.href =
@@ -575,4 +575,34 @@
       window.scrollTo({ top, behavior: 'smooth' });
     });
   });
+})();
+
+/* ============================================
+   SHOWCASE · Scale iframes to fit card width
+   ============================================ */
+(function() {
+  const frames = document.querySelectorAll('.showcase-frame-viewport');
+  if (!frames.length) return;
+
+  const LOGICAL_WIDTH = 1440;
+
+  const fit = (frame) => {
+    const iframe = frame.querySelector('iframe');
+    if (!iframe) return;
+    const w = frame.clientWidth;
+    if (!w) return;
+    const scale = w / LOGICAL_WIDTH;
+    iframe.style.transform = 'scale(' + scale + ')';
+  };
+
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(entries => {
+      entries.forEach(e => fit(e.target));
+    });
+    frames.forEach(f => { fit(f); ro.observe(f); });
+  } else {
+    const fitAll = () => frames.forEach(fit);
+    fitAll();
+    window.addEventListener('resize', fitAll, { passive: true });
+  }
 })();

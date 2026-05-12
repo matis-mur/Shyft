@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Centre Sereno · Médecine humaine, à taille humaine</title>
+<meta name="description" content="Centre médical pluridisciplinaire à Aix-en-Provence. Médecine générale, pédiatrie, kinésithérapie, psychologie." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============ TOP BAR ============ -->
+<div class="topbar">
+  <div class="topbar__inner">
+    <div class="topbar__items">
+      <a href="#agenda" class="topbar__item">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
+        </svg>
+        Agenda
+      </a>
+      <a href="#lieux" class="topbar__item">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+        </svg>
+        Nos cabinets
+      </a>
+      <a href="tel:+33442000000" class="topbar__item">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.37 1.9.72 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.35 1.85.59 2.81.72A2 2 0 0 1 22 16.92z"/>
+        </svg>
+        04 42 00 00 00
+      </a>
+    </div>
+
+    <form class="topbar__search" onsubmit="event.preventDefault();">
+      <input type="text" placeholder="Rechercher un praticien, une spécialité…" />
+      <button type="submit">Rechercher</button>
+    </form>
+  </div>
+</div>
+
+<!-- ============ MAIN NAV ============ -->
+<header class="nav">
+  <div class="nav__inner">
+    <a href="#" class="nav__logo">
+      <span class="nav__mark">
+        <img src="butterfly.svg" alt=""/>
+      </span>
+      <span class="nav__name">Centre <b>Sereno</b></span>
+    </a>
+
+    <nav class="nav__links">
+      <a href="#don" class="nav__link">
+        Don <svg viewBox="0 0 24 24" width="14" height="14" fill="currentColor"><path d="M12 21s-7-4.5-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 11c0 5.5-7 10-7 10z"/></svg>
+      </a>
+      <a href="#services" class="nav__link nav__link--drop">Nos services <span class="caret">⌄</span></a>
+      <a href="#equipe" class="nav__link nav__link--drop">L'équipe <span class="caret">⌄</span></a>
+      <a href="#ressources" class="nav__link">Ressources</a>
+      <a href="#contact" class="nav__link">Contact</a>
+    </nav>
+
+    <a href="#rdv" class="btn btn--primary">Prendre rendez-vous</a>
+
+    <button class="nav__burger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section class="hero">
+  <!-- Décor papillons (silhouettes partielles) -->
+  <div class="hero__decor" aria-hidden="true">
+    <img src="butterfly-outline.svg" class="decor decor--top" alt=""/>
+    <img src="butterfly-outline.svg" class="decor decor--mid" alt=""/>
+    <img src="butterfly-outline.svg" class="decor decor--bottom" alt=""/>
+  </div>
+
+  <div class="hero__inner">
+    <div class="hero__text">
+      <h1 class="hero__title">
+        Une médecine <em>humaine</em>,<br/>
+        à taille humaine.
+      </h1>
+      <p class="hero__lead">
+        Quinze praticiens · médecins, kinés, psychologues, pédiatres · réunis sous un
+        même toit à Aix-en-Provence. On vous reçoit calmement, on prend le temps,
+        on vous explique tout.
+      </p>
+      <div class="hero__cta">
+        <a href="#services" class="btn btn--primary">Nos spécialités</a>
+        <a href="#equipe" class="btn btn--ghost">
+          Découvrir l'équipe
+          <span class="btn__arrow"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M7 17 17 7M9 7h8v8" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      <img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?auto=format&fit=crop&w=1200&q=80" alt="Médecin et jeune patient en consultation"/>
+      <span class="hero__badge">Conventionné · secteur 1</span>
+    </div>
+  </div>
+</section>
+
+<!-- ============ SERVICES ============ -->
+<section id="services" class="services">
+  <div class="services__head">
+    <div>
+      <h2 class="display">Nos spécialités</h2>
+      <p class="services__lead">
+        Un parcours de soin coordonné&nbsp;: vous voyez plusieurs praticiens dans le même lieu,
+        avec un dossier partagé. Plus simple pour vous, plus précis pour nous.
+      </p>
+    </div>
+    <a href="#" class="btn btn--soft">Voir toutes les spécialités</a>
+  </div>
+
+  <div class="services__grid">
+    <article class="service">
+      <div class="service__media">
+        <img src="https://images.unsplash.com/photo-1576091160550-2173dba999ef?auto=format&fit=crop&w=800&q=80" alt="Médecine générale"/>
+      </div>
+      <h3>Médecine générale</h3>
+      <p>Suivi au long cours, urgences, vaccinations, dépistages. Cinq médecins, sans dépassement.</p>
+    </article>
+
+    <article class="service">
+      <div class="service__media">
+        <img src="https://images.unsplash.com/photo-1612349317150-e413f6a5b16d?auto=format&fit=crop&w=800&q=80" alt="Pédiatrie"/>
+      </div>
+      <h3>Pédiatrie</h3>
+      <p>Du nourrisson à l'adolescence&nbsp;: bilans, vaccins, accompagnement parental.</p>
+    </article>
+
+    <article class="service">
+      <div class="service__media">
+        <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?auto=format&fit=crop&w=800&q=80" alt="Kinésithérapie"/>
+      </div>
+      <h3>Kinésithérapie</h3>
+      <p>Rééducation, sport, post-opératoire. Trois cabinets équipés pour les séances individuelles.</p>
+    </article>
+
+    <article class="service">
+      <div class="service__media">
+        <img src="https://images.unsplash.com/photo-1573497019418-b400bb3ab074?auto=format&fit=crop&w=800&q=80" alt="Psychologie"/>
+      </div>
+      <h3>Psychologie</h3>
+      <p>Adultes, adolescents, enfants. Approches TCC, systémique, et thérapies brèves.</p>
+    </article>
+  </div>
+</section>
+
+<!-- ============ APPROCHE ============ -->
+<section id="equipe" class="approche">
+  <div class="approche__inner">
+    <div class="approche__text">
+      <p class="eyebrow">Notre engagement</p>
+      <h2 class="display">
+        Des consultations <em>longues</em>,<br/>
+        des dossiers partagés.
+      </h2>
+      <p>
+        Tous nos médecins exercent en secteur 1. Les rendez-vous durent en moyenne 25 minutes,
+        parce qu'on ne soigne pas correctement à la chaîne. Le centre est ouvert le samedi matin.
+      </p>
+      <ul class="approche__list">
+        <li>Consultations sans dépassement d'honoraires</li>
+        <li>Téléconsultation possible le mercredi après-midi</li>
+        <li>Dossier médical partagé entre praticiens (avec votre accord)</li>
+        <li>Prise en charge des urgences le jour-même, du lundi au vendredi</li>
+      </ul>
+    </div>
+
+    <div class="approche__stats">
+      <div class="stat">
+        <span class="stat__num">15</span>
+        <span class="stat__label">praticiens<br/>sur place</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num">25 min</span>
+        <span class="stat__label">en moyenne<br/>par consultation</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num">9h à 19h</span>
+        <span class="stat__label">du lundi<br/>au vendredi</span>
+      </div>
+      <div class="stat">
+        <span class="stat__num">9h à 13h</span>
+        <span class="stat__label">le<br/>samedi matin</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CTA ============ -->
+<section id="rdv" class="cta">
+  <div class="cta__inner">
+    <div>
+      <h2 class="display">Besoin d'un rendez-vous&nbsp;?</h2>
+      <p>Doctolib pour la prise en ligne, ou par téléphone du lundi au samedi matin.</p>
+    </div>
+    <div class="cta__actions">
+      <a href="#" class="btn btn--primary btn--lg">Prendre rendez-vous</a>
+      <a href="tel:+33442000000" class="btn btn--ghost-light btn--lg">04 42 00 00 00</a>
+    </div>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer id="contact" class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <a href="#" class="footer__logo">
+        <span class="nav__mark">
+          <img src="butterfly.svg" alt=""/>
+        </span>
+        <span class="nav__name">Centre <b>Sereno</b></span>
+      </a>
+      <p>Centre médical pluridisciplinaire<br/>12 rue Mignet · 13100 Aix-en-Provence</p>
+    </div>
+
+    <div class="footer__cols">
+      <div>
+        <h5>Le centre</h5>
+        <a href="#">L'équipe</a>
+        <a href="#">Nos spécialités</a>
+        <a href="#">Conventionnement</a>
+        <a href="#">Recrutement</a>
+      </div>
+      <div>
+        <h5>Patients</h5>
+        <a href="#">Prendre rendez-vous</a>
+        <a href="#">Téléconsultation</a>
+        <a href="#">Documents utiles</a>
+        <a href="#">Plan d'accès</a>
+      </div>
+      <div>
+        <h5>Légal</h5>
+        <a href="#">Mentions légales</a>
+        <a href="#">Confidentialité</a>
+        <a href="#">Conseil de l'Ordre</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <span>© 2026 Centre Sereno · Tous droits réservés</span>
+    <span>SIRET 000 000 000 00000</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

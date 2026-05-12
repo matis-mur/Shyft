@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Mistral Immo · Villas & bastides du Sud</title>
+<meta name="description" content="Mistral Immo, agence boutique de villas et bastides en Provence, Côte d'Azur et Cap-Ferret. Mandats exclusifs, transactions discrètes." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400;1,9..144,500&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ============ NAV ============ -->
+<header class="nav">
+  <div class="nav__inner">
+    <a href="#" class="nav__logo">Mistral Immo</a>
+
+    <nav class="nav__links">
+      <a href="#accueil">Accueil</a>
+      <a href="#biens">Biens</a>
+      <a href="#approche">Approche</a>
+      <a href="#honoraires">Honoraires</a>
+      <a href="#ressources">Ressources</a>
+    </nav>
+
+    <div class="nav__cta">
+      <a href="#login" class="nav__login">Connexion</a>
+      <a href="#estimer" class="btn btn--primary">Estimer mon bien</a>
+    </div>
+
+    <button class="nav__burger" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<!-- ============ HERO ============ -->
+<section id="accueil" class="hero">
+  <div class="hero__inner">
+    <div class="hero__text">
+      <h1 class="hero__title">
+        Habiter le Sud,<br/>
+        <em>autrement.</em>
+      </h1>
+      <p class="hero__lead">
+        Sélection confidentielle de villas et bastides sur la Côte d'Azur,
+        en Provence et au Bassin d'Arcachon. Mandats exclusifs, transactions discrètes.
+      </p>
+      <div class="hero__cta">
+        <a href="#estimer" class="btn btn--primary">Estimer mon bien <span class="btn__arrow">↗</span></a>
+        <a href="#biens" class="btn btn--ghost">Voir les biens</a>
+      </div>
+    </div>
+
+    <div class="hero__media">
+      <img src="villa.png" alt="Villa contemporaine en bois et béton, ambiance pinède du Sud" />
+    </div>
+  </div>
+
+  <div class="hero__features">
+    <div class="feature">
+      <div class="feature__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 12h3l3-9 6 18 3-9h3"/></svg>
+      </div>
+      <div>
+        <strong>Mandats exclusifs</strong>
+        <span>+ de 40 biens off-market</span>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 4 6v6c0 5 3.5 9.5 8 10 4.5-.5 8-5 8-10V6l-8-4z"/></svg>
+      </div>
+      <div>
+        <strong>Estimation</strong>
+        <span>réponse sous 48h</span>
+      </div>
+    </div>
+
+    <div class="feature">
+      <div class="feature__icon" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/></svg>
+      </div>
+      <div>
+        <strong>Acheteurs ciblés</strong>
+        <span>réseau France & international</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ BIENS ============ -->
+<section id="biens" class="biens">
+  <div class="section__head">
+    <p class="eyebrow">Biens emblématiques</p>
+    <h2 class="display">
+      Quelques <em>signatures</em> récentes,<br/>
+      pour vous donner une idée.
+    </h2>
+  </div>
+
+  <div class="biens__grid">
+    <article class="bien">
+      <div class="bien__media">
+        <img src="https://images.unsplash.com/photo-1613490493576-7fde63acd811?auto=format&fit=crop&w=900&q=80" alt="Bastide en Luberon"/>
+        <span class="bien__tag">Vendu</span>
+      </div>
+      <div class="bien__body">
+        <h3>Bastide de la Roque</h3>
+        <p>Gordes · 320 m² · 4 chambres · 2,4 ha</p>
+        <span class="bien__price">2 950 000 €</span>
+      </div>
+    </article>
+
+    <article class="bien">
+      <div class="bien__media">
+        <img src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&w=900&q=80" alt="Villa contemporaine vue mer"/>
+        <span class="bien__tag bien__tag--exclu">Exclusivité</span>
+      </div>
+      <div class="bien__body">
+        <h3>Villa Mira</h3>
+        <p>Cap d'Antibes · 280 m² · 5 chambres · vue mer</p>
+        <span class="bien__price">4 200 000 €</span>
+      </div>
+    </article>
+
+    <article class="bien">
+      <div class="bien__media">
+        <img src="https://images.unsplash.com/photo-1564013799919-ab600027ffc6?auto=format&fit=crop&w=900&q=80" alt="Cabane bois Cap-Ferret"/>
+        <span class="bien__tag bien__tag--exclu">Exclusivité</span>
+      </div>
+      <div class="bien__body">
+        <h3>Maison Pinède</h3>
+        <p>Cap-Ferret · 180 m² · 4 chambres · pieds dans la pinède</p>
+        <span class="bien__price">1 850 000 €</span>
+      </div>
+    </article>
+  </div>
+
+  <a href="#" class="link-arrow">Voir le portefeuille complet →</a>
+</section>
+
+<!-- ============ APPROCHE ============ -->
+<section id="approche" class="approche">
+  <div class="approche__inner">
+    <div class="approche__text">
+      <p class="eyebrow">Notre approche</p>
+      <h2 class="display">
+        Ni vitrine,<br/>
+        ni <em>portail.</em>
+      </h2>
+      <p>
+        Nous accompagnons une trentaine de transactions par an, pas plus.
+        Chaque bien est visité, photographié et présenté par l'un des trois associés.
+        Nous refusons les mandats que nous ne saurions pas vendre nous-mêmes.
+      </p>
+      <p>
+        Pour les acheteurs, nous travaillons sur cahier des charges&nbsp;: vous nous dites
+        ce que vous cherchez, nous vous montrons ce qui existe · y compris ce qui ne sera
+        jamais publié sur les portails.
+      </p>
+      <a href="#contact" class="link-arrow">Prendre rendez-vous →</a>
+    </div>
+
+    <ul class="approche__stats">
+      <li>
+        <span class="approche__num">38</span>
+        <span class="approche__label">transactions en 2025</span>
+      </li>
+      <li>
+        <span class="approche__num">96%</span>
+        <span class="approche__label">de mandats exclusifs</span>
+      </li>
+      <li>
+        <span class="approche__num">12 ans</span>
+        <span class="approche__label">d'ancrage dans le Sud</span>
+      </li>
+      <li>
+        <span class="approche__num">4,9/5</span>
+        <span class="approche__label">avis clients (Google)</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ============ CTA / ESTIMATION ============ -->
+<section id="estimer" class="cta">
+  <div class="cta__inner">
+    <p class="eyebrow eyebrow--cream">Estimation</p>
+    <h2 class="display display--cream">
+      Combien vaut <em>vraiment</em><br/>
+      votre bien&nbsp;?
+    </h2>
+    <p class="cta__lead">
+      Une estimation honnête, étayée par les transactions du voisinage des 24 derniers mois.
+      Pas de surévaluation pour signer le mandat.
+    </p>
+
+    <form class="cta__form" id="contact" onsubmit="event.preventDefault(); alert('Demande envoyée · l\'un des associés vous répond sous 48h.');">
+      <div class="field">
+        <label>Type de bien</label>
+        <select>
+          <option>Villa</option>
+          <option>Bastide / Mas</option>
+          <option>Appartement</option>
+          <option>Terrain</option>
+        </select>
+      </div>
+      <div class="field">
+        <label>Commune</label>
+        <input type="text" placeholder="Saint-Tropez, Gordes, Cap-Ferret…" required />
+      </div>
+      <div class="field">
+        <label>Surface (m²)</label>
+        <input type="number" placeholder="220" required />
+      </div>
+      <div class="field field--full">
+        <label>Email</label>
+        <input type="email" placeholder="vous@email.com" required />
+      </div>
+      <button class="btn btn--primary btn--lg" type="submit">Recevoir l'estimation</button>
+    </form>
+  </div>
+</section>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="footer__inner">
+    <div class="footer__brand">
+      <span class="footer__logo">Mistral Immo</span>
+      <p>Villas & bastides du Sud · Mandats exclusifs · Transactions discrètes</p>
+    </div>
+
+    <div class="footer__cols">
+      <div>
+        <h5>Agence</h5>
+        <a href="#approche">Notre approche</a>
+        <a href="#biens">Biens en exclu.</a>
+        <a href="#honoraires">Honoraires</a>
+        <a href="#">Recrutement</a>
+      </div>
+      <div>
+        <h5>Régions</h5>
+        <a href="#">Provence</a>
+        <a href="#">Côte d'Azur</a>
+        <a href="#">Bassin d'Arcachon</a>
+        <a href="#">Pays Basque</a>
+      </div>
+      <div>
+        <h5>Contact</h5>
+        <a href="mailto:bonjour@mistral-immo.fr">bonjour@mistral-immo.fr</a>
+        <a href="tel:+33493000000">+33 (0)4 93 00 00 00</a>
+        <a href="#">12 rue d'Antibes, Cannes</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer__bottom">
+    <span>© 2026 Mistral Immo · Tous droits réservés</span>
+    <span>Carte professionnelle T&G n° CPI 0606 2024 000 000 000</span>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>

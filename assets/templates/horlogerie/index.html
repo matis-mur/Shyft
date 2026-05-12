@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Maison Horla · Rachat de montres avec discrétion</title>
+<meta name="description" content="Maison Horla rachète votre montre au juste prix, l'authentifie, la documente, et lui trouve un nouveau poignet." />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400;1,500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<section class="hero">
+
+  <!-- Photo full-bleed -->
+  <div class="hero__bg">
+    <img src="hero.jpg" alt="Montre vintage exposée dans un intérieur antiquaire"/>
+    <div class="hero__tint"></div>
+  </div>
+
+  <!-- ============ TOP BAR ============ -->
+  <header class="topbar">
+
+    <!-- Gauche : marque + outils -->
+    <div class="topbar__left">
+      <a href="#" class="brand">
+        Maison&nbsp;Horla<sup class="brand__r">®</sup>
+      </a>
+      <button class="ipill" aria-label="Audio">
+        <svg viewBox="0 0 24 16" width="20" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round">
+          <path d="M3 8h1M7 4v8M11 6v4M15 3v10M19 5v6M22 7v2"/>
+        </svg>
+      </button>
+      <button class="ipill ipill--lang" type="button">
+        FR <span class="caret">⌄</span>
+      </button>
+      <a href="https://wa.me/" class="ipill ipill--whatsapp" aria-label="WhatsApp">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
+          <path d="M17.4 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.2-.7.2s-.8.9-1 1.1c-.2.2-.4.2-.7.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.6-1.9-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.2 3.4 5.3 4.7.7.3 1.3.5 1.8.7.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4 0-.1-.3-.2-.6-.4zM12 2C6.5 2 2 6.5 2 12c0 1.7.5 3.4 1.3 4.8L2 22l5.3-1.4c1.4.8 3 1.2 4.6 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/>
+        </svg>
+      </a>
+    </div>
+
+    <!-- Centre : nav -->
+    <nav class="topbar__nav">
+      <a href="#comment">Comment ça marche</a>
+      <a href="#apropos">À propos</a>
+      <a href="#histoires">Histoires</a>
+      <a href="#estimation">Estimation</a>
+      <a href="#contact">Contact</a>
+    </nav>
+
+    <!-- Droite : CTA -->
+    <a href="#estimation" class="cta-pill">
+      Demander une offre <span class="cta-pill__arrow">›</span>
+    </a>
+
+  </header>
+
+  <!-- ============ Contenu hero bas-gauche ============ -->
+  <div class="hero__copy">
+    <h1 class="hero__title">
+      Une montre <span class="block">ne se brade pas.</span>
+      <em>Elle se transmet.</em>
+    </h1>
+    <p class="hero__body">
+      Vous avez hérité d'une pièce que vous ne portez plus&nbsp;? Maison Horla la rachète
+      au juste prix, l'authentifie, la documente · et lui trouve un nouveau poignet
+      qui en prendra soin.
+    </p>
+    <a href="#estimation" class="cta-pill cta-pill--solid">
+      Vendre ma montre <span class="cta-pill__arrow">›</span>
+    </a>
+  </div>
+
+  <!-- ============ Caption centre-bas ============ -->
+  <p class="caption">
+    Pièce privée · Collection&nbsp;1962
+  </p>
+
+  <!-- ============ Bas-droite : portrait + whatsapp ============ -->
+  <div class="founder">
+    <button class="founder__pill" aria-label="Réduire">
+      <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><path d="M5 12h14"/></svg>
+    </button>
+    <a href="#" class="founder__avatar" aria-label="Notre fondateur">
+      <img src="https://images.unsplash.com/photo-1559548331-f9cb98001426?auto=format&fit=crop&w=200&q=80" alt=""/>
+    </a>
+    <a href="https://wa.me/" class="founder__wa" aria-label="WhatsApp">
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+        <path d="M17.4 14.4c-.3-.1-1.7-.8-2-.9-.3-.1-.5-.2-.7.2s-.8.9-1 1.1c-.2.2-.4.2-.7.1-.3-.1-1.2-.4-2.2-1.4-.8-.7-1.4-1.6-1.6-1.9-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5-.1-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.5s1.1 2.9 1.2 3.1c.1.2 2.2 3.4 5.3 4.7.7.3 1.3.5 1.8.7.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4 0-.1-.3-.2-.6-.4zM12 2C6.5 2 2 6.5 2 12c0 1.7.5 3.4 1.3 4.8L2 22l5.3-1.4c1.4.8 3 1.2 4.6 1.2 5.5 0 10-4.5 10-10S17.5 2 12 2z"/>
+      </svg>
+    </a>
+  </div>
+
+</section>
+
+<script src="script.js"></script>
+</body>
+</html>

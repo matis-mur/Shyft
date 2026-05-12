@@ -1,0 +1,268 @@
+/* ============================================
+   POUDRE · Vestiaire monochrome
+   ============================================ */
+
+:root {
+  --bg: #F1ECDF;
+  --ink: #0A0A0A;
+  --pink: #FF2E7E;
+  --pink-soft: #FFB4D0;
+  --muted: #8A8579;
+
+  --font-display: 'Archivo Black', system-ui, sans-serif;
+  --font: 'Inter', system-ui, sans-serif;
+
+  --gutter: 1.6rem;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: var(--font);
+  font-size: 15px;
+  line-height: 1.55;
+  color: var(--ink);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
+}
+
+img { display: block; max-width: 100%; }
+a { color: inherit; text-decoration: none; }
+
+/* ============ TOP BAR ============ */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.4rem var(--gutter) 1rem;
+}
+.topbar__mark {
+  color: var(--pink);
+  display: inline-flex;
+  align-items: center;
+}
+.topbar__nav {
+  display: flex;
+  align-items: center;
+  gap: 2.5rem;
+}
+.topbar__nav a {
+  font-size: 1.05rem;
+  font-weight: 500;
+  color: var(--pink);
+  transition: opacity .2s ease;
+}
+.topbar__nav a:hover { opacity: 0.7; }
+.topbar__count { color: var(--pink); opacity: 0.7; margin-left: 0.1em; }
+
+.swatches {
+  list-style: none;
+  display: flex;
+  gap: 0.45rem;
+  align-items: center;
+}
+.swatch {
+  width: 16px; height: 16px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: transform .2s ease;
+}
+.swatch:hover { transform: scale(1.1); }
+.swatch--pink { background: var(--pink); }
+.swatch--cream { background: var(--bg); border-color: var(--ink); }
+.swatch--black { background: var(--ink); }
+.swatch.is-active { outline: 1px solid currentColor; outline-offset: 2px; }
+.swatch.is-active.swatch--pink { color: var(--pink); }
+
+/* ============ WORDMARK ============ */
+.wordmark {
+  padding: 0.5rem var(--gutter) 0;
+  position: relative;
+}
+.wordmark__text {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(5rem, 22vw, 19rem);
+  line-height: 0.85;
+  letter-spacing: -0.04em;
+  color: var(--pink);
+  white-space: nowrap;
+  user-select: none;
+  position: relative;
+  width: max-content;
+  max-width: 100%;
+  display: inline-block;
+}
+/* ® positionné en absolu · collé en bas-droite du wordmark, comme la ref */
+.wordmark__r {
+  position: absolute;
+  right: -0.4em;
+  bottom: 0;
+  transform: translate(60px, 40px);
+  font-family: var(--font);
+  font-size: 0.4em;
+  font-weight: 800;
+  color: var(--pink);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.55em;
+  height: 1.55em;
+  border: 0;
+  letter-spacing: 0;
+  line-height: 1;
+}
+
+/* Filet horizontal sous le wordmark */
+.wordmark::after {
+  content: '';
+  display: block;
+  height: 5px;
+  background: var(--pink);
+  margin-top: 0.5rem;
+}
+
+/* ============ INFO ROW ============ */
+.info {
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  gap: 2.5rem;
+  padding: 1.5rem var(--gutter) 3rem;
+  color: var(--pink);
+}
+.info__col--right { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+.info__label {
+  font-family: var(--font);
+  font-size: 0.78rem;
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--pink);
+  margin-bottom: 0.9rem;
+  cursor: pointer;
+  transition: opacity .2s ease;
+}
+.info__label:hover { opacity: 0.7; }
+.info__label--mt { margin-top: 0.5rem; }
+.info__body {
+  font-size: 0.95rem;
+  line-height: 1.45;
+  color: var(--pink);
+  font-weight: 500;
+  max-width: 460px;
+}
+.info__copy {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--pink);
+  letter-spacing: 0.04em;
+  opacity: 0.75;
+  margin-top: auto;
+}
+
+/* ============ PRODUCT GRID ============ */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+  padding: 0 var(--gutter) 1rem;
+  background: transparent;
+}
+.card {
+  display: block;
+  background: var(--bg);
+  position: relative;
+  overflow: hidden;
+  transition: transform .3s ease;
+}
+.card__media {
+  width: 100%;
+  aspect-ratio: 3 / 4;
+  overflow: hidden;
+  position: relative;
+}
+.card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform .6s ease, filter .4s ease;
+}
+.card:hover .card__media img { transform: scale(1.03); }
+
+/* Photos affichées telles quelles · elles sont déjà rose/noir */
+.card__media {
+  background: var(--bg);
+}
+
+.card__info {
+  padding: 0.9rem 0.4rem 0.4rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.86rem;
+  letter-spacing: 0.005em;
+}
+.card__name {
+  color: var(--ink);
+  font-weight: 500;
+}
+.card--pink .card__name,
+.card--black .card__name {
+  color: var(--ink);
+}
+.card__price {
+  color: var(--ink);
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+/* ============ FOOTER ============ */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 2rem var(--gutter);
+  font-size: 0.86rem;
+  color: var(--pink);
+  border-top: 1px solid rgba(255,46,126,0.18);
+  margin-top: 2rem;
+}
+.footer nav {
+  display: flex;
+  gap: 1.6rem;
+}
+.footer a:hover { opacity: 0.7; }
+
+/* ============ Responsive ============ */
+@media (max-width: 980px) {
+  .topbar { padding: 1rem; }
+  .topbar__nav { gap: 1.4rem; }
+  .topbar__nav a { font-size: 0.92rem; }
+
+  .wordmark { padding: 0.3rem 1rem 0; }
+  .wordmark__text { font-size: clamp(3.5rem, 22vw, 8rem); }
+
+  .info {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.2rem 1rem 2.5rem;
+  }
+  .info__col--right { align-items: flex-start; text-align: left; }
+
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    padding: 0 1rem 1rem;
+  }
+
+  .footer { padding: 1.5rem 1rem; flex-direction: column; gap: 0.8rem; align-items: flex-start; }
+}
+
+@media (max-width: 560px) {
+  .grid { grid-template-columns: 1fr 1fr; }
+  .topbar__nav { gap: 0.9rem; }
+  .swatches { gap: 0.3rem; }
+}
