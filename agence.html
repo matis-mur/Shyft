@@ -16,6 +16,7 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,700&family=JetBrains+Mono:wght@400;500&family=Beth+Ellen&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/subpages.css">
+<link rel="stylesheet" href="assets/css/piliers.css">
 <noscript><style>.nav--minimal .nav-links { opacity: 1 !important; transform: none !important; visibility: visible !important; pointer-events: auto !important; }</style></noscript>
 
 <style>
@@ -24,6 +25,12 @@
   padding: var(--section-py) var(--gutter);
   background: var(--oxblood);
   position: relative;
+}
+/* Quand .agence-manifesto est dans le wrapper continu, son fond devient
+   transparent et les gradients/blobs du wrapper le traversent. */
+.legal-page > .agence-manifesto {
+  background: transparent;
+  overflow: visible;
 }
 .agence-manifesto-inner {
   max-width: 920px;
@@ -80,6 +87,23 @@
   background: var(--gold) center/cover no-repeat;
   border: 2px solid var(--gold);
   flex-shrink: 0;
+  transform: scale(0.6);
+  opacity: 0;
+  filter: blur(6px);
+  transition:
+    transform 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    opacity 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    filter 0.9s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    box-shadow 0.4s var(--ease-out);
+  box-shadow: 0 0 0 0 rgba(212, 165, 55, 0);
+}
+.agence-member.in-view .agence-member-photo {
+  transform: scale(1);
+  opacity: 1;
+  filter: blur(0);
+}
+.agence-member:hover .agence-member-photo {
+  box-shadow: 0 0 0 6px rgba(212, 165, 55, 0.18);
 }
 .agence-member-role {
   font-family: var(--font-mono);
@@ -213,6 +237,14 @@
   </nav>
 </header>
 
+<!-- ============ WRAPPER CONTINU : hero + manifeste ============ -->
+<div class="legal-page">
+
+  <!-- Blobs additionnels qui couvrent toute la hauteur du wrapper -->
+  <span class="legal-page-blob legal-page-blob--gold-top" aria-hidden="true"></span>
+  <span class="legal-page-blob legal-page-blob--burnt-mid" aria-hidden="true"></span>
+  <span class="legal-page-blob legal-page-blob--gold-bottom" aria-hidden="true"></span>
+
 <section class="subpage subpage--contact">
   <span class="subpage-blob subpage-blob--gold" aria-hidden="true"></span>
   <span class="subpage-blob subpage-blob--burnt" aria-hidden="true"></span>
@@ -237,18 +269,18 @@
 
       <div class="subpage-edito-info">
         <span class="subpage-edito-info-label">Repères</span>
-        <div class="subpage-edito-info-table">
-          <div class="subpage-edito-info-row">
+        <div class="subpage-edito-info-table" data-stagger>
+          <div class="subpage-edito-info-row reveal">
             <span class="subpage-edito-info-key">Équipe</span>
             <span class="subpage-edito-info-val">4 profils</span>
           </div>
-          <div class="subpage-edito-info-row">
+          <div class="subpage-edito-info-row reveal">
             <span class="subpage-edito-info-key">Sous-traitance</span>
             <span class="subpage-edito-info-val">Aucune</span>
           </div>
-          <div class="subpage-edito-info-row">
+          <div class="subpage-edito-info-row reveal">
             <span class="subpage-edito-info-key">Origine</span>
-            <span class="subpage-edito-info-val">Made in France</span>
+            <span class="subpage-edito-info-val"><span style="color:#0055A4;font-weight:600;">Made</span> <span style="color:#fff;">in</span> <span style="color:#EF4135;font-weight:600;">France</span></span>
           </div>
         </div>
       </div>
@@ -262,7 +294,7 @@
     <p>
       Aucun dirigeant ne se réveille en se disant <em>« je dois refaire mon site »</em>.
       Il se dit&nbsp;: <strong>il me faut plus de clients</strong>, ma marque manque de
-      cohérence, mes commerciaux rament. Le site n'est jamais le vrai sujet — c'est ce
+      cohérence, mes commerciaux rament. Le site n'est jamais le vrai sujet. C'est ce
       qu'il doit déclencher qui compte.
     </p>
     <p>
@@ -278,6 +310,8 @@
   </div>
 </section>
 
+</div><!-- /.legal-page -->
+
 <!-- ÉQUIPE -->
 <section class="agence-team" id="equipe">
   <div class="agence-team-inner">
@@ -288,18 +322,18 @@
 
     <div class="agence-team-grid" data-stagger>
       <article class="agence-member reveal">
-        <span class="agence-member-photo" style="background-image: url('assets/img/team.jpg'); background-position: 40% 50%;"></span>
+        <span class="agence-member-photo" style="background-image: url('assets/img/laurent.jpeg');"></span>
         <span class="agence-member-role">Direction · Stratégie</span>
         <h3 class="agence-member-name">Laurent</h3>
         <p class="agence-member-bio">
           Plus de 25 ans de direction marketing dans des environnements complexes (pharma,
-          retail, finance, énergie). Pilote la stratégie et le positionnement chez Shyft —
-          la rigueur d'une grande agence, sans le coût ni les délais.
+          retail, finance, énergie). Pilote la stratégie et le positionnement chez Shyft.
+          La rigueur d'une grande agence, sans le coût ni les délais.
         </p>
       </article>
 
       <article class="agence-member reveal">
-        <span class="agence-member-photo" style="background-image: url('assets/img/team.jpg'); background-position: 65% 50%;"></span>
+        <span class="agence-member-photo" style="background-image: url('assets/img/anne-carole.jpeg');"></span>
         <span class="agence-member-role">Art Direction · Project Management</span>
         <h3 class="agence-member-name">Anne-Carole</h3>
         <p class="agence-member-bio">
@@ -310,22 +344,22 @@
       </article>
 
       <article class="agence-member reveal">
-        <span class="agence-member-photo" style="background-image: url('assets/img/team.jpg'); background-position: 15% 50%;"></span>
+        <span class="agence-member-photo" style="background-image: url('assets/img/noe.jpeg');"></span>
         <span class="agence-member-role">Marketing digital · UI Design</span>
         <h3 class="agence-member-name">Noé</h3>
         <p class="agence-member-bio">
           Conçoit les interfaces, structure les parcours de conversion et active les
-          leviers d'acquisition. La passerelle entre design et performance — où l'esthétique
+          leviers d'acquisition. La passerelle entre design et performance, où l'esthétique
           se mesure en taux de transformation.
         </p>
       </article>
 
       <article class="agence-member reveal">
-        <span class="agence-member-photo" style="background-image: url('assets/img/team.jpg'); background-position: 90% 50%;"></span>
+        <span class="agence-member-photo" style="background-image: url('assets/img/matis.jpeg');"></span>
         <span class="agence-member-role">UX/UI · Full Stack Developer</span>
         <h3 class="agence-member-name">Matis</h3>
         <p class="agence-member-bio">
-          Du wireframe au déploiement. Code propre, mobile-first, performance native — pas
+          Du wireframe au déploiement. Code propre, mobile-first, performance native. Pas
           de framework lourd ni de plugin douteux. Le site comme un outil qui dure et
           évolue avec vous.
         </p>
@@ -335,7 +369,7 @@
 </section>
 
 <!-- VALEURS -->
-<section class="agence-valeurs">
+<section class="agence-valeurs" data-peel>
   <div class="agence-valeurs-inner">
     <div class="agence-valeurs-header reveal">
       <span class="hub-section-eyebrow" style="color: var(--burnt); opacity: 0.7;">Notre philosophie</span>
@@ -344,7 +378,7 @@
 
     <div class="agence-valeurs-grid" data-stagger>
       <article class="agence-valeur reveal">
-        <span class="agence-valeur-num">01 — Indépendance</span>
+        <span class="agence-valeur-num">01 · Indépendance</span>
         <h3>Pas de sous-traitance</h3>
         <p>
           Stratégie, design, code, copy, acquisition&nbsp;: tout est porté en interne.
@@ -354,7 +388,7 @@
       </article>
 
       <article class="agence-valeur reveal">
-        <span class="agence-valeur-num">02 — Sur-mesure</span>
+        <span class="agence-valeur-num">02 · Sur-mesure</span>
         <h3>Pas de template</h3>
         <p>
           Pas de WordPress bricolé, pas de Wix copié-collé. Chaque site est codé
@@ -364,7 +398,7 @@
       </article>
 
       <article class="agence-valeur reveal">
-        <span class="agence-valeur-num">03 — Transparence</span>
+        <span class="agence-valeur-num">03 · Transparence</span>
         <h3>Prix &amp; délai tenus</h3>
         <p>
           Devis complet et plafonné dès le départ. Pas de coûts cachés, pas de
@@ -374,7 +408,7 @@
       </article>
 
       <article class="agence-valeur reveal">
-        <span class="agence-valeur-num">04 — Long terme</span>
+        <span class="agence-valeur-num">04 · Long terme</span>
         <h3>Accompagnement inclus</h3>
         <p>
           30 jours de suivi gratuit après chaque livraison. Au-delà, pas de préavis
@@ -387,7 +421,7 @@
 </section>
 
 <!-- CTA FINAL -->
-<section class="pilier-cta-final">
+<section class="pilier-cta-final" data-peel>
   <div class="pilier-cta-final-inner reveal">
     <h2 data-split>Envie d'en savoir <em>plus</em>&nbsp;?</h2>
     <p class="pilier-cta-final-sub">Un échange de 30 minutes pour comprendre votre situation, vous dire honnêtement si nous sommes les bons interlocuteurs.</p>
@@ -411,7 +445,7 @@
       <div class="footer-col"><h4>Contact</h4><ul><li><a href="contact.html">Page contact</a></li><li><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#64;&#115;&#104;&#121;&#102;&#116;&#46;&#102;&#114;">&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#64;&#115;&#104;&#121;&#102;&#116;&#46;&#102;&#114;</a></li><li><a href="#">LinkedIn</a></li></ul></div>
     </div>
     <div class="footer-meta">
-      <span>© Shyft · 2026</span><span>Agence indépendante · Made in France</span>
+      <span>© Shyft · 2026</span><span>Agence indépendante · <span style="color:#0055A4;font-weight:600;">Made</span> <span style="color:#fff;">in</span> <span style="color:#EF4135;font-weight:600;">France</span></span>
       <span><a href="mentions-legales.html">Mentions légales</a> · <a href="cgv.html">CGV</a></span>
     </div>
   </div>

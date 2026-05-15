@@ -20,50 +20,53 @@
   const hasFinePointer = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   /* ============================================
-     1. NAV CONTEXTUELLE AU SCROLL
+     1. NAV CONTEXTUELLE AU SCROLL · DÉSACTIVÉ
      ============================================
-     - Top de page : nav minimale (logo + CTA)
-     - Scroll > 80px : nav complète avec liens
-     - Mobile : nav classique, pas de toggle
+     Mode actuel : les liens nav sont visibles dès le top de la page.
+     Au scroll, le visuel se transforme en pill compacte (via .scrolled
+     géré par main.js), mais les liens restent affichés.
+     Ce module ne fait plus que nettoyer la classe .nav--minimal au cas
+     où elle traînerait depuis un état précédent.
   */
-  (function navContextual() {
+  (function navContextualCleanup() {
     const nav = document.querySelector('.nav');
     if (!nav) return;
+    nav.classList.remove('nav--minimal');
+  })();
 
-    const THRESHOLD = 80;
-    let minimal = nav.classList.contains('nav--minimal');
+  /* ============================================
+     1.b WORD-APPEAR · animation staggerée du h1 hero
+     ============================================
+     Chaque .word-animate du h1 a un data-delay (ms).
+     500ms après le load, on lance pour chaque mot
+     une animation 'word-appear' (blur + slide + scale)
+     selon son délai propre. Stagger naturel mot par mot.
+  */
+  (function animateWordAppear() {
+    const words = document.querySelectorAll('.word-animate');
+    if (!words.length) return;
 
-    const update = () => {
-      if (isMobile()) {
-        if (minimal) {
-          nav.classList.remove('nav--minimal');
-          minimal = false;
-        }
-        return;
-      }
+    if (REDUCED_MOTION) {
+      // Reveal immédiat sans animation
+      words.forEach(w => {
+        w.style.opacity = '1';
+        w.style.transform = 'none';
+        w.style.filter = 'none';
+      });
+      return;
+    }
 
-      const shouldBeMinimal = window.scrollY < THRESHOLD;
-      if (shouldBeMinimal !== minimal) {
-        nav.classList.toggle('nav--minimal', shouldBeMinimal);
-        minimal = shouldBeMinimal;
-      }
+    const trigger = () => {
+      words.forEach(word => {
+        const delay = parseInt(word.dataset.delay, 10) || 0;
+        setTimeout(() => {
+          word.style.animation = 'word-appear 0.8s ease-out forwards';
+        }, delay);
+      });
     };
 
-    update();
-
-    let ticking = false;
-    const onScroll = () => {
-      if (!ticking) {
-        requestAnimationFrame(() => {
-          update();
-          ticking = false;
-        });
-        ticking = true;
-      }
-    };
-
-    window.addEventListener('scroll', onScroll, { passive: true });
-    window.addEventListener('resize', update, { passive: true });
+    // Petit délai initial (500ms) pour laisser la nav + le pill s'installer
+    setTimeout(trigger, 500);
   })();
 
   /* ============================================

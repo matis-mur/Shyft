@@ -139,10 +139,10 @@
 </section>
 
 <!-- ============ 3 GARANTIES (fond GOLD) ============ -->
-<section class="contact-guarantees">
+<section class="contact-guarantees" data-peel>
   <div class="contact-guarantees-header reveal">
     <!-- <span class="label label--center">Nos engagements</span> -->
-    <h2>Ce que vous obtenez en nous écrivant.</h2>
+    <h2 data-split>Ce que vous obtenez en <em>nous écrivant</em>.</h2>
   </div>
 
   <div class="contact-guarantees-inner" data-stagger>
@@ -187,7 +187,7 @@
   <div class="contact-long-grid">
 
     <form class="contact-long-form reveal" id="contactLongForm" novalidate>
-      <h2 class="contact-long-form-title">Écrivez-nous, on <em>vous lit</em>.</h2>
+      <h2 class="contact-long-form-title" data-split>Écrivez-nous, on <em>vous lit</em>.</h2>
 
       <div class="form-row form-row--full">
         <div class="contact-field">
@@ -212,7 +212,7 @@
 
       <div class="form-row form-row--full">
         <div class="contact-field">
-          <label>Ce qui vous intéresse <span style="opacity: 0.45; text-transform: none; letter-spacing: 0;">— plusieurs choix possibles</span></label>
+          <label>Ce qui vous intéresse <span style="opacity: 0.45; text-transform: none; letter-spacing: 0;">(plusieurs choix possibles)</span></label>
           <div class="form-checkbox-group" role="group" aria-label="Périmètre envisagé">
             <span class="form-checkbox">
               <input type="checkbox" id="cl-p-strat" name="perimetre" value="Stratégie">
@@ -233,6 +233,10 @@
             <span class="form-checkbox">
               <input type="checkbox" id="cl-p-pil" name="perimetre" value="Pilotage">
               <label for="cl-p-pil">Pilotage</label>
+            </span>
+            <span class="form-checkbox">
+              <input type="checkbox" id="cl-p-aud" name="perimetre" value="Audit">
+              <label for="cl-p-aud">Audit</label>
             </span>
           </div>
         </div>
@@ -280,7 +284,7 @@
             Sous <em>24h ouvrées</em> en moyenne. Si nous sommes en mesure de vous aider,
             nous proposons directement un créneau pour un premier échange de 30 minutes.
             Si votre besoin n'est pas dans notre périmètre, nous vous le disons honnêtement
-            — et nous orientons vers la bonne personne quand c'est possible.
+            et nous orientons vers la bonne personne quand c'est possible.
           </div>
         </div>
       </div>
@@ -350,7 +354,7 @@
 
     <div class="footer-meta">
       <span>© Shyft · 2026</span>
-      <span>Agence indépendante · Made in France</span>
+      <span>Agence indépendante · <span style="color:#0055A4;font-weight:600;">Made</span> <span style="color:#fff;">in</span> <span style="color:#EF4135;font-weight:600;">France</span></span>
       <span><a href="mentions-legales.html">Mentions légales</a> · <a href="cgv.html">CGV</a></span>
     </div>
   </div>
@@ -386,9 +390,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const perimetres = Array.from(form.querySelectorAll('input[name="perimetre"]:checked'))
       .map(el => el.value)
-      .join(', ') || '—';
+      .join(', ') || '(aucun)';
 
-    const subject = `Projet Shyft — ${societe}`;
+    const subject = `Projet Shyft · ${societe}`;
 
     const body = [
       `Bonjour Shyft,`,
@@ -397,10 +401,10 @@ document.addEventListener('DOMContentLoaded', () => {
       `Email : ${email}`,
       `Centres d'intérêt : ${perimetres}`,
       ``,
-      `— Message —`,
+      `Message :`,
       message,
       ``,
-      `—`,
+      `···`,
       `Envoyé depuis shyft.fr/contact`
     ].join('\n');
 

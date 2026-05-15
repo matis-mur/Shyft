@@ -98,6 +98,14 @@ h1.subpage-huge {
   z-index: 3;
   max-width: none;
   white-space: nowrap;
+  /* Même entrée que .hero-glass-h1 sur la home */
+  opacity: 0;
+  transform: translateY(14px);
+  animation: heroGlassIn 900ms cubic-bezier(0.16, 1, 0.3, 1) 350ms forwards;
+  text-shadow: 0 2px 30px rgba(0, 0, 0, 0.35);
+}
+@media (prefers-reduced-motion: reduce) {
+  h1.subpage-huge { opacity: 1; transform: none; animation: none; }
 }
 @media (max-width: 700px) {
   h1.subpage-huge { white-space: normal; letter-spacing: -0.05em; }
@@ -107,10 +115,14 @@ h1.subpage-huge.subpage-huge--wrap {
   white-space: normal;
 }
 h1.subpage-huge em {
-  font-family: var(--font-display);
+  font-family: var(--font-emphasis);
   font-style: normal;
-  font-weight: 700;
+  font-weight: 400;
   color: var(--gold);
+  display: inline-block;
+  transform: rotate(-2deg);
+  margin: 0 0.05em;
+  text-shadow: 0 0 30px rgba(212, 165, 55, 0.35);
 }
 
 /* Grid éditorial sous le titre : intro à gauche, infos contact à droite */
@@ -957,7 +969,8 @@ h1.subpage-huge em {
    ============================================ */
 .hub-section {
   padding: var(--section-py) var(--gutter);
-  background: var(--oxblood);
+  background: var(--cream);
+  color: var(--oxblood);
   position: relative;
   overflow: hidden;
 }
@@ -974,8 +987,8 @@ h1.subpage-huge em {
   font-size: 0.6875rem;
   letter-spacing: 0.2em;
   text-transform: uppercase;
-  color: var(--cream);
-  opacity: 0.55;
+  color: var(--oxblood);
+  opacity: 0.6;
   margin-bottom: 1rem;
   display: block;
 }
@@ -985,13 +998,13 @@ h1.subpage-huge em {
   font-weight: 500;
   line-height: 1.05;
   letter-spacing: -0.03em;
-  color: var(--cream);
+  color: var(--oxblood);
 }
 .hub-section-header h2 em {
   font-family: var(--font-emphasis);
   font-style: normal;
   font-weight: 400;
-  color: var(--gold);
+  color: var(--gold-soft);
 }
 
 .hub-grid {
@@ -1005,8 +1018,8 @@ h1.subpage-huge em {
 @media (max-width: 600px) { .hub-grid--three { grid-template-columns: 1fr; } }
 
 .hub-card {
-  background: rgba(242, 235, 220, 0.025);
-  border: 1px solid rgba(242, 235, 220, 0.08);
+  background: var(--oxblood-deep);
+  border: 1px solid rgba(212, 165, 55, 0.18);
   border-radius: var(--r-md);
   padding: 2.5rem 2rem;
   display: flex;
@@ -1016,14 +1029,16 @@ h1.subpage-huge em {
   overflow: hidden;
   isolation: isolate;
   text-decoration: none;
-  color: inherit;
-  transition: transform 0.4s var(--ease-out), border-color 0.3s, background 0.3s;
+  color: var(--cream);
+  transition: transform 0.4s var(--ease-out), border-color 0.3s, background 0.3s, box-shadow 0.4s;
   min-height: 320px;
+  box-shadow: 0 8px 24px -12px rgba(31, 6, 8, 0.35);
 }
 .hub-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(212, 165, 55, 0.4);
-  background: rgba(242, 235, 220, 0.04);
+  border-color: rgba(212, 165, 55, 0.55);
+  background: var(--oxblood);
+  box-shadow: 0 18px 38px -14px rgba(31, 6, 8, 0.5);
 }
 .hub-card::before {
   content: '';
@@ -1130,12 +1145,41 @@ h1.subpage-huge em {
 .hub-card:hover .hub-card-cta { gap: 0.7rem; }
 
 /* Accent par secteur (override le --card-accent par défaut) */
-.hub-card--retail   { --card-accent: #D97A2C; }
-.hub-card--pharma   { --card-accent: #1E4A6E; }
-.hub-card--finance  { --card-accent: #1E3A8A; }
-.hub-card--it-saas  { --card-accent: #6B4FCF; }
-.hub-card--energies { --card-accent: #4F7F5C; }
-.hub-card--conseil  { --card-accent: #7A2E3F; }
+.hub-card--retail   { --card-accent: #D97A2C; --card-accent-rgb: 217, 122, 44; }
+.hub-card--pharma   { --card-accent: #1E4A6E; --card-accent-rgb: 30, 74, 110;  }
+.hub-card--finance  { --card-accent: #1E3A8A; --card-accent-rgb: 30, 58, 138;  }
+.hub-card--it-saas  { --card-accent: #6B4FCF; --card-accent-rgb: 107, 79, 207; }
+.hub-card--energies { --card-accent: #4F7F5C; --card-accent-rgb: 79, 127, 92;  }
+.hub-card--conseil  { --card-accent: #7A2E3F; --card-accent-rgb: 122, 46, 63;  }
+
+/* Chaque carte secteur reprend le dégradé de la page secteur associée.
+   La vignette d'assombrissement est intégrée au background (multi-layered)
+   pour ne pas entrer en conflit avec ::before (barre colorée animée au hover). */
+.hub-card[class*="hub-card--"] {
+  background:
+    radial-gradient(circle at 75% 25%, rgba(0, 0, 0, 0.12), transparent 60%),
+    radial-gradient(circle at 15% 90%, rgba(0, 0, 0, 0.32), transparent 60%),
+    linear-gradient(135deg,
+      var(--card-accent) 0%,
+      color-mix(in srgb, var(--card-accent) 60%, var(--oxblood-deep)) 55%,
+      var(--oxblood-deep) 100%);
+  border-color: rgba(var(--card-accent-rgb), 0.45);
+}
+.hub-card[class*="hub-card--"]:hover {
+  border-color: rgba(var(--card-accent-rgb), 0.9);
+  background:
+    radial-gradient(circle at 75% 25%, rgba(0, 0, 0, 0.08), transparent 60%),
+    radial-gradient(circle at 15% 90%, rgba(0, 0, 0, 0.28), transparent 60%),
+    linear-gradient(135deg,
+      var(--card-accent) 0%,
+      color-mix(in srgb, var(--card-accent) 65%, var(--oxblood-deep)) 55%,
+      var(--oxblood-deep) 100%);
+  box-shadow: 0 18px 38px -14px rgba(var(--card-accent-rgb), 0.5);
+}
+/* Le séparateur méta de chaque carte secteur prend la teinte du secteur */
+.hub-card[class*="hub-card--"] .hub-card-meta {
+  border-top-color: rgba(var(--card-accent-rgb), 0.35);
+}
 
 /* ============================================
    3. PAGES LÉGALES (Mentions, CGV)
