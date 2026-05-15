@@ -1,0 +1,761 @@
+/* ============================================================
+   Shyft · Pages piliers (Stratégie, Identité, Site web,
+   Acquisition, Pilotage). Hérite de styles.css + subpages.css.
+   Pas de photo géante, pas de couleur d'accent par pilier —
+   palette Shyft pure, l'or est la signature.
+   ============================================================ */
+
+body.pilier-page {
+  background: var(--oxblood);
+}
+
+/* ============================================
+   HERO BRUTALISTE EN BEIGE (réutilise .subpage et .subpage-huge
+   des subpages.css, mais override pour fond crème + texte oxblood)
+   ============================================ */
+.pilier-page .subpage {
+  background: var(--cream);
+}
+.pilier-page .subpage::before {
+  background:
+    radial-gradient(circle 700px at 85% 15%, rgba(212, 165, 55, 0.18), transparent 55%),
+    radial-gradient(circle 600px at 10% 90%, rgba(139, 26, 31, 0.08), transparent 55%);
+}
+
+/* Titre huge sur crème */
+.pilier-page h1.subpage-huge {
+  color: var(--oxblood);
+}
+.pilier-page h1.subpage-huge em {
+  color: var(--burnt);
+}
+
+/* Grid éditorial sous le titre */
+.pilier-page .subpage-edito-intro {
+  color: var(--oxblood);
+  opacity: 0.82;
+}
+.pilier-page .subpage-edito-intro a {
+  color: var(--burnt);
+  border-bottom-color: var(--burnt);
+}
+
+/* Table info (Tarif · Délai · Périmètre) sur crème */
+.pilier-page .subpage-edito-info-label {
+  color: var(--oxblood);
+  opacity: 0.5;
+}
+.pilier-page .subpage-edito-info-table {
+  border-top-color: rgba(58, 15, 18, 0.2);
+  border-bottom-color: rgba(58, 15, 18, 0.2);
+}
+.pilier-page .subpage-edito-info-row + .subpage-edito-info-row {
+  border-top-color: rgba(58, 15, 18, 0.2);
+}
+.pilier-page .subpage-edito-info-key {
+  color: var(--oxblood);
+  opacity: 0.65;
+}
+.pilier-page .subpage-edito-info-val {
+  color: var(--oxblood);
+}
+
+/* Décorations adaptées au fond crème (plus subtiles) */
+.pilier-page .subpage-blob {
+  mix-blend-mode: multiply;
+  opacity: 0.4;
+}
+.pilier-page .subpage-blob--gold {
+  background: radial-gradient(circle, rgba(212, 165, 55, 0.5), rgba(212, 165, 55, 0.15) 50%, transparent 75%);
+}
+.pilier-page .subpage-blob--burnt {
+  background: radial-gradient(circle, rgba(139, 26, 31, 0.3), rgba(92, 40, 24, 0.1) 55%, transparent 78%);
+}
+.pilier-page .subpage-orbit {
+  border-color: rgba(58, 15, 18, 0.15);
+}
+.pilier-page .subpage-symbol {
+  color: var(--burnt);
+  opacity: 0.07;
+}
+.pilier-page .subpage-ornament {
+  color: var(--burnt);
+  opacity: 0.25;
+}
+
+/* CTA dans le hero brutaliste : marge généreuse pour respirer après la grid */
+.pilier-page .subpage-cta {
+  margin-top: 3.5rem;
+  position: relative;
+  z-index: 3;
+}
+
+/* ============================================
+   1. HERO PILIER (50-60vh, oxblood, layout éditorial)
+   ============================================ */
+.pilier-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: calc(var(--nav-h, 88px) + 5rem) var(--gutter) 5rem;
+  background: var(--oxblood);
+}
+.pilier-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle 700px at 85% 15%, rgba(212, 165, 55, 0.15), transparent 55%),
+    radial-gradient(circle 600px at 10% 90%, rgba(139, 26, 31, 0.4), transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pilier-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+
+/* Eyebrow numérotée du pilier ("01 — Stratégie") */
+.pilier-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.85;
+  margin-bottom: 2rem;
+}
+.pilier-eyebrow-num {
+  background: var(--gold);
+  color: var(--oxblood-deep);
+  padding: 0.3rem 0.55rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+/* Titre principal · style brutaliste mais wrap autorisé */
+.pilier-title {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 7vw, 6rem);
+  font-weight: 600;
+  line-height: 0.96;
+  letter-spacing: -0.045em;
+  color: var(--cream);
+  max-width: 18ch;
+  margin-bottom: 2rem;
+}
+.pilier-title em {
+  font-family: var(--font-emphasis);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--gold);
+}
+
+/* Grid sous le titre · sub à gauche, meta à droite (prix + délai) */
+.pilier-hero-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr;
+  gap: 4rem;
+  align-items: start;
+  margin-bottom: 3rem;
+}
+@media (max-width: 880px) {
+  .pilier-hero-grid { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+.pilier-hero-sub {
+  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.85;
+  max-width: 52ch;
+}
+
+/* Table meta (prix · délai) à droite du hero */
+.pilier-hero-meta {
+  border-top: 1px solid rgba(242, 235, 220, 0.2);
+}
+.pilier-hero-meta-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1rem 0;
+  border-bottom: 1px solid rgba(242, 235, 220, 0.2);
+}
+.pilier-hero-meta-key {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.6;
+}
+.pilier-hero-meta-val {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--cream);
+  text-align: right;
+}
+.pilier-hero-meta-val small {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 0.65;
+  margin-left: 0.3rem;
+}
+
+/* ============================================
+   2. SECTIONS COMMUNES PILIERS
+   ============================================ */
+.pilier-section {
+  padding: var(--section-py) var(--gutter);
+  position: relative;
+  overflow: hidden;
+}
+.pilier-section--oxblood { background: var(--oxblood); }
+.pilier-section--deep    { background: var(--oxblood-deep); }
+.pilier-section--cream   { background: var(--cream); color: var(--oxblood); }
+
+.pilier-section-inner {
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.pilier-section-header {
+  margin-bottom: 4rem;
+  max-width: 720px;
+}
+.pilier-section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.55;
+  margin-bottom: 1rem;
+  display: block;
+}
+.pilier-section--cream .pilier-section-eyebrow { color: var(--oxblood); opacity: 0.55; }
+.pilier-section-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+.pilier-section--cream .pilier-section-header h2 { color: var(--oxblood); }
+.pilier-section-header h2 em {
+  font-family: var(--font-emphasis);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--gold);
+}
+.pilier-section--cream .pilier-section-header h2 em { color: var(--burnt); }
+
+/* ============================================
+   3. LIVRABLES (5 cards translucides sur dark)
+   Grille 6 col : 3 cards span 2 (row 1) + 2 cards span 3 (row 2)
+   ============================================ */
+.pilier-livrables {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1rem;
+}
+.pilier-livrable {
+  grid-column: span 2;
+  background: rgba(242, 235, 220, 0.025);
+  border: 1px solid rgba(242, 235, 220, 0.08);
+  border-radius: var(--r-md);
+  padding: 3rem 2.25rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.4s var(--ease-out), border-color 0.3s, background 0.3s;
+  min-height: 280px;
+}
+/* Les 2 cards de la 2e rangée prennent plus de largeur (span 3 → 1/2 width) */
+.pilier-livrable:nth-child(n+4) { grid-column: span 3; }
+
+@media (max-width: 980px) {
+  .pilier-livrables { grid-template-columns: 1fr 1fr; }
+  .pilier-livrable,
+  .pilier-livrable:nth-child(n+4) { grid-column: span 1; }
+}
+@media (max-width: 600px) {
+  .pilier-livrables { grid-template-columns: 1fr; }
+}
+
+.pilier-livrable:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212, 165, 55, 0.4);
+  background: rgba(242, 235, 220, 0.04);
+}
+
+/* Filet gold qui s'étire au hover en haut de la card */
+.pilier-livrable::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--gold);
+  transition: width 0.5s var(--ease-out);
+}
+.pilier-livrable:hover::before { width: 100%; }
+
+/* Numéro géant italique Fraunces en filigrane bas-droite */
+.pilier-livrable::after {
+  content: attr(data-num);
+  position: absolute;
+  bottom: -0.5rem;
+  right: 1.25rem;
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 9rem;
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pilier-livrable-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  color: var(--gold);
+  opacity: 0.85;
+  font-weight: 600;
+  margin-bottom: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  position: relative;
+  z-index: 1;
+}
+.pilier-livrable-num::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--gold);
+}
+
+.pilier-livrable h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.2vw, 1.875rem);
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  margin-bottom: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+.pilier-livrable p {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.78;
+  position: relative;
+  z-index: 1;
+}
+.pilier-livrable p em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--gold);
+  opacity: 1;
+}
+
+/* ============================================
+   4. MÉTHODE (grille 3 col × 2 lignes de cards)
+   ============================================ */
+.pilier-methode-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 980px) { .pilier-methode-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .pilier-methode-grid { grid-template-columns: 1fr; } }
+
+/* Variante 2×2 (4 étapes) pour les piliers Stratégie/Identité/Acquisition/Pilotage */
+.pilier-methode-grid--four { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 600px) { .pilier-methode-grid--four { grid-template-columns: 1fr; } }
+
+/* Variante 3 col pour les combinaisons à 3 piliers */
+.pilier-combos-grid--three { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 880px) { .pilier-combos-grid--three { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .pilier-combos-grid--three { grid-template-columns: 1fr; } }
+
+.pilier-methode-card {
+  background: #FFFFFF;
+  border-radius: var(--r-md);
+  padding: 3rem 2.25rem 2.5rem;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.4s var(--ease-out), box-shadow 0.35s;
+  min-height: 280px;
+}
+.pilier-methode-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 18px 40px rgba(58, 15, 18, 0.1);
+}
+/* Filet gold qui s'étire au hover en haut de la card */
+.pilier-methode-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--gold);
+  transition: width 0.5s var(--ease-out);
+}
+.pilier-methode-card:hover::before { width: 100%; }
+
+/* Numéro géant en filigrane Fraunces italic en bas-droite */
+.pilier-methode-card::after {
+  content: attr(data-num);
+  position: absolute;
+  bottom: -0.5rem;
+  right: 1.25rem;
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 9rem;
+  line-height: 1;
+  color: var(--oxblood);
+  opacity: 0.05;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.pilier-methode-card-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  color: var(--burnt);
+  opacity: 0.85;
+  font-weight: 600;
+  margin-bottom: 1.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  position: relative;
+  z-index: 1;
+}
+.pilier-methode-card-num::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--burnt);
+}
+
+.pilier-methode-card h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 2.4vw, 2.125rem);
+  font-weight: 700;
+  color: var(--oxblood);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  margin-bottom: 1.25rem;
+  position: relative;
+  z-index: 1;
+}
+.pilier-methode-card p {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--oxblood);
+  opacity: 0.72;
+  position: relative;
+  z-index: 1;
+}
+.pilier-methode-card p em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--burnt);
+  opacity: 1;
+}
+
+/* ============================================
+   5. LIVRAISON (liste des livrables à la livraison)
+   ============================================ */
+.pilier-livraison-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem 2.5rem;
+}
+@media (max-width: 760px) {
+  .pilier-livraison-list { grid-template-columns: 1fr; }
+}
+.pilier-livraison-list li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid rgba(242, 235, 220, 0.12);
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--cream);
+  opacity: 0.92;
+}
+.pilier-livraison-list li::before {
+  content: '';
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  margin-top: 4px;
+  border-radius: 50%;
+  background: var(--gold);
+  /* checkmark via mask */
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><circle cx='10' cy='10' r='9' fill='none' stroke='black' stroke-width='1.5'/><path d='M6 10l3 3 5-6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/contain no-repeat;
+          mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'><circle cx='10' cy='10' r='9' fill='none' stroke='black' stroke-width='1.5'/><path d='M6 10l3 3 5-6' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'/></svg>") center/contain no-repeat;
+}
+
+/* ============================================
+   6. TARIFICATION (carte centrale)
+   ============================================ */
+.pilier-prix {
+  padding: var(--section-py) var(--gutter);
+  background: var(--oxblood-deep);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.pilier-prix::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle 500px at 50% 50%, rgba(212, 165, 55, 0.1), transparent 60%);
+  pointer-events: none;
+}
+.pilier-prix-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 640px;
+  margin: 0 auto;
+}
+.pilier-prix-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.85;
+  margin-bottom: 1.5rem;
+  display: block;
+}
+.pilier-prix-from {
+  font-family: var(--font-body);
+  font-size: 1rem;
+  color: var(--cream);
+  opacity: 0.65;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+.pilier-prix-amount {
+  font-family: var(--font-display);
+  font-size: clamp(3.5rem, 8vw, 6rem);
+  font-weight: 700;
+  color: var(--gold);
+  letter-spacing: -0.04em;
+  line-height: 1;
+  display: block;
+  margin-bottom: 0.5rem;
+}
+.pilier-prix-unit {
+  font-family: var(--font-mono);
+  font-size: 0.875rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.6;
+  display: block;
+  margin-bottom: 2rem;
+}
+.pilier-prix-note {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.78;
+  max-width: 48ch;
+  margin: 0 auto 1rem;
+}
+.pilier-prix-delai {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.75;
+  margin-top: 1.5rem;
+  display: inline-block;
+}
+
+/* ============================================
+   7. COMBINAISONS (cards blanches sur cream)
+   ============================================ */
+.pilier-combos-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) {
+  .pilier-combos-grid { grid-template-columns: 1fr; }
+}
+.pilier-combo {
+  background: #FFFFFF;
+  border-radius: var(--r-md);
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  text-decoration: none;
+  color: var(--oxblood);
+  transition: transform 0.35s var(--ease-out), box-shadow 0.3s;
+}
+.pilier-combo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(58, 15, 18, 0.08);
+}
+/* Filet gold qui s'étire en haut au hover (signature commune aux sections) */
+.pilier-combo::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--gold);
+  transition: width 0.5s var(--ease-out);
+}
+.pilier-combo:hover::before { width: 100%; }
+
+/* Badge directionnel : "← En amont" ou "→ En aval" */
+.pilier-combo-direction {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--burnt);
+  opacity: 0.7;
+  font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  margin-bottom: 0.5rem;
+}
+.pilier-combo-direction-arrow {
+  display: inline-block;
+  font-size: 0.875rem;
+  line-height: 1;
+}
+
+.pilier-combo-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.375rem, 1.8vw, 1.625rem);
+  font-weight: 700;
+  color: var(--oxblood);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+}
+.pilier-combo-desc {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--oxblood);
+  opacity: 0.72;
+  max-width: 38ch;
+}
+.pilier-combo-cta {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--burnt);
+  margin-top: 0.85rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: gap 0.3s var(--ease-out), color 0.3s;
+}
+.pilier-combo:hover .pilier-combo-cta {
+  gap: 0.7rem;
+  color: var(--oxblood);
+}
+
+/* ============================================
+   8. CTA FINAL PILIER
+   ============================================ */
+.pilier-cta-final {
+  padding: var(--section-py) var(--gutter);
+  background: var(--oxblood);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.pilier-cta-final::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle 600px at 50% 50%, rgba(212, 165, 55, 0.12), transparent 60%);
+  pointer-events: none;
+}
+.pilier-cta-final-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.pilier-cta-final h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+  margin-bottom: 1.25rem;
+}
+.pilier-cta-final h2 em {
+  font-family: var(--font-emphasis);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--gold);
+}
+.pilier-cta-final-sub {
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--cream);
+  opacity: 0.82;
+  margin-bottom: 2.5rem;
+  max-width: 50ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================
+   9. FAQ PILIER
+   ============================================ */
+.pilier-section .faq-list { max-width: 920px; margin: 0 auto; }
+.pilier-section .faq-trigger .num { color: var(--gold); }

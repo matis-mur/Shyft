@@ -1,0 +1,800 @@
+/* ============================================================
+   Shyft · Pages secteurs
+   Hérite de styles.css et subpages.css.
+   Une variable --accent par secteur, palette Shyft sinon.
+   ============================================================ */
+
+/* === Accents par secteur (variables CSS) === */
+.secteur-page.is-retail   { --accent: #D97A2C; --accent-rgb: 217, 122, 44; }
+.secteur-page.is-pharma   { --accent: #1E4A6E; --accent-rgb: 30, 74, 110; }
+.secteur-page.is-finance  { --accent: #1E3A8A; --accent-rgb: 30, 58, 138; }
+.secteur-page.is-it-saas  { --accent: #6B4FCF; --accent-rgb: 107, 79, 207; }
+.secteur-page.is-energies { --accent: #4F7F5C; --accent-rgb: 79, 127, 92; }
+.secteur-page.is-conseil  { --accent: #7A2E3F; --accent-rgb: 122, 46, 63; }
+
+/* ============================================
+   1. HERO SECTEUR · gradient orange en fond + split layout texte/photo
+   ============================================ */
+.secteur-hero {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  padding: calc(var(--nav-h, 88px) + 5rem) var(--gutter) 6rem;
+  min-height: 80vh;
+  display: flex;
+  align-items: center;
+  background:
+    linear-gradient(135deg,
+      var(--accent) 0%,
+      color-mix(in srgb, var(--accent) 60%, var(--oxblood-deep)) 55%,
+      var(--oxblood-deep) 100%);
+}
+/* Overlay sombre pour donner de la profondeur */
+.secteur-hero::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 75% 25%, rgba(0, 0, 0, 0.12), transparent 60%),
+    radial-gradient(circle at 15% 90%, rgba(0, 0, 0, 0.30), transparent 60%);
+  pointer-events: none;
+  z-index: 1;
+}
+
+.secteur-hero-inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max);
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 0.85fr;
+  gap: 4.5rem;
+  align-items: stretch;
+}
+@media (max-width: 980px) {
+  .secteur-hero-inner { grid-template-columns: 1fr; gap: 3rem; align-items: start; }
+}
+
+.secteur-hero-content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  height: 100%;
+}
+/* CTA après le sub paragraphe, baissé d'un cran */
+.secteur-hero-content > a.btn-primary {
+  margin-top: 6rem;
+}
+
+/* Watermark Shyft (3 traits) collé au bord gauche de la photo
+   Positionné dans .secteur-hero-inner (le grid), à right: col2_width */
+.secteur-hero-watermark {
+  position: absolute;
+  bottom: 0;
+  right: calc((100% - 4.5rem) * 0.85 / 1.85 - 20px);
+  width: clamp(140px, 16vw, 220px);
+  height: auto;
+  color: var(--cream);
+  opacity: 0.1;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Visuel hero · slot pour photo. Pour ajouter une photo : ajouter le modificateur
+   .secteur-hero-visual--<secteur> ou .has-photo, qui masque le placeholder.
+   z-index: 2 pour passer au-dessus du watermark (qui est à z-index: 1) */
+.secteur-hero-visual {
+  position: relative;
+  z-index: 2;
+  aspect-ratio: 4 / 5;
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  background-color: rgba(0, 0, 0, 0.22);
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.4);
+}
+/* Photos par secteur · pose les fichiers correspondants dans assets/img/
+   et le placeholder disparaît automatiquement */
+.secteur-hero-visual--retail   { background-image: url('../img/retail.jpg'); }
+.secteur-hero-visual--pharma   { background-image: url('../img/pharma.jpg'); }
+.secteur-hero-visual--finance  { background-image: url('../img/finance.jpg'); }
+.secteur-hero-visual--it-saas  { background-image: url('../img/it-saas.jpg'); }
+.secteur-hero-visual--energies { background-image: url('../img/energies.jpg'); }
+.secteur-hero-visual--conseil  { background-image: url('../img/conseil.jpg'); }
+
+/* Masque le placeholder (label + symbole) dès qu'une vraie photo est posée */
+.secteur-hero-visual--retail .secteur-hero-visual-symbol,
+.secteur-hero-visual--retail .secteur-hero-visual-label,
+.secteur-hero-visual--pharma .secteur-hero-visual-symbol,
+.secteur-hero-visual--pharma .secteur-hero-visual-label,
+.secteur-hero-visual--finance .secteur-hero-visual-symbol,
+.secteur-hero-visual--finance .secteur-hero-visual-label,
+.secteur-hero-visual--it-saas .secteur-hero-visual-symbol,
+.secteur-hero-visual--it-saas .secteur-hero-visual-label,
+.secteur-hero-visual--energies .secteur-hero-visual-symbol,
+.secteur-hero-visual--energies .secteur-hero-visual-label,
+.secteur-hero-visual--conseil .secteur-hero-visual-symbol,
+.secteur-hero-visual--conseil .secteur-hero-visual-label,
+.secteur-hero-visual.has-photo .secteur-hero-visual-symbol,
+.secteur-hero-visual.has-photo .secteur-hero-visual-label {
+  display: none;
+}
+/* Label discret dans le coin (visible tant qu'aucune photo n'est ajoutée) */
+.secteur-hero-visual-label {
+  position: absolute;
+  top: 1.25rem;
+  left: 1.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.55;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.secteur-hero-visual-label::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--cream);
+  opacity: 0.8;
+}
+/* Symbole Shyft cream centré (watermark, masqué dès qu'une vraie photo est posée) */
+.secteur-hero-visual-symbol {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 45%;
+  height: auto;
+  color: var(--cream);
+  opacity: 0.14;
+  pointer-events: none;
+}
+
+/* Eyebrow secteur : badge pill cream avec texte accent */
+.secteur-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.55rem 1.1rem;
+  border-radius: 100px;
+  background: var(--cream);
+  color: var(--accent);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  margin-bottom: 2rem;
+}
+.secteur-eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.secteur-hero h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 4.6vw, 4.25rem);
+  font-weight: 600;
+  line-height: 1.04;
+  letter-spacing: -0.035em;
+  color: var(--cream);
+  max-width: 14ch;
+  margin-bottom: 1.5rem;
+}
+.secteur-hero h1 em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+}
+
+.secteur-hero-sub {
+  font-size: clamp(1rem, 1.4vw, 1.1875rem);
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.88;
+  max-width: 56ch;
+  margin-bottom: 2.5rem;
+}
+
+/* ============================================
+   2. BANDEAU LOGOS (fond cream)
+   ============================================ */
+.secteur-logos {
+  background: var(--cream);
+  color: var(--oxblood);
+  padding: 4rem var(--gutter);
+}
+.secteur-logos-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  text-align: center;
+}
+.secteur-logos-intro {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--oxblood);
+  opacity: 0.65;
+  margin-bottom: 2.5rem;
+}
+.secteur-logos-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 2.5rem 4rem;
+}
+.secteur-logo {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 42px;
+  max-width: 160px;
+  opacity: 0.55;
+  transition: opacity 0.3s, transform 0.3s var(--ease-out), filter 0.3s;
+  /* Fallback typo si l'img ne charge pas (alt text affiché) */
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  color: var(--oxblood);
+  text-transform: uppercase;
+}
+.secteur-logo img {
+  height: 100%;
+  width: auto;
+  max-width: 160px;
+  object-fit: contain;
+  /* Logos monochromes (vue d'ensemble unifiée) */
+  filter: grayscale(1) brightness(0.4);
+}
+.secteur-logo:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+.secteur-logo:hover img {
+  filter: grayscale(0) brightness(1);
+}
+
+/* Variante "narrative" : bandeau cream sans logos, juste un paragraphe
+   (cas où Laurent demande à ne pas citer de clients — ex. énergies) */
+.secteur-logos--narrative {
+  padding: 4.5rem var(--gutter);
+}
+.secteur-logos-narrative {
+  font-family: var(--font-body);
+  font-size: clamp(1.0625rem, 1.4vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.65;
+  color: var(--oxblood);
+  opacity: 0.85;
+  max-width: 62ch;
+  margin: 0 auto;
+  text-align: center;
+}
+
+/* Ajustements individuels de taille (pattern repris du home .heritage-brand) */
+.secteur-logo img[src*="auchan"]          { transform: scale(0.9); }
+.secteur-logo img[src*="decathlon"]       { transform: scale(0.8); }
+.secteur-logo img[src*="castorama"]       { transform: scale(1); }
+.secteur-logo img[src*="leroy-merlin"]    { transform: scale(1); }
+.secteur-logo img[src*="bioderma"]        { transform: scale(1.6); }
+.secteur-logo img[src*="upsa"]            { transform: scale(1.3); }
+.secteur-logo img[src*="menarini"]        { transform: scale(1.2); }
+.secteur-logo img[src*="expanscience"]    { transform: scale(1.2); }
+.secteur-logo img[src*="cofidis"]         { transform: scale(0.7); }
+.secteur-logo img[src*="credit-agricole"] { transform: scale(1.8); }
+.secteur-logo img[src*="monext"]          { transform: scale(1.5); }
+.secteur-logo img[src*="docoon"]          { transform: scale(1.2); }
+.secteur-logo img[src*="ixbat"]           { transform: scale(1.1); }
+.secteur-logo img[src*="services-it"]     { transform: scale(1.1); }
+/* Finaxim seul → plus grand visuellement */
+.secteur-logo--solo {
+  height: 64px;
+  max-width: 240px;
+}
+.secteur-logo--solo img {
+  max-width: 240px;
+}
+.secteur-logo img[src*="finaxim"]         { transform: scale(1.1); }
+
+/* ============================================
+   ANIMATION POP · stats, leviers, enjeux, problématiques
+   Override du .reveal de base : scale 0.88 → 1 avec rebond,
+   stagger plus marqué pour effet "un par un".
+   ============================================ */
+.secteur-stat.reveal,
+.secteur-levier.reveal,
+.secteur-enjeu.reveal,
+.secteur-probleme.reveal {
+  opacity: 0;
+  transform: scale(0.88) translateY(18px);
+  transition:
+    opacity 0.65s cubic-bezier(0.16, 1, 0.3, 1) var(--reveal-delay, 0ms),
+    transform 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+.secteur-stat.reveal.in-view,
+.secteur-levier.reveal.in-view,
+.secteur-enjeu.reveal.in-view,
+.secteur-probleme.reveal.in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* Stagger renforcé sur ces grilles (par défaut c'est 50ms · ici on monte
+   à 130-180ms pour que l'enchaînement "un par un" soit nettement visible) */
+.secteur-stats-grid[data-stagger] > * { --reveal-delay: calc(var(--i, 0) * 160ms); }
+.secteur-leviers[data-stagger] > *     { --reveal-delay: calc(var(--i, 0) * 130ms); }
+.secteur-enjeux[data-stagger] > *      { --reveal-delay: calc(var(--i, 0) * 150ms); }
+.secteur-problemes[data-stagger] > *   { --reveal-delay: calc(var(--i, 0) * 200ms); }
+
+@media (prefers-reduced-motion: reduce) {
+  .secteur-stat.reveal,
+  .secteur-levier.reveal,
+  .secteur-enjeu.reveal,
+  .secteur-probleme.reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ============================================
+   2bis. CODES NAF (bandeau bas de page secteur)
+   ============================================ */
+.secteur-naf {
+  background: var(--oxblood-deep);
+  padding: 1.75rem var(--gutter);
+  border-top: 1px solid rgba(242, 235, 220, 0.06);
+}
+.secteur-naf-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.5;
+  text-align: center;
+  line-height: 1.7;
+}
+.secteur-naf-label {
+  font-weight: 500;
+  margin-right: 0.5rem;
+  color: var(--gold);
+  opacity: 0.8;
+}
+
+/* ============================================
+   3. SECTIONS COMMUNES (palette Shyft)
+   ============================================ */
+.secteur-section {
+  padding: var(--section-py) var(--gutter);
+  position: relative;
+  overflow: hidden;
+}
+/* Le hero porte l'accent du secteur. À partir d'ici, on retombe sur la palette
+   Shyft (oxblood + oxblood-deep) avec quelques respirations crème pour rythmer. */
+.secteur-section--oxblood { background: var(--oxblood); }
+.secteur-section--deep    { background: var(--oxblood-deep); }
+
+/* === Adaptations crème pour les sections passées en .secteur-section--cream === */
+/* Stats (chiffres clés) sur crème : numéros gardent l'accent, labels en oxblood */
+.secteur-section--cream .secteur-stat-lab {
+  color: var(--oxblood);
+  opacity: 0.7;
+}
+/* Filets des cellules stats : déjà en rgba(--accent), visibles sur crème */
+
+/* FAQ sur crème : inversion claire des couleurs */
+.secteur-section--cream .faq-item {
+  border-bottom-color: rgba(58, 15, 18, 0.12);
+}
+.secteur-section--cream .faq-trigger {
+  color: var(--oxblood);
+}
+.secteur-section--cream .faq-trigger:hover { color: var(--burnt); }
+.secteur-section--cream .faq-trigger .num {
+  color: var(--accent);
+  opacity: 1;
+}
+.secteur-section--cream .faq-trigger .icon {
+  border-color: rgba(58, 15, 18, 0.25);
+}
+.secteur-section--cream .faq-trigger .icon::before,
+.secteur-section--cream .faq-trigger .icon::after {
+  background: var(--oxblood);
+}
+.secteur-section--cream .faq-item.open .faq-trigger .icon {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.secteur-section--cream .faq-item.open .faq-trigger .icon::before,
+.secteur-section--cream .faq-item.open .faq-trigger .icon::after {
+  background: var(--cream);
+}
+.secteur-section--cream .faq-answer-inner {
+  color: var(--oxblood);
+  opacity: 0.82;
+}
+.secteur-section--cream .faq-answer-inner em {
+  color: var(--burnt);
+}
+.secteur-section--cream { background: var(--cream); color: var(--oxblood); }
+
+.secteur-section-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+.secteur-section-header {
+  margin-bottom: 4rem;
+  max-width: 760px;
+}
+.secteur-section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.55;
+  margin-bottom: 1rem;
+  display: block;
+}
+.secteur-section-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+.secteur-section--cream .secteur-section-eyebrow { color: var(--oxblood); opacity: 0.55; }
+.secteur-section--cream .secteur-section-header h2 { color: var(--oxblood); }
+.secteur-section-header h2 em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+}
+.secteur-section--cream .secteur-section-header h2 em { color: var(--burnt); }
+
+/* ============================================
+   4. ENJEUX (3 colonnes simples)
+   ============================================ */
+.secteur-enjeux {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem 2.5rem;
+}
+@media (max-width: 880px) {
+  .secteur-enjeux { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+.secteur-enjeu {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  position: relative;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(242, 235, 220, 0.2);
+}
+.secteur-enjeu-num {
+  position: absolute;
+  top: -0.5rem;
+  left: 0;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.65;
+  background: var(--oxblood);
+  padding-right: 0.5rem;
+  transform: translateY(-50%);
+  font-weight: 600;
+}
+.secteur-enjeu h3 {
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.secteur-enjeu p {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--cream);
+  opacity: 0.78;
+  max-width: 38ch;
+}
+
+/* ============================================
+   5. LEVIERS (4 cartes en grille 2×2)
+   ============================================ */
+.secteur-leviers {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+@media (max-width: 880px) {
+  .secteur-leviers { grid-template-columns: 1fr; }
+}
+/* Cards leviers : même gradient que la 1re section (hero) */
+.secteur-levier {
+  background: linear-gradient(135deg,
+    var(--accent) 0%,
+    color-mix(in srgb, var(--accent) 60%, var(--oxblood-deep)) 55%,
+    var(--oxblood-deep) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--r-md);
+  padding: 2rem 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  transition: transform 0.35s var(--ease-out), box-shadow 0.3s;
+}
+.secteur-levier:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 20px 50px rgba(0, 0, 0, 0.3);
+}
+.secteur-levier-num {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.7;
+  font-weight: 600;
+}
+.secteur-levier h3 {
+  font-family: var(--font-display);
+  font-size: 1.1875rem;
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+}
+.secteur-levier p {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.82;
+}
+
+/* ============================================
+   6. STATS SECTEUR (3 chiffres)
+   ============================================ */
+.secteur-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 3rem;
+  position: relative;
+  z-index: 2;
+}
+@media (max-width: 700px) {
+  .secteur-stats-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+}
+.secteur-stat {
+  text-align: center;
+  padding: 2rem 1rem;
+  border-top: 1px solid rgba(var(--accent-rgb), 0.4);
+  border-bottom: 1px solid rgba(var(--accent-rgb), 0.4);
+}
+.secteur-stat-num {
+  font-family: var(--font-display);
+  font-size: clamp(2.5rem, 5vw, 4.25rem);
+  font-weight: 700;
+  color: var(--accent);
+  letter-spacing: -0.04em;
+  line-height: 0.95;
+  margin-bottom: 0.85rem;
+}
+.secteur-stat-lab {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.7;
+}
+
+/* ============================================
+   7. CAS D'USAGE (2 cartes cream avec blocks)
+   ============================================ */
+.secteur-cas {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2rem;
+}
+@media (max-width: 880px) {
+  .secteur-cas { grid-template-columns: 1fr; }
+}
+.secteur-cas-card {
+  background: var(--cream);
+  color: var(--oxblood);
+  border-radius: var(--r-md);
+  padding: 2.5rem 2.25rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  transition: transform 0.35s var(--ease-out);
+}
+.secteur-cas-card:hover { transform: translateY(-4px); }
+/* Petit ruban accent en haut de la card */
+.secteur-cas-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background: var(--accent);
+}
+.secteur-cas-card h3 {
+  font-family: var(--font-display);
+  font-size: 1.1875rem;
+  font-weight: 600;
+  color: var(--oxblood);
+  letter-spacing: -0.01em;
+  margin-bottom: 1.75rem;
+  line-height: 1.25;
+}
+.secteur-cas-block + .secteur-cas-block {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(58, 15, 18, 0.12);
+}
+.secteur-cas-block-label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 0.45rem;
+  display: block;
+  font-weight: 600;
+}
+.secteur-cas-block p {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1rem;
+  line-height: 1.55;
+  color: var(--oxblood);
+  opacity: 0.88;
+}
+
+/* ============================================
+   7bis. PROBLÉMATIQUES TYPIQUES (remplace les "cas d'usage")
+   Scénarios-types sans noms ni chiffres fictifs
+   ============================================ */
+.secteur-problemes {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 2.5rem 3rem;
+}
+@media (max-width: 880px) {
+  .secteur-problemes { grid-template-columns: 1fr; gap: 2rem; }
+}
+.secteur-probleme {
+  background: var(--cream);
+  color: var(--oxblood);
+  border-radius: var(--r-md);
+  padding: 2.25rem 2rem 2rem;
+  font-family: var(--font-body);
+  font-size: clamp(1rem, 1.3vw, 1.125rem);
+  line-height: 1.7;
+  max-width: none;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+  transition: transform 0.35s var(--ease-out);
+}
+.secteur-probleme:hover { transform: translateY(-3px); }
+/* Ruban accent 3px en haut de chaque card */
+.secteur-probleme::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: var(--accent);
+}
+.secteur-probleme strong {
+  color: var(--oxblood);
+  font-weight: 600;
+}
+.secteur-probleme em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--burnt);
+}
+
+/* ============================================
+   8. CTA FINAL SECTEUR
+   ============================================ */
+.secteur-cta-final {
+  padding: var(--section-py) var(--gutter);
+  background: var(--oxblood);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.secteur-cta-final::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle 600px at 50% 50%, rgba(var(--accent-rgb), 0.18), transparent 60%),
+    radial-gradient(circle 400px at 80% 20%, rgba(212, 165, 55, 0.08), transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.secteur-cta-final-inner {
+  position: relative;
+  z-index: 2;
+  max-width: 720px;
+  margin: 0 auto;
+}
+.secteur-cta-final h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+  margin-bottom: 1.25rem;
+}
+.secteur-cta-final h2 em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+}
+.secteur-cta-final-sub {
+  font-size: 1.0625rem;
+  line-height: 1.55;
+  color: var(--cream);
+  opacity: 0.82;
+  margin-bottom: 2.5rem;
+  max-width: 50ch;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ============================================
+   9. FAQ SECTEUR
+   Réutilise .faq-list/.faq-item/.faq-trigger/.faq-answer de styles.css
+   On accentue juste les numéros avec --accent
+   ============================================ */
+.secteur-section .faq-trigger .num {
+  color: var(--accent);
+}

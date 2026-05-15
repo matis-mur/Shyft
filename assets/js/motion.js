@@ -289,4 +289,87 @@
     });
   })();
 
+  /* ============================================
+     6. PILLARS ORBIT
+     ============================================
+     Calcule dynamiquement les distances d'orbite
+     (--orbit-x, --orbit-y) en fonction des dimensions
+     du stage et des cartes satellites. Les keyframes
+     CSS utilisent ces variables pour translater les
+     satellites de coin en coin.
+  */
+  (function pillarsOrbit() {
+    const stage = document.querySelector('.pillars-orbit');
+    if (!stage) return;
+
+    const updateDistances = () => {
+      // Sur mobile, le stack vertical désactive l'orbite (cf. CSS @media)
+      // On reset quand même pour éviter des valeurs résiduelles incorrectes
+      if (window.innerWidth <= 900) {
+        stage.style.setProperty('--orbit-x', '0px');
+        stage.style.setProperty('--orbit-y', '0px');
+        return;
+      }
+
+      const satellite = stage.querySelector('.pillar--satellite');
+      if (!satellite) return;
+
+      const stageRect = stage.getBoundingClientRect();
+      const satRect = satellite.getBoundingClientRect();
+
+      const orbitX = stageRect.width - satRect.width;
+      const orbitY = stageRect.height - satRect.height;
+
+      stage.style.setProperty('--orbit-x', orbitX + 'px');
+      stage.style.setProperty('--orbit-y', orbitY + 'px');
+    };
+
+    // Calcul initial + sur resize (throttled via rAF)
+    updateDistances();
+
+    let resizeFrame = null;
+    window.addEventListener('resize', () => {
+      if (resizeFrame) return;
+      resizeFrame = requestAnimationFrame(() => {
+        updateDistances();
+        resizeFrame = null;
+      });
+    }, { passive: true });
+
+    // Recalcule aussi après chargement complet (au cas où les fonts modifient les dimensions)
+    window.addEventListener('load', updateDistances);
+  })();
+
+  /* ============================================
+     7. PILLARS ACCORDION
+     ============================================
+     Toggle des détails de chaque pilier au clic
+     sur le bouton "Détails". Animation max-height
+     gérée via classe .is-open (CSS handles transition).
+  */
+  (function pillarsAccordion() {
+    const toggles = document.querySelectorAll('.pillar-toggle');
+    if (!toggles.length) return;
+
+    toggles.forEach(btn => {
+      const targetId = btn.getAttribute('aria-controls');
+      if (!targetId) return;
+      const panel = document.getElementById(targetId);
+      if (!panel) return;
+
+      // État initial : panel masqué, attribut hidden retiré pour permettre l'animation
+      panel.removeAttribute('hidden');
+
+      btn.addEventListener('click', () => {
+        const isOpen = btn.getAttribute('aria-expanded') === 'true';
+        btn.setAttribute('aria-expanded', String(!isOpen));
+        panel.classList.toggle('is-open', !isOpen);
+
+        // Mettre à jour le label du bouton
+        const label = btn.querySelector('span');
+        if (label) label.textContent = isOpen ? 'Détails' : 'Fermer';
+      });
+    });
+  })();
+
 })();

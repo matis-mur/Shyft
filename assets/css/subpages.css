@@ -1,0 +1,1320 @@
+/* ============================================================
+   Shyft · Sous-pages (Contact, Legals, Secteurs, Piliers)
+   Hérite de styles.css. Patterns mutualisés ici.
+   ============================================================ */
+
+/* ============================================
+   1. SUB-PAGE HERO (court, sous le nav)
+   ============================================ */
+.subpage {
+  background: var(--oxblood);
+  padding: calc(var(--nav-h, 88px) + 5rem) var(--gutter) 5rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.subpage::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 80% 20%, rgba(212, 165, 55, 0.10), transparent 60%),
+    radial-gradient(circle at 10% 90%, rgba(139, 26, 31, 0.30), transparent 55%);
+  pointer-events: none;
+}
+.subpage-inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max);
+  margin: 0 auto;
+}
+.subpage-inner--narrow {
+  max-width: 760px;
+}
+
+.subpage .label {
+  margin-bottom: 1.5rem;
+}
+
+.subpage h1 {
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5.2vw, 4.4rem);
+  font-weight: 500;
+  line-height: 1.02;
+  letter-spacing: -0.035em;
+  color: var(--cream);
+  max-width: 22ch;
+  margin-bottom: 1.5rem;
+}
+.subpage h1 em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+}
+
+.subpage-lede {
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.78;
+  max-width: 56ch;
+  margin-bottom: 2rem;
+}
+
+.subpage-meta {
+  display: flex;
+  gap: 1.5rem;
+  align-items: baseline;
+  flex-wrap: wrap;
+  margin-top: 2.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.55;
+}
+.subpage-meta strong {
+  color: var(--gold);
+  font-weight: 500;
+}
+
+/* === Hero Contact spécifique : grosses formes décoratives === */
+.subpage--contact {
+  padding-bottom: 7rem;
+}
+
+/* Titre brutaliste edge-to-edge (style éditorial nographism) */
+h1.subpage-huge {
+  font-family: var(--font-display);
+  font-size: clamp(3.2rem, 10.5vw, 170px);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.065em;
+  color: var(--cream);
+  margin: 0 0 6rem;
+  position: relative;
+  z-index: 3;
+  max-width: none;
+  white-space: nowrap;
+}
+@media (max-width: 700px) {
+  h1.subpage-huge { white-space: normal; letter-spacing: -0.05em; }
+}
+/* Variante qui autorise le retour à la ligne (titres longs : "Mentions légales", etc.) */
+h1.subpage-huge.subpage-huge--wrap {
+  white-space: normal;
+}
+h1.subpage-huge em {
+  font-family: var(--font-display);
+  font-style: normal;
+  font-weight: 700;
+  color: var(--gold);
+}
+
+/* Grid éditorial sous le titre : intro à gauche, infos contact à droite */
+.subpage-edito-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5rem;
+  position: relative;
+  z-index: 3;
+  align-items: start;
+}
+@media (max-width: 880px) {
+  .subpage-edito-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+
+/* Intro mono uppercase aérée */
+.subpage-edito-intro {
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  line-height: 2;
+  color: var(--cream);
+  opacity: 0.82;
+  max-width: 52ch;
+}
+.subpage-edito-intro a {
+  color: var(--gold);
+  border-bottom: 1px solid var(--gold);
+  padding-bottom: 1px;
+  transition: opacity 0.2s;
+}
+.subpage-edito-intro a:hover { opacity: 0.75; }
+
+/* Bloc infos contact à droite : "Nous joindre" + table 2-col éditoriale */
+.subpage-edito-info {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0 3rem;
+  align-items: start;
+}
+@media (max-width: 600px) {
+  .subpage-edito-info { grid-template-columns: 1fr; gap: 1rem; }
+}
+.subpage-edito-info-label {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.6;
+  padding-top: 1.05rem;
+  white-space: nowrap;
+}
+.subpage-edito-info-table {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid rgba(242, 235, 220, 0.2);
+  border-bottom: 1px solid rgba(242, 235, 220, 0.2);
+}
+.subpage-edito-info-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.95rem 0;
+}
+.subpage-edito-info-row + .subpage-edito-info-row {
+  border-top: 1px solid rgba(242, 235, 220, 0.2);
+}
+.subpage-edito-info-key {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--cream);
+  opacity: 0.7;
+}
+.subpage-edito-info-val {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  color: var(--cream);
+  font-weight: 500;
+  text-align: right;
+  transition: color 0.25s;
+  justify-self: end;
+}
+.subpage-edito-info-val:hover { color: var(--gold); }
+
+/* Variante avatars : 4 photos équipe alignées à droite, cliquables */
+.subpage-edito-info-val--avatars {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  padding: 0.15rem 0;
+  transition: transform 0.3s var(--ease-out);
+}
+.subpage-edito-info-val--avatars:hover { transform: translateX(-3px); }
+.subpage-edito-info-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--oxblood) center/cover no-repeat;
+  border: 2px solid var(--gold);
+  margin-left: -8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s var(--ease-out);
+}
+.subpage-edito-info-avatar:first-child { margin-left: 0; }
+.subpage-edito-info-val--avatars:hover .subpage-edito-info-avatar {
+  transform: scale(1.05);
+}
+
+/* Blob gold flou en haut à droite */
+.subpage-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  mix-blend-mode: screen;
+  filter: blur(60px);
+  opacity: 0.55;
+}
+.subpage-blob--gold {
+  width: 520px;
+  height: 520px;
+  top: -180px;
+  right: -120px;
+  background: radial-gradient(circle, rgba(240, 197, 87, 0.7), rgba(212, 165, 55, 0.25) 50%, transparent 75%);
+  animation: blob-drift 18s ease-in-out infinite alternate;
+}
+.subpage-blob--burnt {
+  width: 460px;
+  height: 460px;
+  bottom: -200px;
+  left: -120px;
+  background: radial-gradient(circle, rgba(139, 26, 31, 0.85), rgba(92, 40, 24, 0.4) 55%, transparent 78%);
+  animation: blob-drift 22s ease-in-out infinite alternate-reverse;
+}
+@keyframes blob-drift {
+  0%   { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(40px, 30px) scale(1.08); }
+}
+
+/* Cercle pointillé décoratif (orbite) */
+.subpage-orbit {
+  position: absolute;
+  z-index: 1;
+  border: 1px dashed rgba(212, 165, 55, 0.22);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.subpage-orbit--one {
+  width: 380px;
+  height: 380px;
+  top: 12%;
+  right: 8%;
+  animation: orbit-spin 90s linear infinite;
+}
+.subpage-orbit--two {
+  width: 220px;
+  height: 220px;
+  bottom: 8%;
+  left: 6%;
+  border-color: rgba(242, 235, 220, 0.12);
+  animation: orbit-spin 60s linear infinite reverse;
+}
+@keyframes orbit-spin {
+  to { transform: rotate(360deg); }
+}
+
+/* Symbole Shyft (3 traits) en watermark à droite du hero */
+.subpage-symbol {
+  position: absolute;
+  top: 18%;
+  right: 6%;
+  width: clamp(180px, 18vw, 260px);
+  height: auto;
+  color: var(--gold);
+  opacity: 0.1;
+  z-index: 1;
+  pointer-events: none;
+}
+@media (max-width: 880px) {
+  .subpage-symbol {
+    top: 14%;
+    right: -30px;
+    width: 160px;
+    opacity: 0.07;
+  }
+}
+
+/* Ornement SVG (filets) en arrière-plan du hero contact */
+.subpage-ornament {
+  position: absolute;
+  z-index: 0;
+  opacity: 0.18;
+  pointer-events: none;
+  color: var(--gold);
+}
+.subpage-ornament--bl {
+  bottom: -40px;
+  left: 40%;
+  width: 360px;
+  height: auto;
+}
+
+/* Petits "pills" décoratifs (remplace .subpage-meta sur Contact) */
+.subpage-pills {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+  margin-top: 2.75rem;
+  position: relative;
+  z-index: 3;
+}
+.subpage-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.55rem 1.15rem;
+  border: 1px solid rgba(212, 165, 55, 0.35);
+  border-radius: 100px;
+  background: rgba(212, 165, 55, 0.05);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  transition: transform 0.4s var(--ease-out), border-color 0.3s, background 0.3s;
+}
+.subpage-pill:hover {
+  border-color: var(--gold);
+  background: rgba(212, 165, 55, 0.12);
+  transform: translateY(-2px);
+}
+.subpage-pill strong {
+  color: var(--gold);
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.04em;
+}
+.subpage-pill-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+
+/* ============================================
+   2. PAGE CONTACT
+   ============================================ */
+
+/* === Bandeau des 3 garanties (GOLD) === */
+.contact-guarantees {
+  background: var(--gold);
+  color: var(--oxblood);
+  padding: 5rem var(--gutter);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Vague décorative en bas du bandeau */
+.contact-guarantees::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 800px 200px at 50% 100%, rgba(58, 15, 18, 0.18), transparent 70%),
+    radial-gradient(circle 320px at 5% 30%, rgba(240, 197, 87, 0.5), transparent 65%);
+  pointer-events: none;
+}
+/* Filet décoratif "01" "02" "03" géants en filigrane */
+.contact-guarantees-inner {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 880px) {
+  .contact-guarantees-inner { grid-template-columns: 1fr; gap: 2rem; }
+}
+
+.contact-guarantee {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  padding: 1.75rem 1.5rem 1.5rem;
+  border-radius: var(--r-md);
+  background: rgba(58, 15, 18, 0.04);
+  border: 1px solid rgba(58, 15, 18, 0.12);
+  overflow: hidden;
+  transition: transform 0.4s var(--ease-out), background 0.3s, border-color 0.3s;
+}
+.contact-guarantee:hover {
+  transform: translateY(-4px);
+  background: rgba(58, 15, 18, 0.07);
+  border-color: rgba(58, 15, 18, 0.22);
+}
+/* Numéro géant en filigrane */
+.contact-guarantee-num {
+  position: absolute;
+  top: -28px;
+  right: -8px;
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 9rem;
+  line-height: 1;
+  color: var(--oxblood);
+  opacity: 0.08;
+  pointer-events: none;
+  z-index: 0;
+}
+.contact-guarantee-icon {
+  position: relative;
+  z-index: 1;
+  width: 44px;
+  height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  background: var(--oxblood);
+  color: var(--gold);
+  margin-bottom: 0.3rem;
+}
+.contact-guarantee-icon svg {
+  width: 20px;
+  height: 20px;
+}
+.contact-guarantee h3 {
+  position: relative;
+  z-index: 1;
+  font-family: var(--font-display);
+  font-size: 1.1875rem;
+  font-weight: 600;
+  color: var(--oxblood);
+  letter-spacing: -0.01em;
+}
+.contact-guarantee p {
+  position: relative;
+  z-index: 1;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--oxblood);
+  opacity: 0.82;
+  max-width: 36ch;
+}
+
+/* Adapter .label sur fond gold */
+.contact-guarantees .label {
+  color: var(--oxblood);
+  opacity: 0.55;
+}
+.contact-guarantees .label::before {
+  background: var(--oxblood);
+  opacity: 0.5;
+}
+.contact-guarantees-header {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max);
+  margin: 0 auto 3rem;
+  text-align: center;
+}
+.contact-guarantees-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.6rem, 2.6vw, 2.1rem);
+  font-weight: 500;
+  color: var(--oxblood);
+  letter-spacing: -0.025em;
+  line-height: 1.1;
+  max-width: 28ch;
+  margin: 0.75rem auto 0;
+}
+.contact-guarantees-header h2 em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--burnt);
+}
+
+/* === Section formulaire long + sidebar === */
+.contact-long {
+  background: var(--oxblood);
+  padding: var(--section-py) var(--gutter);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Décor : blob gold flou + courbe SVG en arrière-plan */
+.contact-long::before {
+  content: '';
+  position: absolute;
+  width: 600px;
+  height: 600px;
+  top: -100px;
+  right: -200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(212, 165, 55, 0.12), transparent 65%);
+  filter: blur(40px);
+  pointer-events: none;
+  z-index: 0;
+}
+.contact-long::after {
+  content: '';
+  position: absolute;
+  width: 460px;
+  height: 460px;
+  bottom: -180px;
+  left: -200px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(139, 26, 31, 0.4), transparent 70%);
+  filter: blur(50px);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.contact-long-grid {
+  position: relative;
+  z-index: 2;
+  max-width: 980px;
+  margin: 0 auto;
+}
+
+/* === Formulaire (carte large, design plus aéré) === */
+.contact-long-form {
+  position: relative;
+  background: linear-gradient(160deg, var(--oxblood-deep) 0%, #240A0C 100%);
+  border: 1px solid rgba(242, 235, 220, 0.08);
+  border-radius: var(--r-lg);
+  padding: 3rem 3rem 2.5rem;
+  overflow: hidden;
+}
+@media (max-width: 600px) {
+  .contact-long-form { padding: 2rem 1.5rem; }
+}
+/* Coin d'angle gold décoratif */
+.contact-long-form::before {
+  content: '';
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  width: 80px;
+  height: 80px;
+  border-top: 2px solid var(--gold);
+  border-left: 2px solid var(--gold);
+  border-radius: var(--r-lg) 0 0 0;
+  opacity: 0.6;
+  pointer-events: none;
+}
+.contact-long-form::after {
+  content: '';
+  position: absolute;
+  bottom: -1px;
+  right: -1px;
+  width: 80px;
+  height: 80px;
+  border-bottom: 2px solid var(--gold);
+  border-right: 2px solid var(--gold);
+  border-radius: 0 0 var(--r-lg) 0;
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.contact-long-form-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.5rem);
+  font-weight: 500;
+  color: var(--cream);
+  letter-spacing: -0.02em;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+.contact-long-form-title::before {
+  content: '';
+  display: inline-block;
+  width: 28px;
+  height: 1px;
+  background: var(--gold);
+}
+.contact-long-form-title em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--gold);
+}
+
+/* Lignes du formulaire — compactes, 2 col par défaut */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.6rem 1.75rem;
+  margin-bottom: 1.6rem;
+}
+.form-row:last-child { margin-bottom: 0; }
+.form-row--full { grid-template-columns: 1fr; }
+.form-row--three { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 700px) {
+  .form-row,
+  .form-row--three { grid-template-columns: 1fr; gap: 1.25rem; }
+}
+
+/* Champ : label + input, look plus aéré */
+.contact-long-form .contact-field label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.65;
+  margin-bottom: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3rem;
+  transition: color 0.25s, opacity 0.25s;
+}
+.contact-long-form .contact-field:focus-within label {
+  color: var(--gold);
+  opacity: 1;
+}
+.contact-long-form .contact-field input,
+.contact-long-form .contact-field textarea,
+.contact-long-form .contact-field select {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(242, 235, 220, 0.18);
+  color: var(--cream);
+  font-family: var(--font-body);
+  font-size: 1rem;
+  padding: 0.75rem 0;
+  outline: none;
+  transition: border-color 0.3s, color 0.3s;
+}
+.contact-long-form .contact-field textarea {
+  resize: vertical;
+  min-height: 130px;
+  line-height: 1.55;
+}
+.contact-long-form .contact-field input:focus,
+.contact-long-form .contact-field textarea:focus,
+.contact-long-form .contact-field select:focus {
+  border-bottom-color: var(--gold);
+}
+
+/* Checkboxes périmètre — pills modernes
+   (sélecteurs scopés .contact-long-form pour battre la spécificité
+   de `.contact-long-form .contact-field label` et son :focus-within) */
+.form-checkbox-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+  margin-top: 0.5rem;
+}
+.form-checkbox {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+}
+.form-checkbox input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+.contact-long-form .form-checkbox label,
+.contact-long-form .contact-field:focus-within .form-checkbox label {
+  cursor: pointer;
+  padding: 0.55rem 1.1rem;
+  border: 1px solid rgba(242, 235, 220, 0.2);
+  border-radius: 100px;
+  background: transparent;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--cream);
+  opacity: 0.78;
+  transition: all 0.25s var(--ease-out);
+  letter-spacing: 0;
+  text-transform: none;
+  margin-bottom: 0;
+}
+.contact-long-form .form-checkbox input:checked + label,
+.contact-long-form .contact-field:focus-within .form-checkbox input:checked + label {
+  background: var(--gold);
+  color: var(--oxblood);
+  border-color: var(--gold);
+  opacity: 1;
+  font-weight: 600;
+  transform: scale(1.03);
+}
+.contact-long-form .form-checkbox input:focus-visible + label {
+  outline: 2px solid var(--gold);
+  outline-offset: 2px;
+}
+
+/* Submit + zone footer du formulaire */
+.contact-long-form-footer {
+  margin-top: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+.contact-long-form .contact-submit {
+  flex: 1;
+  min-width: 220px;
+  justify-content: center;
+  padding: 1.1rem 2rem;
+  font-size: 1rem;
+}
+.contact-long-form-legal {
+  flex: 1.4;
+  min-width: 280px;
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: rgba(242, 235, 220, 0.5);
+  margin: 0;
+}
+.contact-long-form-legal a {
+  color: var(--gold);
+  border-bottom: 1px solid rgba(212, 165, 55, 0.3);
+  transition: border-color 0.2s;
+}
+.contact-long-form-legal a:hover { border-color: var(--gold); }
+
+/* === Sidebar (card gold compacte) === */
+.contact-aside {
+  position: sticky;
+  top: calc(var(--nav-h, 88px) + 2rem);
+}
+@media (max-width: 1080px) {
+  .contact-aside { position: static; }
+}
+.contact-aside-card {
+  background: var(--gold);
+  color: var(--oxblood);
+  border-radius: var(--r-lg);
+  padding: 2.5rem 2.25rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Forme décorative organique en bas de la card */
+.contact-aside-card::before {
+  content: '';
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  bottom: -140px;
+  right: -100px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(240, 197, 87, 0.9), transparent 65%);
+  pointer-events: none;
+  z-index: 0;
+}
+.contact-aside-card::after {
+  content: '';
+  position: absolute;
+  width: 180px;
+  height: 180px;
+  top: -80px;
+  left: -80px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(58, 15, 18, 0.12), transparent 70%);
+  pointer-events: none;
+  z-index: 0;
+}
+.contact-aside-card > * {
+  position: relative;
+  z-index: 1;
+}
+
+.contact-aside-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--burnt);
+  opacity: 0.7;
+  margin-bottom: 1rem;
+  display: block;
+}
+.contact-aside-title {
+  font-family: var(--font-display);
+  font-size: 1.5rem;
+  font-weight: 500;
+  color: var(--oxblood);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+  margin-bottom: 0.75rem;
+}
+.contact-aside-title em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 300;
+  color: var(--burnt);
+}
+.contact-aside-desc {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--oxblood);
+  opacity: 0.78;
+  margin-bottom: 2rem;
+  max-width: 30ch;
+}
+
+.contact-aside-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1.25rem 0;
+  border-top: 1px solid rgba(58, 15, 18, 0.18);
+}
+.contact-aside-block:last-of-type {
+  padding-bottom: 0;
+}
+.contact-aside-block h3 {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--burnt);
+  opacity: 0.75;
+}
+.contact-aside-email {
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: var(--oxblood);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  border-bottom: 1px solid rgba(58, 15, 18, 0.4);
+  padding-bottom: 0.35rem;
+  align-self: flex-start;
+  transition: gap 0.3s var(--ease-out), color 0.3s, border-color 0.3s;
+}
+.contact-aside-email:hover {
+  color: var(--burnt);
+  gap: 0.7rem;
+  border-color: var(--burnt);
+}
+.contact-aside-email .arrow { transition: transform 0.3s var(--ease-out); }
+.contact-aside-email:hover .arrow { transform: translate(3px, -3px); }
+
+.contact-aside-linkedin {
+  font-family: var(--font-body);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--oxblood);
+  opacity: 0.82;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  align-self: flex-start;
+  transition: color 0.25s, opacity 0.25s, gap 0.3s;
+}
+.contact-aside-linkedin:hover { color: var(--burnt); opacity: 1; gap: 0.6rem; }
+
+/* Dispo (point oxblood qui pulse sur fond gold) */
+.contact-aside-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  letter-spacing: 0.08em;
+  color: var(--oxblood);
+  opacity: 0.88;
+  font-weight: 500;
+}
+.contact-aside-status-dot {
+  position: relative;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--oxblood);
+  flex-shrink: 0;
+}
+.contact-aside-status-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid var(--oxblood);
+  opacity: 0.6;
+  animation: contact-aside-pulse 2.2s ease-out infinite;
+}
+@keyframes contact-aside-pulse {
+  0%   { transform: scale(0.6); opacity: 0.6; }
+  100% { transform: scale(1.8); opacity: 0; }
+}
+
+/* Mini photos équipe (sur card gold) */
+.contact-aside-team {
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  margin-top: 0.4rem;
+}
+.contact-aside-team-avatars {
+  display: flex;
+  align-items: center;
+}
+.contact-aside-team-avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  background: var(--oxblood) center/cover no-repeat;
+  border: 2px solid var(--gold);
+  margin-left: -10px;
+  box-shadow: 0 2px 6px rgba(58, 15, 18, 0.18);
+}
+.contact-aside-team-avatar:first-child { margin-left: 0; }
+.contact-aside-team-label {
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  color: var(--oxblood);
+  opacity: 0.78;
+  line-height: 1.3;
+}
+
+/* FAQ courte sur page contact (reprend pattern .faq-* mais conteneur narrow) */
+.contact-faq-section {
+  background: var(--oxblood-deep);
+  padding: var(--section-py) var(--gutter);
+}
+.contact-faq-section .container {
+  max-width: 920px;
+}
+.contact-faq-section .section-header { margin-bottom: 3rem; }
+
+/* ============================================
+   2ter. HUB CARDS (services.html · secteurs.html)
+   ============================================ */
+.hub-section {
+  padding: var(--section-py) var(--gutter);
+  background: var(--oxblood);
+  position: relative;
+  overflow: hidden;
+}
+.hub-section-inner {
+  max-width: var(--max);
+  margin: 0 auto;
+}
+.hub-section-header {
+  margin-bottom: 4rem;
+  max-width: 760px;
+}
+.hub-section-eyebrow {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.55;
+  margin-bottom: 1rem;
+  display: block;
+}
+.hub-section-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+.hub-section-header h2 em {
+  font-family: var(--font-emphasis);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--gold);
+}
+
+.hub-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+@media (max-width: 760px) { .hub-grid { grid-template-columns: 1fr; } }
+.hub-grid--three { grid-template-columns: repeat(3, 1fr); }
+@media (max-width: 980px) { .hub-grid--three { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 600px) { .hub-grid--three { grid-template-columns: 1fr; } }
+
+.hub-card {
+  background: rgba(242, 235, 220, 0.025);
+  border: 1px solid rgba(242, 235, 220, 0.08);
+  border-radius: var(--r-md);
+  padding: 2.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  text-decoration: none;
+  color: inherit;
+  transition: transform 0.4s var(--ease-out), border-color 0.3s, background 0.3s;
+  min-height: 320px;
+}
+.hub-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(212, 165, 55, 0.4);
+  background: rgba(242, 235, 220, 0.04);
+}
+.hub-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  background: var(--card-accent, var(--gold));
+  transition: width 0.5s var(--ease-out);
+}
+.hub-card:hover::before { width: 100%; }
+.hub-card::after {
+  content: attr(data-num);
+  position: absolute;
+  bottom: -0.75rem;
+  right: 1.25rem;
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 9rem;
+  line-height: 1;
+  color: var(--card-accent, var(--gold));
+  opacity: 0.06;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hub-card-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.22em;
+  color: var(--card-accent, var(--gold));
+  opacity: 0.9;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  position: relative;
+  z-index: 1;
+}
+.hub-card-num::before {
+  content: '';
+  width: 24px;
+  height: 1px;
+  background: var(--card-accent, var(--gold));
+}
+.hub-card-name {
+  font-family: var(--font-display);
+  font-size: clamp(1.625rem, 2.4vw, 2rem);
+  font-weight: 700;
+  color: var(--cream);
+  letter-spacing: -0.03em;
+  line-height: 1.05;
+  position: relative;
+  z-index: 1;
+}
+.hub-card-pitch {
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.75;
+  position: relative;
+  z-index: 1;
+}
+.hub-card-meta {
+  margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(242, 235, 220, 0.1);
+  position: relative;
+  z-index: 1;
+  gap: 1rem;
+}
+.hub-card-price {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: var(--cream);
+  opacity: 0.85;
+}
+.hub-card-price small {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 400;
+  opacity: 0.7;
+  margin-left: 0.25rem;
+}
+.hub-card-cta {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--gold);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  transition: gap 0.3s var(--ease-out);
+  white-space: nowrap;
+}
+.hub-card:hover .hub-card-cta { gap: 0.7rem; }
+
+/* Accent par secteur (override le --card-accent par défaut) */
+.hub-card--retail   { --card-accent: #D97A2C; }
+.hub-card--pharma   { --card-accent: #1E4A6E; }
+.hub-card--finance  { --card-accent: #1E3A8A; }
+.hub-card--it-saas  { --card-accent: #6B4FCF; }
+.hub-card--energies { --card-accent: #4F7F5C; }
+.hub-card--conseil  { --card-accent: #7A2E3F; }
+
+/* ============================================
+   3. PAGES LÉGALES (Mentions, CGV)
+   Carte crème centrée sur fond oxblood (style document)
+   ============================================ */
+
+/* Wrapper qui englobe hero + body : fond continu + décorations
+   qui s'étendent du nav jusqu'au footer (pas de cassure visuelle) */
+.legal-page {
+  background: var(--oxblood);
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+/* Atmosphère globale : gradients radiaux qui couvrent toute la hauteur */
+.legal-page::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle 600px at 95% 4%, rgba(212, 165, 55, 0.12), transparent 50%),
+    radial-gradient(circle 700px at 0% 30%, rgba(139, 26, 31, 0.35), transparent 55%),
+    radial-gradient(circle 700px at 100% 55%, rgba(212, 165, 55, 0.08), transparent 55%),
+    radial-gradient(circle 800px at 10% 80%, rgba(139, 26, 31, 0.28), transparent 55%),
+    radial-gradient(circle 600px at 95% 98%, rgba(212, 165, 55, 0.1), transparent 55%);
+  pointer-events: none;
+  z-index: 0;
+}
+/* Quand les sections sont dans .legal-page, on retire leur fond/overflow
+   pour que les blobs et gradients puissent s'étendre sans être clippés */
+.legal-page > .subpage,
+.legal-page > .legal-body {
+  background: transparent;
+  overflow: visible;
+}
+/* On désactive le dégradé propre du hero : il était borné à .subpage et
+   créait une ligne visible (le dégradé s'arrêtait brutalement à la frontière).
+   Le .legal-page::before couvre déjà toute cette zone. */
+.legal-page > .subpage::before {
+  display: none;
+}
+
+.legal-body {
+  padding: 2rem var(--gutter) var(--section-py);
+  position: relative;
+}
+
+/* Blobs additionnels positionnés sur le wrapper (couvrent hero ET body) */
+.legal-page-blob {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+  filter: blur(70px);
+  opacity: 0.65;
+}
+.legal-page-blob--gold-top {
+  width: 520px;
+  height: 520px;
+  top: -180px;
+  right: -120px;
+  background: radial-gradient(circle, rgba(240, 197, 87, 0.7), rgba(212, 165, 55, 0.25) 50%, transparent 75%);
+  animation: blob-drift 18s ease-in-out infinite alternate;
+}
+.legal-page-blob--burnt-mid {
+  width: 560px;
+  height: 560px;
+  top: 38%;
+  left: -180px;
+  background: radial-gradient(circle, rgba(139, 26, 31, 0.85), rgba(92, 40, 24, 0.4) 55%, transparent 78%);
+  animation: blob-drift 26s ease-in-out infinite alternate-reverse;
+}
+.legal-page-blob--gold-bottom {
+  width: 500px;
+  height: 500px;
+  bottom: 8%;
+  right: -200px;
+  background: radial-gradient(circle, rgba(212, 165, 55, 0.55), transparent 70%);
+  animation: blob-drift 22s ease-in-out infinite alternate;
+}
+/* Carte crème : "on veut y voir clair" */
+.legal-body-inner {
+  max-width: 920px;
+  margin: 0 auto;
+  background: var(--cream);
+  color: var(--oxblood);
+  border-radius: var(--r-lg);
+  padding: clamp(2.5rem, 5vw, 4.5rem) clamp(1.75rem, 5vw, 4.5rem);
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.35),
+    0 0 0 1px rgba(212, 165, 55, 0.08);
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+}
+
+.legal-section + .legal-section {
+  margin-top: 3.25rem;
+  padding-top: 3.25rem;
+  border-top: 1px solid rgba(58, 15, 18, 0.12);
+}
+.legal-section-num {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--burnt);
+  margin-bottom: 0.85rem;
+  display: block;
+  opacity: 0.85;
+}
+.legal-section h2 {
+  font-family: var(--font-display);
+  font-size: clamp(1.4rem, 2.2vw, 1.75rem);
+  font-weight: 600;
+  color: var(--oxblood);
+  letter-spacing: -0.02em;
+  margin-bottom: 1.25rem;
+  line-height: 1.15;
+}
+.legal-section p,
+.legal-section li {
+  font-size: 1rem;
+  line-height: 1.75;
+  color: var(--oxblood);
+  opacity: 0.82;
+}
+.legal-section p + p { margin-top: 1rem; }
+.legal-section ul,
+.legal-section ol {
+  margin: 1rem 0 1rem 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.legal-section strong {
+  color: var(--oxblood);
+  font-weight: 600;
+  opacity: 1;
+}
+.legal-section em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 400;
+  color: var(--burnt);
+  opacity: 1;
+}
+.legal-section a {
+  color: var(--burnt);
+  border-bottom: 1px solid rgba(92, 40, 24, 0.4);
+  transition: border-color 0.25s, color 0.25s;
+}
+.legal-section a:hover { color: var(--oxblood); border-color: var(--oxblood); }
+
+.legal-placeholder {
+  display: inline-block;
+  padding: 0.1rem 0.55rem;
+  border-radius: 4px;
+  background: rgba(92, 40, 24, 0.1);
+  color: var(--burnt);
+  font-family: var(--font-mono);
+  font-size: 0.8em;
+  letter-spacing: 0.05em;
+  font-weight: 500;
+}
+
+.legal-warning {
+  margin-top: 3.5rem;
+  padding: 1.5rem 1.75rem;
+  border: 1px solid rgba(212, 165, 55, 0.6);
+  border-radius: var(--r-md);
+  background: rgba(212, 165, 55, 0.15);
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  line-height: 1.7;
+  color: var(--oxblood);
+  opacity: 0.95;
+}
+.legal-warning strong { color: var(--burnt); font-weight: 600; }
+.legal-warning .legal-placeholder {
+  background: rgba(92, 40, 24, 0.15);
+}

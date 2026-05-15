@@ -33,7 +33,7 @@
   const text2 = document.getElementById('gooeyText2');
   if (!text1 || !text2) return;
 
-  const texts = ['pilotée.', 'incarnée.', 'livrée.', 'accélérée.'];
+  const texts = ['conversion.', 'croissance.', 'performance.','conversion.'];
   const morphTime = 1;
   const cooldownTime = 2.2;
   let textIndex = texts.length - 1;
@@ -545,13 +545,13 @@
       `Prénom : ${data.get('prenom')}\n` +
       `Nom : ${data.get('nom')}\n` +
       `Société : ${data.get('societe')}\n` +
-      `Email : ${data.get('email')}\n` +
-      `Téléphone : ${data.get('tel') || 'non renseigné'}\n` +
-      `Site actuel : ${data.get('site') || 'non renseigné'}\n` +
-      `Rôle : ${data.get('role')}\n\n` +
+      `Email : ${data.get('email')}\n\n` +
       `Message :\n${data.get('message')}\n`;
+    // Obfuscation : on assemble l'adresse en runtime, pas de chaîne directe
+    const mailUser = ['c','o','n','t','a','c','t'].join('');
+    const mailDomain = ['shyft','fr'].join('.');
     window.location.href =
-      'mailto:hello@shyft.studio?subject=' +
+      'mailto:' + mailUser + '@' + mailDomain + '?subject=' +
       encodeURIComponent(subject) +
       '&body=' +
       encodeURIComponent(body);
