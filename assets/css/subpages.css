@@ -125,6 +125,23 @@ h1.subpage-huge em {
   text-shadow: 0 0 30px rgba(212, 165, 55, 0.35);
 }
 
+/* Variante "logo SVG" : le H1 contient un visuel à la place du texte.
+   On reset les propriétés typo (font-size 0 supprime tout espace inline)
+   et on dimensionne l'image par sa hauteur, comme pour le texte. */
+h1.subpage-huge--logo {
+  font-size: 0;
+  line-height: 1;
+  white-space: normal;
+  letter-spacing: 0;
+  text-shadow: none;
+}
+.subpage-huge-logo {
+  display: block;
+  height: clamp(2.6rem, 8.5vw, 140px);
+  width: auto;
+  max-width: 100%;
+}
+
 /* Grid éditorial sous le titre : intro à gauche, infos contact à droite */
 .subpage-edito-grid {
   display: grid;
