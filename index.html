@@ -140,10 +140,12 @@
 
 </section>
 
-<!-- ============ HERO STATS ============ -->
+<!-- ============ HERO STATS · 4 stats encadrant la vidéo brand ============ -->
 <section id="hero-stats" class="hero-stats-section">
-  <div class="hero-bottom container reveal">
-    <div class="hero-stat">
+  <div class="hero-stats-grid container reveal">
+
+    <!-- Colonne gauche : 01 (haut) + 02 (bas) -->
+    <div class="hero-stat hero-stat--tl">
       <span class="hero-stat-index"> - 01 - </span>
       <div class="hero-stat-num">+25<em>ans</em></div>
       <div class="hero-stat-lab">
@@ -151,7 +153,8 @@
         <span class="hero-stat-lab-sub">en direction marketing</span>
       </div>
     </div>
-    <div class="hero-stat">
+
+    <div class="hero-stat hero-stat--bl">
       <span class="hero-stat-index"> - 02 - </span>
       <div class="hero-stat-num">+30<em>%</em></div>
       <div class="hero-stat-lab">
@@ -159,15 +162,19 @@
         <span class="hero-stat-lab-sub">lead → client (observé)</span>
       </div>
     </div>
-    <div class="hero-stat">
-      <span class="hero-stat-index"> - 03 - </span>
-      <div class="hero-stat-num">100<em>%</em></div>
-      <div class="hero-stat-lab">
-        <span class="hero-stat-lab-main">Sur-mesure</span>
-        <span class="hero-stat-lab-sub">ad hoc à vos objectifs</span>
-      </div>
+
+    <!-- Centre : vidéo brand (autoplay, loop, muted) -->
+    <div class="hero-stats-video">
+      <video
+        class="hero-stats-video-media"
+        autoplay loop muted playsinline preload="metadata"
+        aria-label="Vidéo de présentation Shyft">
+        <source src="assets/vid/Shyft.mp4" type="video/mp4">
+      </video>
     </div>
-    <div class="hero-stat">
+
+    <!-- Colonne droite : 04 (haut) + 03 (bas) -->
+    <div class="hero-stat hero-stat--tr">
       <span class="hero-stat-index"> - 04 - </span>
       <div class="hero-stat-num">3 600<em>€</em><sup class="hero-stat-asterisk">*</sup></div>
       <div class="hero-stat-lab">
@@ -175,6 +182,16 @@
         <span class="hero-stat-lab-sub">pour un site complet HT</span>
       </div>
     </div>
+
+    <div class="hero-stat hero-stat--br">
+      <span class="hero-stat-index"> - 03 - </span>
+      <div class="hero-stat-num">100<em>%</em></div>
+      <div class="hero-stat-lab">
+        <span class="hero-stat-lab-main">Sur-mesure</span>
+        <span class="hero-stat-lab-sub">ad hoc à vos objectifs</span>
+      </div>
+    </div>
+
   </div>
 </section>
 

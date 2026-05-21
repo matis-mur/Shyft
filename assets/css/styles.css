@@ -832,6 +832,72 @@ body .contact-intro h2 em {
 .hero-stats-section .hero-stat-lab-main { color: var(--oxblood); opacity: 0.92; }
 .hero-stats-section .hero-stat-lab-sub  { color: var(--oxblood); opacity: 0.65; }
 
+/* ===========================================================
+   HERO STATS · grille 3 colonnes avec vidéo centrale
+   Layout :  [01]  [VIDEO]  [04]
+             [02]  [VIDEO]  [03]
+   =========================================================== */
+.hero-stats-grid {
+  position: relative;
+  z-index: 2;
+  max-width: var(--max);
+  margin: 0 auto;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  grid-template-areas:
+    "tl video tr"
+    "bl video br";
+  gap: 1rem;
+  align-items: stretch;
+}
+.hero-stat--tl { grid-area: tl; }
+.hero-stat--bl { grid-area: bl; }
+.hero-stat--tr { grid-area: tr; }
+.hero-stat--br { grid-area: br; }
+.hero-stats-video { grid-area: video; }
+
+.hero-stats-video {
+  position: relative;
+  border-radius: 14px;
+  overflow: hidden;
+  background: rgba(58, 15, 18, 0.08);
+  border: 1px solid rgba(58, 15, 18, 0.12);
+  min-height: 320px;
+  isolation: isolate;
+}
+.hero-stats-video-media {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Responsive : sur tablette / mobile, on empile en 2 colonnes et la vidéo passe en bandeau */
+@media (max-width: 980px) {
+  .hero-stats-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas:
+      "video video"
+      "tl    tr"
+      "bl    br";
+  }
+  .hero-stats-video { aspect-ratio: 16 / 9; min-height: 0; }
+}
+@media (max-width: 560px) {
+  .hero-stats-grid {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "video"
+      "tl"
+      "bl"
+      "tr"
+      "br";
+  }
+}
+
 .hero-bottom {
   position: relative;
   z-index: 2;
