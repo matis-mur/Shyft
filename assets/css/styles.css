@@ -97,53 +97,42 @@ body::after {
 @media (hover: hover) and (pointer: fine) {
   * { cursor: none !important; }
 
+  /* Curseur volontairement sobre : cible dirigeants de PME.
+     Aucune interpolation, aucun libellé, pas de gros disque.
+     Le point marque la position exacte, l'anneau reste discret. */
+
   .cursor-dot {
     position: fixed;
-    width: 6px;
-    height: 6px;
+    top: 0; left: 0;
+    width: 7px;
+    height: 7px;
     background: var(--gold);
     border-radius: 50%;
     pointer-events: none;
     z-index: 10000;
-    transform: translate(-50%, -50%);
-    transition: width 0.25s, height 0.25s, opacity 0.25s;
-    mix-blend-mode: difference;
+    will-change: transform;
+    transition: opacity 0.2s linear;
   }
   .cursor-ring {
     position: fixed;
-    width: 36px;
-    height: 36px;
-    border: 1.5px solid rgba(212, 165, 55, 0.55);
+    top: 0; left: 0;
+    width: 26px;
+    height: 26px;
+    border: 1.5px solid rgba(212, 165, 55, 0.5);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
-    transform: translate(-50%, -50%);
-    transition: width 0.3s var(--ease-out), height 0.3s var(--ease-out), border-color 0.3s, background 0.3s;
+    will-change: transform;
+    /* Pas de transition sur width/height : l'agrandissement au survol
+       est instantané, donc jamais perçu comme un décalage. */
+    transition: opacity 0.2s linear, border-color 0.12s linear, background 0.12s linear;
   }
-  .cursor-text {
-    position: absolute; inset: 0;
-    display: flex; align-items: center; justify-content: center;
-    font-family: var(--font-mono);
-    font-size: 9px;
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    color: var(--oxblood);
-    opacity: 0;
-    transition: opacity 0.2s;
-    font-weight: 600;
-  }
+
+  /* Un seul état de survol, léger */
   body.cursor-link .cursor-ring {
-    width: 56px; height: 56px;
     border-color: var(--gold);
-    background: rgba(212, 165, 55, 0.12);
+    background: rgba(212, 165, 55, 0.14);
   }
-  body.cursor-cta .cursor-ring {
-    width: 92px; height: 92px;
-    background: var(--gold);
-    border-color: var(--gold);
-  }
-  body.cursor-cta .cursor-text { opacity: 1; }
-  body.cursor-cta .cursor-dot { opacity: 0; }
 }
 
 /* ============================================
@@ -364,6 +353,134 @@ body .contact-intro h2 em {
   padding: 0.25rem 0;
 }
 .nav-links a:hover { opacity: 1; color: var(--gold); }
+
+/* ===========================================================
+   MÉGA-MENU · Services / Secteurs déroulants au survol
+   =========================================================== */
+.nav-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+/* Chevron discret sur les items qui ont un menu */
+.nav-group-trigger::after {
+  content: '';
+  display: inline-block;
+  width: 0.32em;
+  height: 0.32em;
+  margin-left: 0.45em;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-0.12em);
+  opacity: 0.55;
+  transition: transform 0.3s var(--ease-out), opacity 0.2s;
+}
+.nav-group:hover .nav-group-trigger::after,
+.nav-group:focus-within .nav-group-trigger::after {
+  transform: rotate(225deg) translateY(-0.12em) translateX(-0.12em);
+  opacity: 1;
+}
+
+.nav-mega {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%) translateY(6px);
+  margin-top: 0.9rem;
+  min-width: 320px;
+  padding: 0.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  border-radius: 16px;
+  background: rgba(26, 6, 8, 0.94);
+  -webkit-backdrop-filter: blur(22px) saturate(1.3);
+          backdrop-filter: blur(22px) saturate(1.3);
+  border: 1px solid rgba(212, 165, 55, 0.22);
+  box-shadow:
+    0 28px 60px -22px rgba(0, 0, 0, 0.7),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition:
+    opacity 0.28s var(--ease-out),
+    transform 0.28s var(--ease-out),
+    visibility 0s linear 0.28s;
+  z-index: 60;
+}
+.nav-mega--wide { min-width: 360px; }
+
+/* Zone tampon invisible pour que le curseur puisse traverser le gap */
+.nav-mega::before {
+  content: '';
+  position: absolute;
+  top: -0.9rem;
+  left: 0;
+  right: 0;
+  height: 0.9rem;
+}
+
+.nav-group:hover .nav-mega,
+.nav-group:focus-within .nav-mega {
+  opacity: 1;
+  visibility: visible;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+  transition-delay: 0s, 0s, 0s;
+}
+
+.nav-links .nav-mega-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding: 0.7rem 0.85rem;
+  border-radius: 10px;
+  opacity: 1;
+  transition: background 0.22s var(--ease-out);
+}
+.nav-links .nav-mega-item:hover {
+  background: rgba(212, 165, 55, 0.1);
+  color: inherit;
+}
+.nav-mega-name {
+  font-family: var(--font-body);
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--cream);
+  letter-spacing: -0.005em;
+  transition: color 0.22s;
+}
+.nav-mega-item:hover .nav-mega-name { color: var(--gold); }
+.nav-mega-desc {
+  font-family: var(--font-mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.08em;
+  color: rgba(242, 235, 220, 0.5);
+  line-height: 1.4;
+}
+
+.nav-links .nav-mega-all {
+  margin-top: 0.35rem;
+  padding: 0.7rem 0.85rem 0.5rem;
+  border-top: 1px solid rgba(212, 165, 55, 0.16);
+  border-radius: 0;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.85;
+  transition: opacity 0.22s, letter-spacing 0.28s var(--ease-out);
+}
+.nav-links .nav-mega-all:hover { opacity: 1; letter-spacing: 0.2em; }
+
+/* Mobile / tablette : pas de survol fiable → le méga-menu est désactivé,
+   le lien parent reste cliquable et mène à la page hub. */
+@media (max-width: 900px), (hover: none) {
+  .nav-mega { display: none; }
+  .nav-group-trigger::after { display: none; }
+}
 
 /* Mode minimal : au top de la page, on cache les liens (logo + CTA seuls) */
 .nav--minimal .nav-links {
@@ -2841,6 +2958,36 @@ section { position: relative; }
   border-color: var(--gold);
 }
 
+/* CTA "En savoir plus" en bas de chaque pilier */
+.pillar-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.5rem;
+  align-self: flex-start;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 600;
+  color: var(--burnt);
+  text-decoration: none;
+  border-bottom: 1px solid currentColor;
+  padding-bottom: 3px;
+  transition: gap 0.3s var(--ease-out), color 0.3s ease;
+  position: relative;
+  z-index: 2;
+}
+.pillar-cta:hover { gap: 0.85rem; color: var(--oxblood); }
+.pillar--core .pillar-cta { color: var(--gold); }
+.pillar--core .pillar-cta:hover { color: var(--gold-bright, #F0C557); }
+.pillar-cta > span {
+  font-family: var(--font-display);
+  font-size: 1.05rem;
+  line-height: 0.9;
+  letter-spacing: 0;
+}
+
 /* Détails accordéon (révélés au clic) */
 .pillar-details {
   overflow: hidden;
@@ -3072,12 +3219,12 @@ section { position: relative; }
    d'accent et la même diagonale de gradient que le hero de sa
    page secteur associée.
    =========================================================== */
-.sector--retail   { --accent: #D97A2C; --accent-rgb: 217, 122, 44; }
-.sector--pharma   { --accent: #1E4A6E; --accent-rgb: 30, 74, 110;  }
-.sector--finance  { --accent: #1E3A8A; --accent-rgb: 30, 58, 138;  }
-.sector--it-saas  { --accent: #6B4FCF; --accent-rgb: 107, 79, 207; }
-.sector--energies { --accent: #4F7F5C; --accent-rgb: 79, 127, 92;  }
-.sector--conseil  { --accent: #7A2E3F; --accent-rgb: 122, 46, 63;  }
+.sector--retail   { --accent: #B0703A; --accent-rgb: 176, 112, 58; }
+.sector--pharma   { --accent: #2C4F63; --accent-rgb: 44, 79, 99;  }
+.sector--finance  { --accent: #313F63; --accent-rgb: 49, 63, 99;  }
+.sector--it-saas  { --accent: #5A5080; --accent-rgb: 90, 80, 128; }
+.sector--energies { --accent: #4A6B53; --accent-rgb: 74, 107, 83;  }
+.sector--conseil  { --accent: #6B3540; --accent-rgb: 107, 53, 64;  }
 
 .sector[class*="sector--"] {
   background:
@@ -3253,6 +3400,24 @@ section { position: relative; }
   isolation: isolate;
   transition: transform 0.5s var(--ease-out), border-color 0.4s, box-shadow 0.5s;
 }
+/* Label de secteur sous chaque démonstration */
+.showcase-tag {
+  display: block;
+  padding: 0.85rem 1.1rem 0.95rem;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.5;
+  border-top: 1px solid rgba(242, 235, 220, 0.07);
+  transition: opacity 0.4s var(--ease-out), color 0.4s var(--ease-out);
+}
+.showcase-card:hover .showcase-tag {
+  opacity: 1;
+  color: var(--gold);
+}
+
 .showcase-card::before {
   content: '';
   position: absolute;
@@ -4229,27 +4394,17 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
 }
 
 /* --- Magnetic button : transition douce du transform en sortie --- */
+/* Le transform est piloté par le module magnetic (motion.js), qui règle
+   lui-même sa transition : rapide à l'approche, souple au retour.
+   On ne déclare ici que le box-shadow pour ne pas entrer en conflit. */
 .btn-primary[data-cta] {
-  transition:
-    transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
-    box-shadow 0.3s var(--ease-out);
+  transition: box-shadow 0.25s var(--ease-out);
   will-change: transform;
 }
 
-/* --- Magnetic cursor : offset piloté par CSS variable --- */
-@media (hover: hover) and (pointer: fine) {
-  .cursor-ring {
-    transform:
-      translate(-50%, -50%)
-      translate(var(--cursor-magnet-x, 0px), var(--cursor-magnet-y, 0px));
-    transition:
-      width 0.3s var(--ease-out),
-      height 0.3s var(--ease-out),
-      border-color 0.3s,
-      background 0.3s,
-      transform 0.32s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-}
+/* Le curseur magnétique a été retiré : il déplaçait l'anneau avec une
+   transition de 0.32s, perçue comme de la latence, et faisait bouger les
+   boutons sous la souris. Contre-productif pour une cible de dirigeants. */
 
 /* --- Reduced motion / Mobile : tout désactivé --- */
 @media (prefers-reduced-motion: reduce) {
@@ -4476,11 +4631,11 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
 /* SVG inline dans le h1 · remplace un mot (ex. "conversion") par une image */
 .hero-glass-h1 .h1-svg {
   display: inline-block;
-  height: 0.9em;
+  height: 0.86em;
   width: auto;
   vertical-align: -0.08em;
   margin: 0 0.12em;
-  transform: translateY(10px);
+  transform: translateY(5px);
   filter: drop-shadow(0 0 24px rgba(212, 165, 55, 0.25));
 }
 

@@ -8,7 +8,7 @@
    ============================================ */
 .subpage {
   background: var(--oxblood);
-  padding: calc(var(--nav-h, 88px) + 5rem) var(--gutter) 5rem;
+  padding: calc(var(--nav-h, 88px) + 2.5rem) var(--gutter) 2.5rem;
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -82,7 +82,7 @@
 
 /* === Hero Contact spécifique : grosses formes décoratives === */
 .subpage--contact {
-  padding-bottom: 7rem;
+  padding-bottom: 3.5rem;
 }
 
 /* Titre brutaliste edge-to-edge (style éditorial nographism) */
@@ -93,7 +93,7 @@ h1.subpage-huge {
   line-height: 0.92;
   letter-spacing: -0.065em;
   color: var(--cream);
-  margin: 0 0 6rem;
+  margin: 0 0 2.5rem;
   position: relative;
   z-index: 3;
   max-width: none;
@@ -985,7 +985,7 @@ h1.subpage-huge--logo {
    2ter. HUB CARDS (services.html · secteurs.html)
    ============================================ */
 .hub-section {
-  padding: var(--section-py) var(--gutter);
+  padding: clamp(3rem, 5vw, 4.5rem) var(--gutter) var(--section-py);
   background: var(--cream);
   color: var(--oxblood);
   position: relative;
@@ -1162,12 +1162,12 @@ h1.subpage-huge--logo {
 .hub-card:hover .hub-card-cta { gap: 0.7rem; }
 
 /* Accent par secteur (override le --card-accent par défaut) */
-.hub-card--retail   { --card-accent: #D97A2C; --card-accent-rgb: 217, 122, 44; }
-.hub-card--pharma   { --card-accent: #1E4A6E; --card-accent-rgb: 30, 74, 110;  }
-.hub-card--finance  { --card-accent: #1E3A8A; --card-accent-rgb: 30, 58, 138;  }
-.hub-card--it-saas  { --card-accent: #6B4FCF; --card-accent-rgb: 107, 79, 207; }
-.hub-card--energies { --card-accent: #4F7F5C; --card-accent-rgb: 79, 127, 92;  }
-.hub-card--conseil  { --card-accent: #7A2E3F; --card-accent-rgb: 122, 46, 63;  }
+.hub-card--retail   { --card-accent: #B0703A; --card-accent-rgb: 176, 112, 58; }
+.hub-card--pharma   { --card-accent: #2C4F63; --card-accent-rgb: 44, 79, 99;  }
+.hub-card--finance  { --card-accent: #313F63; --card-accent-rgb: 49, 63, 99;  }
+.hub-card--it-saas  { --card-accent: #5A5080; --card-accent-rgb: 90, 80, 128; }
+.hub-card--energies { --card-accent: #4A6B53; --card-accent-rgb: 74, 107, 83;  }
+.hub-card--conseil  { --card-accent: #6B3540; --card-accent-rgb: 107, 53, 64;  }
 
 /* Chaque carte secteur reprend le dégradé de la page secteur associée.
    La vignette d'assombrissement est intégrée au background (multi-layered)

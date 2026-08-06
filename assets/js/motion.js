@@ -212,13 +212,16 @@
   })();
 
   /* ============================================
-     6. MAGNETIC BUTTONS + CURSOR
+     6. MAGNETIC BUTTONS
      ============================================
-     - Le bouton .btn-primary[data-cta] est attiré
-       vers le curseur quand il s'en approche.
-     - Le cursor ring est tiré vers le centre du
-       bouton (via CSS variable --cursor-magnet-x/y).
-     - Désactivé sur mobile et sans pointer fin.
+     Le bouton est attiré vers le curseur quand celui-ci s'en approche.
+
+     Deux principes pour éviter toute sensation de latence :
+     - Pendant l'approche, le transform est appliqué à chaque mousemove avec
+       une transition quasi nulle : le bouton colle au curseur, il ne traîne pas.
+     - Le curseur, lui, n'est jamais déplacé. Il reste exactement sous la souris.
+       (C'est l'ancien "cursor magnet", avec sa transition de 0.32s, qui donnait
+       l'impression de flottement.)
   */
   (function magnetic() {
     if (REDUCED_MOTION || !hasFinePointer() || isMobile()) return;
@@ -226,69 +229,49 @@
     const buttons = document.querySelectorAll('.btn-primary[data-cta]');
     if (!buttons.length) return;
 
-    const PULL = 0.28;          // intensité d'attraction sur le bouton
-    const CURSOR_PULL = 0.4;    // intensité de l'attraction du curseur vers le bouton
-    const RADIUS = 90;          // px à partir du bord du bouton
+    const PULL = 0.22;    // intensité du déplacement (fraction de la distance)
+    const RADIUS = 80;    // px autour du bord du bouton où l'attraction opère
+    const MAX = 14;       // px · déplacement maximal, garde la cible atteignable
 
-    const root = document.documentElement;
-    let activeButton = null;
+    const FOLLOW = 'transform 0.08s linear';                        // colle au curseur
+    const RETURN = 'transform 0.4s cubic-bezier(0.16, 1, 0.3, 1)';  // retour souple
 
-    const reset = (btn) => {
-      btn.style.transform = '';
-    };
-
-    const clearCursor = () => {
-      root.style.setProperty('--cursor-magnet-x', '0px');
-      root.style.setProperty('--cursor-magnet-y', '0px');
-    };
+    const active = new Set();
 
     document.addEventListener('mousemove', (e) => {
-      let foundActive = null;
-
       buttons.forEach(btn => {
-        const rect = btn.getBoundingClientRect();
-        const cx = rect.left + rect.width / 2;
-        const cy = rect.top + rect.height / 2;
-        const dx = e.clientX - cx;
-        const dy = e.clientY - cy;
+        const r = btn.getBoundingClientRect();
+        const dx = e.clientX - (r.left + r.width / 2);
+        const dy = e.clientY - (r.top + r.height / 2);
 
-        // Distance au plus proche bord du bouton (pas au centre)
-        const halfW = rect.width / 2;
-        const halfH = rect.height / 2;
-        const edgeX = Math.max(0, Math.abs(dx) - halfW);
-        const edgeY = Math.max(0, Math.abs(dy) - halfH);
-        const edgeDist = Math.hypot(edgeX, edgeY);
+        // Distance au bord le plus proche, pas au centre
+        const edge = Math.hypot(
+          Math.max(0, Math.abs(dx) - r.width / 2),
+          Math.max(0, Math.abs(dy) - r.height / 2)
+        );
 
-        if (edgeDist < RADIUS) {
-          const strength = 1 - Math.min(edgeDist / RADIUS, 1); // 0→1
-          // Attraction du bouton vers le curseur
-          btn.style.transform = `translate(${dx * PULL * strength}px, ${dy * PULL * strength}px)`;
-          foundActive = { btn, dx, dy, strength };
-        } else {
-          if (btn === activeButton) reset(btn);
+        if (edge < RADIUS) {
+          const strength = 1 - edge / RADIUS;
+          const ox = Math.max(-MAX, Math.min(MAX, dx * PULL * strength));
+          const oy = Math.max(-MAX, Math.min(MAX, dy * PULL * strength));
+          btn.style.transition = FOLLOW;
+          btn.style.transform = `translate(${ox}px, ${oy}px)`;
+          active.add(btn);
+        } else if (active.has(btn)) {
+          btn.style.transition = RETURN;
+          btn.style.transform = '';
+          active.delete(btn);
         }
       });
-
-      // Cursor magnet : attiré vers le CENTRE du bouton actif
-      if (foundActive) {
-        // Inverser dx/dy pour attirer le curseur vers le centre, modulé par strength
-        const ox = -foundActive.dx * CURSOR_PULL * foundActive.strength;
-        const oy = -foundActive.dy * CURSOR_PULL * foundActive.strength;
-        root.style.setProperty('--cursor-magnet-x', ox + 'px');
-        root.style.setProperty('--cursor-magnet-y', oy + 'px');
-        activeButton = foundActive.btn;
-      } else if (activeButton) {
-        reset(activeButton);
-        clearCursor();
-        activeButton = null;
-      }
     }, { passive: true });
 
-    // Sécurité : si la souris quitte la fenêtre, on reset
+    // Souris hors fenêtre : on relâche tout
     document.addEventListener('mouseleave', () => {
-      buttons.forEach(reset);
-      clearCursor();
-      activeButton = null;
+      active.forEach(btn => {
+        btn.style.transition = RETURN;
+        btn.style.transform = '';
+      });
+      active.clear();
     });
   })();
 
@@ -344,6 +327,54 @@
   })();
 
   /* ============================================
+     6.b LOAD CASCADE · réveil progressif au chargement
+     ============================================
+     Au lieu de tout révéler instantanément (ou de waiter le scroll),
+     on déclenche les .reveal / [data-peel] / [data-split] qui sont
+     ALREADY visibles au chargement, avec un délai cumulatif top→bottom.
+     Effet : la page se "populate" sous les yeux du visiteur en
+     ~0.6-0.8 seconde, plutôt qu'apparaître figée ou vide.
+  */
+  (function loadCascade() {
+    if (REDUCED_MOTION) return;
+
+    const isInViewport = (el) => {
+      const r = el.getBoundingClientRect();
+      return r.top < window.innerHeight && r.bottom > 0 && r.top < window.innerHeight - 20;
+    };
+
+    // Selectors à orchestrer + classe à appliquer
+    const targets = [
+      { sel: '.reveal',     cls: 'in-view' },
+      { sel: '[data-peel]', cls: 'is-peeled' },
+      { sel: '[data-split]', cls: 'is-revealed' },
+    ];
+
+    // Collecte tous les éléments above-fold, dans l'ordre du DOM
+    const inViewElements = [];
+    targets.forEach(({ sel, cls }) => {
+      document.querySelectorAll(sel).forEach(el => {
+        if (isInViewport(el)) inViewElements.push({ el, cls });
+      });
+    });
+
+    if (!inViewElements.length) return;
+
+    // Tri visuel (top → bottom)
+    inViewElements.sort((a, b) => a.el.getBoundingClientRect().top - b.el.getBoundingClientRect().top);
+
+    // Pause initiale (laisse la page s'installer) + cascade
+    const INITIAL_DELAY = 180;     // ms avant le 1er élément
+    const STEP = 95;               // ms entre chaque élément
+
+    inViewElements.forEach(({ el, cls }, i) => {
+      setTimeout(() => {
+        el.classList.add(cls);
+      }, INITIAL_DELAY + i * STEP);
+    });
+  })();
+
+  /* ============================================
      7. PILLARS ACCORDION
      ============================================
      Toggle des détails de chaque pilier au clic
@@ -363,15 +394,44 @@
       // État initial : panel masqué, attribut hidden retiré pour permettre l'animation
       panel.removeAttribute('hidden');
 
-      btn.addEventListener('click', () => {
+      // Fonction de toggle réutilisable (appelée par le bouton OU par le bloc entier)
+      const togglePanel = () => {
         const isOpen = btn.getAttribute('aria-expanded') === 'true';
         btn.setAttribute('aria-expanded', String(!isOpen));
         panel.classList.toggle('is-open', !isOpen);
-
-        // Mettre à jour le label du bouton
         const label = btn.querySelector('span');
         if (label) label.textContent = isOpen ? 'Détails' : 'Fermer';
+      };
+
+      // Clic sur le bouton "Détails" classique
+      btn.addEventListener('click', (e) => {
+        e.stopPropagation(); // évite que le clic remonte au .pillar et double-toggle
+        togglePanel();
       });
+
+      // Clic n'importe où sur le bloc .pillar → toggle aussi
+      // Exclut les clics sur des liens internes (h3 a, .pillar-cta) qui doivent naviguer.
+      const pillar = btn.closest('.pillar');
+      if (pillar) {
+        pillar.style.cursor = 'pointer';
+        pillar.addEventListener('click', (e) => {
+          // Si on a cliqué sur un lien (ou un descendant d'un lien), on laisse la navigation se faire
+          if (e.target.closest('a')) return;
+          togglePanel();
+        });
+        // Accessibilité clavier : Enter / Espace ouvrent aussi
+        pillar.setAttribute('tabindex', '0');
+        pillar.setAttribute('role', 'button');
+        pillar.setAttribute('aria-expanded', 'false');
+        pillar.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter' || e.key === ' ') {
+            if (e.target.closest('a')) return;
+            e.preventDefault();
+            togglePanel();
+            pillar.setAttribute('aria-expanded', btn.getAttribute('aria-expanded'));
+          }
+        });
+      }
     });
   })();
 

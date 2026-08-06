@@ -4,16 +4,16 @@
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>L'agence · Shyft® · Quatre artisans du web, une seule promesse</title>
-<meta name="description" content="Shyft est une agence web indépendante de quatre profils complémentaires (stratégie, marketing, design, développement) au service des PME. Sans sous-traitance, made in France.">
+<meta name="description" content="Shyft est une agence web indépendante de quatre profils complémentaires (stratégie, marketing, design, développement) au service des PME. Sans sous-traitance, basée à Paris.">
 <meta property="og:title" content="L'agence · Shyft® · Quatre artisans du web sous une même marque">
-<meta property="og:description" content="Indépendance, sans sous-traitance, made in France. Quatre profils complémentaires pour livrer le dispositif digital complet aux PME qui veulent grandir.">
+<meta property="og:description" content="Indépendance, sans sous-traitance. Quatre profils complémentaires pour livrer le dispositif digital complet aux PME qui veulent grandir.">
 <meta property="og:type" content="website">
 <link rel="icon" type="image/svg+xml" href="assets/logos/favicon2.svg">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,700&family=JetBrains+Mono:wght@400;500&family=Beth+Ellen&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,700&family=JetBrains+Mono:wght@400;500&family=Beth+Ellen&family=Geist:wght@700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/subpages.css">
 <link rel="stylesheet" href="assets/css/piliers.css">
@@ -21,6 +21,36 @@
 
 <style>
 /* === Styles spécifiques à la page Agence === */
+
+/* Wordmark Shyft inline dans le texte.
+   SVG inline (<use href="#shyftWord">) plutôt que mask ou <img> : le path
+   est peint en currentColor, donc le mot prend automatiquement la couleur
+   du texte qui l'entoure — cream dans le manifeste, gold dans un accent. */
+.shyft-word {
+  --wm-h: 0.74em;                          /* hauteur, calée sur le texte */
+  display: inline-block;
+  height: var(--wm-h);
+  width: calc(var(--wm-h) * 2.668);        /* ratio natif 862 / 323 */
+  vertical-align: -0.04em;
+  margin: 0 0.06em;
+  fill: currentColor;
+  overflow: visible;
+}
+/* Variante accentuée (remplace un <em> gold dans un titre) */
+.shyft-word--accent {
+  color: var(--gold);
+  --wm-h: 0.82em;
+  transform: translateY(5px);   /* recalé sur la ligne de base du titre */
+}
+
+/* En-tête du tableau comparatif : la cellule est en mono 0.6875rem,
+   le wordmark y serait minuscule. On le fixe en rem pour qu'il pèse
+   autant que les intitulés des colonnes voisines. */
+.agence-compare-row--head .shyft-word {
+  --wm-h: 1.6rem;
+  vertical-align: -0.5rem;
+}
+
 .agence-manifesto {
   padding: var(--section-py) var(--gutter);
   background: var(--oxblood);
@@ -201,6 +231,168 @@
   font-style: italic;
   color: var(--burnt);
 }
+
+/* === Tableau comparatif : agence / freelance / Shyft === */
+.agence-compare {
+  padding: var(--section-py) var(--gutter);
+  background: var(--oxblood-deep);
+}
+.agence-compare-inner { max-width: var(--max); margin: 0 auto; }
+.agence-compare-header { margin-bottom: 3.5rem; max-width: 760px; }
+.agence-compare-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+  margin-bottom: 1.25rem;
+}
+.agence-compare-header h2 em {
+  font-family: var(--font-emphasis);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--gold);
+}
+.agence-compare-lede {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.75;
+  max-width: 58ch;
+}
+
+.agence-compare-table {
+  border-top: 1px solid rgba(242, 235, 220, 0.14);
+}
+.agence-compare-row {
+  display: grid;
+  grid-template-columns: 0.7fr 1fr 1fr 1.15fr;
+  gap: 1.5rem;
+  padding: 1.5rem 0;
+  border-bottom: 1px solid rgba(242, 235, 220, 0.09);
+  align-items: start;
+}
+.agence-compare-row--head {
+  padding: 1rem 0;
+  border-bottom-color: rgba(242, 235, 220, 0.18);
+}
+.agence-compare-row--head .agence-compare-cell {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--cream);
+  opacity: 0.55;
+}
+.agence-compare-row--head .agence-compare-cell--us {
+  color: var(--gold);
+  opacity: 1;
+  font-weight: 600;
+}
+.agence-compare-crit {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  opacity: 0.85;
+  padding-top: 0.15rem;
+}
+.agence-compare-cell {
+  font-size: 0.9375rem;
+  line-height: 1.55;
+  color: var(--cream);
+  opacity: 0.68;
+}
+.agence-compare-cell--us {
+  opacity: 1;
+  font-weight: 500;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--gold);
+}
+@media (max-width: 900px) {
+  .agence-compare-row,
+  .agence-compare-row--head { grid-template-columns: 1fr; gap: 0.65rem; }
+  .agence-compare-row--head { display: none; }
+  .agence-compare-cell::before {
+    content: attr(data-label);
+    display: block;
+    font-family: var(--font-mono);
+    font-size: 0.625rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    opacity: 0.5;
+    margin-bottom: 0.25rem;
+  }
+  .agence-compare-cell--us { padding-left: 1rem; }
+}
+
+/* === Notre lecture du marché === */
+.agence-lecture {
+  padding: var(--section-py) var(--gutter);
+  background: var(--cream);
+  color: var(--oxblood);
+}
+.agence-lecture-inner { max-width: var(--max); margin: 0 auto; }
+.agence-lecture-header { margin-bottom: 4rem; max-width: 720px; }
+.agence-lecture-header h2 {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--oxblood);
+  margin-bottom: 1.25rem;
+}
+.agence-lecture-header h2 em {
+  font-family: var(--font-emphasis);
+  font-style: normal;
+  font-weight: 400;
+  color: var(--burnt);
+}
+.agence-lecture-lede {
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--oxblood);
+  opacity: 0.75;
+  max-width: 58ch;
+}
+.agence-lecture-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+@media (max-width: 900px) { .agence-lecture-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
+.agence-lecture-item {
+  padding-top: 1.5rem;
+  border-top: 2px solid rgba(58, 15, 18, 0.18);
+}
+.agence-lecture-num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  color: var(--burnt);
+  opacity: 0.7;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+.agence-lecture-item h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.125rem, 1.6vw, 1.375rem);
+  font-weight: 700;
+  color: var(--oxblood);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+.agence-lecture-item p {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--oxblood);
+  opacity: 0.78;
+}
 </style>
 </head>
 <body>
@@ -211,6 +403,9 @@
     <symbol id="shyftWordmark" viewBox="0 0 1132 323">
       <path d="M922.447 0.768768C913.647 1.96878 898.713 7.83545 890.313 13.1688C884.98 16.5021 875.513 25.5688 870.313 32.3688C865.513 38.6354 860.98 48.9021 857.78 60.7688C856.18 67.0354 854.58 72.9021 854.313 73.7021C854.047 75.0354 848.98 75.4355 835.513 75.4355C809.247 75.4355 797.913 78.9021 788.847 89.1688C784.847 93.9688 779.113 105.569 775.647 116.102C774.713 119.035 771.78 126.502 769.113 132.769C766.447 139.035 763.513 146.502 762.447 149.435C761.513 152.369 759.113 158.902 757.113 164.102C755.113 169.169 752.313 176.769 750.847 180.769C747.247 190.769 746.447 191.169 744.047 184.502C741.647 177.835 737.113 166.369 733.647 158.769C732.447 155.835 730.713 151.569 730.047 149.435C727.913 143.435 720.713 125.702 719.113 123.169C718.447 121.835 717.78 119.969 717.78 119.035C717.78 118.102 716.58 115.035 715.113 112.102C713.647 109.302 711.78 104.902 710.98 102.235C708.847 95.4355 703.247 86.1021 699.247 82.6355C697.38 80.9021 692.847 78.9021 689.38 78.2355C681.78 76.5021 656.847 76.3688 648.713 77.9688C638.047 80.1021 631.647 89.7021 635.113 98.6355C637.247 104.235 636.18 103.969 631.113 97.4355C625.113 89.8354 611.513 81.0354 599.78 76.9021C586.447 72.3688 564.047 72.1021 550.18 76.6355C544.847 78.2355 538.98 80.7688 537.247 82.2355C535.513 83.5688 533.513 84.7688 532.713 84.7688C532.047 84.7688 530.447 85.9688 529.113 87.4355C527.78 88.9021 526.18 90.1021 525.513 90.1021C524.98 90.1021 524.447 76.7688 524.447 60.3688C524.447 28.2354 523.647 22.2354 518.847 17.1688C512.18 10.1021 507.513 8.76877 487.513 8.76877C466.18 8.76877 460.847 10.3688 454.447 18.9021L450.447 24.1021L449.78 107.302L449.113 190.502L445.247 183.302C440.18 174.102 431.247 165.569 421.513 160.769C412.447 156.235 392.313 150.635 381.113 149.435C348.713 146.102 339.647 142.102 345.113 133.569C347.913 129.435 352.98 128.369 366.847 128.902C376.313 129.435 378.58 130.102 389.513 135.835C399.647 141.035 402.98 142.102 408.713 142.102C424.447 142.102 444.58 123.302 442.713 110.235C440.713 95.0354 424.447 83.3021 395.78 76.5021C378.447 72.3688 347.513 72.3688 330.047 76.5021C323.113 78.1021 315.113 80.6355 312.047 82.1021C309.113 83.5688 306.047 84.7688 305.38 84.7688C303.913 84.7688 298.047 89.1688 289.647 96.6355C281.913 103.569 276.447 112.769 272.58 125.302C266.047 146.635 272.18 169.169 288.047 182.635C300.18 192.902 314.58 197.969 346.58 203.435C373.113 207.969 378.447 210.102 377.513 215.969C376.18 224.502 359.247 227.169 341.247 221.569C335.113 219.702 329.38 217.302 328.58 216.235C325.78 212.902 310.313 208.369 305.513 209.435C300.18 210.635 290.447 214.769 287.647 217.035C270.713 230.769 268.847 243.702 281.647 257.035C295.513 271.569 322.713 279.435 359.113 279.435C380.047 279.435 394.447 277.435 407.113 272.769C426.313 265.702 438.18 255.702 446.047 240.102L449.513 233.569L449.913 248.235C450.58 264.635 452.047 267.969 461.513 273.702C466.047 276.502 468.047 276.769 486.98 276.769C505.647 276.769 507.913 276.502 512.713 273.835C515.513 272.235 519.247 268.769 520.847 266.102C523.647 261.569 523.78 259.835 524.447 216.102C525.113 175.835 525.38 169.969 527.78 162.902C533.247 146.369 547.113 137.302 561.647 140.769C569.78 142.635 574.313 147.302 577.78 157.169C580.18 163.969 580.447 168.235 580.447 198.369C580.447 216.902 581.113 236.235 581.78 241.435C583.247 252.502 588.047 267.969 593.113 277.835C596.18 283.969 610.847 300.235 618.18 305.835C623.38 309.835 636.58 315.835 647.113 319.169C658.047 322.635 659.647 322.769 689.113 322.769C718.98 322.769 720.047 322.635 730.847 319.169C746.047 314.102 754.447 309.569 764.18 301.302C773.78 293.169 776.847 289.569 783.38 279.435C788.047 272.102 795.113 257.435 795.113 255.302C795.113 254.635 796.313 251.569 797.647 248.369C799.113 245.302 802.447 237.035 805.113 230.102C810.98 214.902 814.98 204.769 820.58 191.435C822.847 185.969 828.047 173.302 832.047 163.435C836.047 153.569 840.047 143.835 840.847 141.702C842.18 138.635 843.113 138.102 847.38 138.102C850.18 138.102 852.447 138.502 852.447 139.035C852.447 139.702 852.58 167.435 852.847 200.769C853.113 269.169 852.713 266.235 863.513 273.302C868.847 276.635 869.647 276.769 889.38 276.769C911.647 276.769 914.047 276.102 920.847 269.169C923.513 266.369 924.847 263.035 925.78 257.302C926.58 253.035 927.113 224.369 927.113 193.702V138.102H961.113H995.113V173.702C995.113 213.835 996.047 222.369 1000.98 233.302C1002.85 237.435 1004.45 241.169 1004.45 241.569C1004.45 244.235 1023.91 264.769 1026.45 264.769C1026.98 264.769 1028.85 265.969 1030.58 267.302C1032.45 268.769 1039.11 271.569 1045.51 273.702C1056.45 277.169 1058.45 277.435 1081.11 277.435C1104.45 277.435 1105.38 277.302 1112.45 273.835C1127.51 266.502 1130.45 261.435 1130.45 242.769C1130.45 227.435 1128.31 220.902 1121.38 215.435C1117.38 212.235 1116.71 212.102 1098.98 212.369L1080.58 212.769L1076.58 208.769C1074.31 206.502 1071.91 202.369 1071.11 199.702C1070.45 197.035 1069.78 181.969 1069.78 166.369V138.102H1088.58C1109.78 138.102 1116.58 136.769 1122.58 131.169C1133.91 120.502 1133.91 89.9688 1122.45 81.4355C1116.71 77.1688 1106.85 75.4355 1086.98 75.4355H1069.65L1069.91 49.7021C1069.91 35.4355 1069.38 22.6354 1068.71 20.6354C1066.98 16.3688 1060.18 10.5021 1055.38 9.03546C1053.38 8.50211 1043.38 8.10211 1033.11 8.10211C1011.78 8.10211 1006.71 9.70212 999.647 19.0355L995.78 24.1021L995.38 49.7021L994.847 75.4355H962.18H929.513L930.313 71.7021C932.313 63.7021 941.647 59.4355 957.38 59.4355C968.713 59.4355 972.98 58.1021 978.713 52.5021C984.047 47.4355 986.313 38.3688 985.513 26.1021C984.713 14.6354 981.38 9.03546 972.447 4.23544C966.18 0.768768 964.313 0.502106 948.047 0.102112C938.313 -0.164551 926.847 0.102112 922.447 0.768768ZM661.913 170.102C664.18 175.569 667.247 182.502 668.58 185.302C670.047 188.235 671.113 191.035 671.113 191.569C671.113 192.235 672.98 196.769 675.247 201.702C683.38 219.702 684.447 222.235 684.447 223.569C684.447 224.235 685.647 227.435 687.247 230.502C692.98 242.369 700.58 262.369 699.647 263.302C699.247 263.702 694.847 264.102 689.913 264.102C674.047 264.102 662.713 256.902 657.247 243.569C654.58 236.769 654.18 230.502 653.38 180.102C652.847 145.569 651.913 146.502 661.913 170.102Z"/>
       <rect y="220" width="194" height="60" rx="30"/><rect x="24" y="146" width="194" height="60" rx="30"/><rect x="48" y="72.9998" width="194" height="60" rx="30"/>
+    </symbol>
+    <symbol id="shyftWord" viewBox="0 0 862 323">
+      <path d="M652.447 0.768829C643.647 1.96884 628.713 7.83551 620.313 13.1689C614.98 16.5022 605.513 25.5688 600.313 32.3688C595.513 38.6355 590.98 48.9022 587.78 60.7689C586.18 67.0355 584.58 72.9022 584.313 73.7022C584.047 75.0355 578.98 75.4355 565.513 75.4355C539.247 75.4355 527.913 78.9022 518.847 89.1689C514.847 93.9688 509.113 105.569 505.647 116.102C504.713 119.036 501.78 126.502 499.113 132.769C496.447 139.036 493.513 146.502 492.447 149.436C491.513 152.369 489.113 158.902 487.113 164.102C485.113 169.169 482.313 176.769 480.847 180.769C477.247 190.769 476.447 191.169 474.047 184.502C471.647 177.836 467.113 166.369 463.647 158.769C462.447 155.836 460.713 151.569 460.047 149.436C457.913 143.436 450.713 125.702 449.113 123.169C448.447 121.836 447.78 119.969 447.78 119.036C447.78 118.102 446.58 115.036 445.113 112.102C443.647 109.302 441.78 104.902 440.98 102.236C438.847 95.4355 433.247 86.1022 429.247 82.6355C427.38 80.9022 422.847 78.9022 419.38 78.2355C411.78 76.5022 386.847 76.3689 378.713 77.9688C368.047 80.1022 361.647 89.7022 365.113 98.6355C367.247 104.236 366.18 103.969 361.113 97.4355C355.113 89.8355 341.513 81.0355 329.78 76.9022C316.447 72.3689 294.047 72.1022 280.18 76.6355C274.847 78.2355 268.98 80.7688 267.247 82.2355C265.513 83.5688 263.513 84.7688 262.713 84.7688C262.047 84.7688 260.447 85.9688 259.113 87.4355C257.78 88.9022 256.18 90.1022 255.513 90.1022C254.98 90.1022 254.447 76.7688 254.447 60.3688C254.447 28.2355 253.647 22.2355 248.847 17.1689C242.18 10.1022 237.513 8.76883 217.513 8.76883C196.18 8.76883 190.847 10.3688 184.447 18.9022L180.447 24.1022L179.78 107.302L179.113 190.502L175.247 183.302C170.18 174.102 161.247 165.569 151.513 160.769C142.447 156.236 122.313 150.636 111.113 149.436C78.7134 146.102 69.6468 142.102 75.1134 133.569C77.9134 129.436 82.9801 128.369 96.8467 128.902C106.313 129.436 108.58 130.102 119.513 135.836C129.647 141.036 132.98 142.102 138.713 142.102C154.447 142.102 174.58 123.302 172.713 110.236C170.713 95.0355 154.447 83.3022 125.78 76.5022C108.447 72.3689 77.5134 72.3689 60.0468 76.5022C53.1134 78.1022 45.1134 80.6355 42.0468 82.1022C39.1134 83.5688 36.0467 84.7688 35.3801 84.7688C33.9134 84.7688 28.0467 89.1689 19.6467 96.6355C11.9134 103.569 6.44675 112.769 2.58008 125.302C-3.95325 146.636 2.18008 169.169 18.0467 182.636C30.1801 192.902 44.5801 197.969 76.5801 203.436C103.113 207.969 108.447 210.102 107.513 215.969C106.18 224.502 89.2467 227.169 71.2467 221.569C65.1134 219.702 59.3801 217.302 58.5801 216.236C55.7801 212.902 40.3134 208.369 35.5134 209.436C30.1801 210.636 20.4467 214.769 17.6467 217.036C0.713414 230.769 -1.15325 243.702 11.6467 257.036C25.5134 271.569 52.7134 279.436 89.1134 279.436C110.047 279.436 124.447 277.436 137.113 272.769C156.313 265.702 168.18 255.702 176.047 240.102L179.513 233.569L179.913 248.236C180.58 264.636 182.047 267.969 191.513 273.702C196.047 276.502 198.047 276.769 216.98 276.769C235.647 276.769 237.913 276.502 242.713 273.836C245.513 272.236 249.247 268.769 250.847 266.102C253.647 261.569 253.78 259.836 254.447 216.102C255.113 175.836 255.38 169.969 257.78 162.902C263.247 146.369 277.113 137.302 291.647 140.769C299.78 142.636 304.313 147.302 307.78 157.169C310.18 163.969 310.447 168.236 310.447 198.369C310.447 216.902 311.113 236.236 311.78 241.436C313.247 252.502 318.047 267.969 323.113 277.836C326.18 283.969 340.847 300.236 348.18 305.836C353.38 309.836 366.58 315.836 377.113 319.169C388.047 322.636 389.647 322.769 419.113 322.769C448.98 322.769 450.047 322.636 460.847 319.169C476.047 314.102 484.447 309.569 494.18 301.302C503.78 293.169 506.847 289.569 513.38 279.436C518.047 272.102 525.113 257.436 525.113 255.302C525.113 254.636 526.313 251.569 527.647 248.369C529.113 245.302 532.447 237.036 535.113 230.102C540.98 214.902 544.98 204.769 550.58 191.436C552.847 185.969 558.047 173.302 562.047 163.436C566.047 153.569 570.047 143.836 570.847 141.702C572.18 138.636 573.113 138.102 577.38 138.102C580.18 138.102 582.447 138.502 582.447 139.036C582.447 139.702 582.58 167.436 582.847 200.769C583.113 269.169 582.713 266.236 593.513 273.302C598.847 276.636 599.647 276.769 619.38 276.769C641.647 276.769 644.047 276.102 650.847 269.169C653.513 266.369 654.847 263.036 655.78 257.302C656.58 253.036 657.113 224.369 657.113 193.702V138.102H691.113H725.113V173.702C725.113 213.836 726.047 222.369 730.98 233.302C732.847 237.436 734.447 241.169 734.447 241.569C734.447 244.236 753.913 264.769 756.447 264.769C756.98 264.769 758.847 265.969 760.58 267.302C762.447 268.769 769.113 271.569 775.513 273.702C786.447 277.169 788.447 277.436 811.113 277.436C834.447 277.436 835.38 277.302 842.447 273.836C857.513 266.502 860.447 261.436 860.447 242.769C860.447 227.436 858.313 220.902 851.38 215.436C847.38 212.236 846.713 212.102 828.98 212.369L810.58 212.769L806.58 208.769C804.313 206.502 801.913 202.369 801.113 199.702C800.447 197.036 799.78 181.969 799.78 166.369V138.102H818.58C839.78 138.102 846.58 136.769 852.58 131.169C863.913 120.502 863.913 89.9688 852.447 81.4355C846.713 77.1689 836.847 75.4355 816.98 75.4355H799.647L799.913 49.7022C799.913 35.4355 799.38 22.6355 798.713 20.6355C796.98 16.3688 790.18 10.5022 785.38 9.03552C783.38 8.50217 773.38 8.10217 763.113 8.10217C741.78 8.10217 736.713 9.70218 729.647 19.0355L725.78 24.1022L725.38 49.7022L724.847 75.4355H692.18H659.513L660.313 71.7022C662.313 63.7022 671.647 59.4355 687.38 59.4355C698.713 59.4355 702.98 58.1022 708.713 52.5022C714.047 47.4355 716.313 38.3688 715.513 26.1022C714.713 14.6355 711.38 9.03552 702.447 4.2355C696.18 0.768829 694.313 0.502167 678.047 0.102173C668.313 -0.16449 656.847 0.102173 652.447 0.768829ZM391.913 170.102C394.18 175.569 397.247 182.502 398.58 185.302C400.047 188.236 401.113 191.036 401.113 191.569C401.113 192.236 402.98 196.769 405.247 201.702C413.38 219.702 414.447 222.236 414.447 223.569C414.447 224.236 415.647 227.436 417.247 230.502C422.98 242.369 430.58 262.369 429.647 263.302C429.247 263.702 424.847 264.102 419.913 264.102C404.047 264.102 392.713 256.902 387.247 243.569C384.58 236.769 384.18 230.502 383.38 180.102C382.847 145.569 381.913 146.502 391.913 170.102Z" fill="currentColor"/>
     </symbol>
   </defs>
 </svg>
@@ -227,8 +422,32 @@
       </a>
       <div class="nav-links">
         <a href="index.html">Accueil</a>
-        <a href="services.html">Services</a>
-        <a href="secteurs.html">Secteurs</a>
+
+        <div class="nav-group">
+          <a href="services.html" class="nav-group-trigger">Services</a>
+          <div class="nav-mega" role="menu">
+          <a href="piliers/strategie.html" class="nav-mega-item"><span class="nav-mega-name">Stratégie</span><span class="nav-mega-desc">Positionnement &amp; roadmap</span></a>
+          <a href="piliers/identite.html" class="nav-mega-item"><span class="nav-mega-name">Identité</span><span class="nav-mega-desc">Logo, charte, design system</span></a>
+          <a href="piliers/site-web.html" class="nav-mega-item"><span class="nav-mega-name">Site web</span><span class="nav-mega-desc">Sur-mesure, pensé pour convertir</span></a>
+          <a href="piliers/acquisition.html" class="nav-mega-item"><span class="nav-mega-name">Acquisition</span><span class="nav-mega-desc">SEO, GEO, ads, cold email</span></a>
+          <a href="piliers/pilotage.html" class="nav-mega-item"><span class="nav-mega-name">Pilotage</span><span class="nav-mega-desc">Direction marketing externalisée</span></a>
+          <a href="services.html" class="nav-mega-all">Voir tous les services →</a>
+          </div>
+        </div>
+
+        <div class="nav-group">
+          <a href="secteurs.html" class="nav-group-trigger">Secteurs</a>
+          <div class="nav-mega nav-mega--wide" role="menu">
+          <a href="secteurs/retail.html" class="nav-mega-item"><span class="nav-mega-name">Retail &amp; distribution</span><span class="nav-mega-desc">Auchan · Decathlon · Castorama</span></a>
+          <a href="secteurs/sante-pharma.html" class="nav-mega-item"><span class="nav-mega-name">Santé · Pharma</span><span class="nav-mega-desc">Bioderma · UPSA · Ménarini</span></a>
+          <a href="secteurs/finance.html" class="nav-mega-item"><span class="nav-mega-name">Finance &amp; paiement</span><span class="nav-mega-desc">Cofidis · Crédit Agricole</span></a>
+          <a href="secteurs/it-saas.html" class="nav-mega-item"><span class="nav-mega-name">IT, logiciels &amp; SaaS</span><span class="nav-mega-desc">Docoon · iXbat</span></a>
+          <a href="secteurs/energies.html" class="nav-mega-item"><span class="nav-mega-name">Énergies renouvelables</span><span class="nav-mega-desc">Marché en consolidation</span></a>
+          <a href="secteurs/conseil-b2b.html" class="nav-mega-item"><span class="nav-mega-name">Conseil B2B</span><span class="nav-mega-desc">Finaxim</span></a>
+          <a href="secteurs.html" class="nav-mega-all">Voir tous les secteurs →</a>
+          </div>
+        </div>
+
         <a href="agence.html">Agence</a>
         <a href="contact.html">Contact</a>
       </div>
@@ -281,8 +500,8 @@
             <span class="subpage-edito-info-val">Aucune</span>
           </div>
           <div class="subpage-edito-info-row reveal">
-            <span class="subpage-edito-info-key">Origine</span>
-            <span class="subpage-edito-info-val"><span style="color:#0055A4;font-weight:600;">Made</span> <span style="color:#fff;">in</span> <span style="color:#EF4135;font-weight:600;">France</span></span>
+            <span class="subpage-edito-info-key">Basée à</span>
+            <span class="subpage-edito-info-val">Paris</span>
           </div>
         </div>
       </div>
@@ -300,7 +519,7 @@
       qu'il doit déclencher qui compte.
     </p>
     <p>
-      Shyft prend en charge <strong>toute la chaîne</strong>&nbsp;: positionnement,
+      <svg class="shyft-word" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg> prend en charge <strong>toute la chaîne</strong>&nbsp;: positionnement,
       identité, site, acquisition, pilotage. Quatre profils complémentaires (stratégie,
       marketing, design, développement) réunis sous une même marque, <em>sans sous-traitance</em>,
       sans agence opaque.
@@ -329,7 +548,7 @@
         <h3 class="agence-member-name">Laurent</h3>
         <p class="agence-member-bio">
           Plus de 25 ans de direction marketing dans des environnements complexes (pharma,
-          retail, finance, énergie). Pilote la stratégie et le positionnement chez Shyft.
+          retail, finance, énergie). Pilote la stratégie et le positionnement chez <svg class="shyft-word" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg>.
           La rigueur d'une grande agence, sans le coût ni les délais.
         </p>
       </article>
@@ -422,6 +641,122 @@
   </div>
 </section>
 
+<!-- CE QUI NOUS DISTINGUE · tableau comparatif -->
+<section class="agence-compare">
+  <div class="agence-compare-inner">
+    <div class="agence-compare-header reveal">
+      <h2 data-split>Agence, freelance, ou <svg class="shyft-word shyft-word--accent" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg>&nbsp;?</h2>
+      <p class="agence-compare-lede">
+        Trois façons de faire refaire son site web quand on dirige une PME.
+        Voici honnêtement ce qui les sépare, et pourquoi nous avons construit
+        <svg class="shyft-word" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg> comme une troisième voie.
+      </p>
+    </div>
+
+    <div class="agence-compare-table reveal">
+      <div class="agence-compare-row agence-compare-row--head">
+        <span class="agence-compare-crit"></span>
+        <span class="agence-compare-cell">Agence classique</span>
+        <span class="agence-compare-cell">Freelance</span>
+        <span class="agence-compare-cell agence-compare-cell--us"><svg class="shyft-word" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg></span>
+      </div>
+
+      <div class="agence-compare-row">
+        <span class="agence-compare-crit">Interlocuteur</span>
+        <span class="agence-compare-cell" data-label="Agence classique">Un commercial, puis un chef de projet, puis des exécutants que vous ne verrez jamais.</span>
+        <span class="agence-compare-cell" data-label="Freelance">La bonne personne, mais une seule. Et elle ne sait pas tout faire.</span>
+        <span class="agence-compare-cell agence-compare-cell--us" data-label="Shyft">Quatre profils complémentaires. Vous parlez directement à celui qui produit.</span>
+      </div>
+
+      <div class="agence-compare-row">
+        <span class="agence-compare-crit">Périmètre</span>
+        <span class="agence-compare-cell" data-label="Agence classique">Large, mais souvent sous-traité en cascade sans que vous le sachiez.</span>
+        <span class="agence-compare-cell" data-label="Freelance">Une spécialité. Pour le reste, vous devez recruter ailleurs et coordonner.</span>
+        <span class="agence-compare-cell agence-compare-cell--us" data-label="Shyft">Stratégie, identité, site, acquisition, pilotage. Zéro sous-traitance.</span>
+      </div>
+
+      <div class="agence-compare-row">
+        <span class="agence-compare-crit">Prix</span>
+        <span class="agence-compare-cell" data-label="Agence classique">Sur devis, opaque, révisé en cours de route. Les avenants font le chiffre.</span>
+        <span class="agence-compare-cell" data-label="Freelance">Au jour ou au forfait. Variable selon la charge et la disponibilité.</span>
+        <span class="agence-compare-cell agence-compare-cell--us" data-label="Shyft">Affiché publiquement, plafonné dès le devis. Aucun avenant surprise.</span>
+      </div>
+
+      <div class="agence-compare-row">
+        <span class="agence-compare-crit">Délai</span>
+        <span class="agence-compare-cell" data-label="Agence classique">Trois à six mois, souvent davantage. Vous partagez la file avec de plus gros comptes.</span>
+        <span class="agence-compare-cell" data-label="Freelance">Rapide si disponible. Bloqué net en cas d'imprévu ou de congés.</span>
+        <span class="agence-compare-cell agence-compare-cell--us" data-label="Shyft">30 jours pour un site complet. Le planning est contractuel.</span>
+      </div>
+
+      <div class="agence-compare-row">
+        <span class="agence-compare-crit">Après la mise en ligne</span>
+        <span class="agence-compare-cell" data-label="Agence classique">Contrat de maintenance annuel, facturé même sans intervention.</span>
+        <span class="agence-compare-cell" data-label="Freelance">Dépend de sa disponibilité future. Aucune garantie de continuité.</span>
+        <span class="agence-compare-cell agence-compare-cell--us" data-label="Shyft">30 jours de suivi inclus, puis un accompagnement mensuel sans engagement long.</span>
+      </div>
+
+      <div class="agence-compare-row">
+        <span class="agence-compare-crit">Propriété du code</span>
+        <span class="agence-compare-cell" data-label="Agence classique">Parfois verrouillée sur un CMS propriétaire ou un hébergeur imposé.</span>
+        <span class="agence-compare-cell" data-label="Freelance">Variable, à négocier au cas par cas dans le contrat.</span>
+        <span class="agence-compare-cell agence-compare-cell--us" data-label="Shyft">Le code vous appartient dès la livraison. Vous partez quand vous voulez.</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- NOTRE LECTURE DU MARCHÉ -->
+<section class="agence-lecture" data-peel>
+  <div class="agence-lecture-inner">
+    <div class="agence-lecture-header reveal">
+      <h2 data-split>Notre lecture du <em>marché</em>.</h2>
+      <p class="agence-lecture-lede">
+        Trois constats qui expliquent pourquoi nous avons monté cette agence,
+        et pourquoi nous la faisons fonctionner de cette manière.
+      </p>
+    </div>
+
+    <div class="agence-lecture-grid" data-stagger>
+      <article class="agence-lecture-item reveal">
+        <span class="agence-lecture-num">01</span>
+        <h3>Le site web est devenu un commercial à temps plein</h3>
+        <p>
+          Un dirigeant de PME ne cherche pas un site. Il cherche des rendez-vous
+          qualifiés dans l'agenda de ses commerciaux. Tant que le site reste une
+          brochure en ligne, il coûte de l'argent sans en rapporter. C'est pour
+          cela que nous concevons chaque page à partir de l'action qu'elle doit
+          déclencher, jamais à partir de l'esthétique seule.
+        </p>
+      </article>
+
+      <article class="agence-lecture-item reveal">
+        <span class="agence-lecture-num">02</span>
+        <h3>Les PME paient le prix de la dispersion</h3>
+        <p>
+          Un prestataire pour la charte, un autre pour le site, un troisième pour
+          les campagnes, un stagiaire pour les réseaux. Personne ne tient le fil,
+          et les messages se contredisent d'un support à l'autre. Réunir la chaîne
+          sous une seule marque ne relève pas du confort&nbsp;: c'est la condition
+          pour que chaque euro investi renforce le précédent.
+        </p>
+      </article>
+
+      <article class="agence-lecture-item reveal">
+        <span class="agence-lecture-num">03</span>
+        <h3>L'opacité tarifaire n'est plus tenable</h3>
+        <p>
+          Les dirigeants comparent désormais des offres au forfait dans tous les
+          domaines de leur entreprise. Le marketing reste l'un des derniers secteurs
+          où le prix ne se découvre qu'après trois rendez-vous. Nous affichons nos
+          tarifs publiquement parce qu'un dirigeant qui sait ce qu'il paie décide
+          plus vite, et travaille plus sereinement.
+        </p>
+      </article>
+    </div>
+  </div>
+</section>
+
 <!-- CTA FINAL -->
 <section class="pilier-cta-final" data-peel>
   <div class="pilier-cta-final-inner reveal">
@@ -441,13 +776,13 @@
       </svg>
     </div>
     <div class="footer-cols">
-      <div class="footer-col"><h4>Agence</h4><ul><li><a href="agence.html">Notre histoire</a></li><li><a href="agence.html#equipe">Équipe</a></li><li><a href="index.html#univers">Notre carnet</a></li></ul></div>
+      <div class="footer-col"><h4>Agence</h4><ul><li><a href="agence.html">Notre histoire</a></li><li><a href="agence.html#equipe">Équipe</a></li><li><a href="index.html#univers">Notre savoir-faire</a></li></ul></div>
       <div class="footer-col"><h4>Services</h4><ul><li><a href="piliers/strategie.html">Stratégie</a></li><li><a href="piliers/identite.html">Identité</a></li><li><a href="piliers/site-web.html">Site web</a></li><li><a href="piliers/acquisition.html">Acquisition</a></li><li><a href="piliers/pilotage.html">Pilotage</a></li></ul></div>
       <div class="footer-col"><h4>Secteurs</h4><ul><li><a href="secteurs/retail.html">Retail</a></li><li><a href="secteurs/sante-pharma.html">Santé · Pharma</a></li><li><a href="secteurs/finance.html">Finance</a></li><li><a href="secteurs/it-saas.html">IT · SaaS</a></li><li><a href="secteurs/energies.html">Énergies</a></li><li><a href="secteurs/conseil-b2b.html">Conseil B2B</a></li></ul></div>
       <div class="footer-col"><h4>Contact</h4><ul><li><a href="contact.html">Page contact</a></li><li><a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#64;&#115;&#104;&#121;&#102;&#116;&#46;&#102;&#114;">&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#64;&#115;&#104;&#121;&#102;&#116;&#46;&#102;&#114;</a></li><li><a href="#">LinkedIn</a></li></ul></div>
     </div>
     <div class="footer-meta">
-      <span>© Shyft · 2026</span><span>Agence indépendante · <span style="color:#0055A4;font-weight:600;">Made</span> <span style="color:#fff;">in</span> <span style="color:#EF4135;font-weight:600;">France</span></span>
+      <span>© Shyft · 2026</span><span>Indépendante · Paris</span>
       <span><a href="mentions-legales.html">Mentions légales</a> · <a href="cgv.html">CGV</a></span>
     </div>
   </div>

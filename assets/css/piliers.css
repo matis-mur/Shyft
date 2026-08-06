@@ -216,7 +216,7 @@ body.pilier-page {
    2. SECTIONS COMMUNES PILIERS
    ============================================ */
 .pilier-section {
-  padding: var(--section-py) var(--gutter);
+  padding: clamp(3rem, 5vw, 4.5rem) var(--gutter) var(--section-py);
   position: relative;
   overflow: hidden;
 }
@@ -259,6 +259,17 @@ body.pilier-page {
   color: var(--gold);
 }
 .pilier-section--cream .pilier-section-header h2 em { color: var(--burnt); }
+
+/* Chapeau sous le h2 des sections pilier */
+.pilier-section-header .lede {
+  margin-top: 1.25rem;
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.75;
+  max-width: 56ch;
+}
+.pilier-section--cream .pilier-section-header .lede { color: var(--oxblood); }
 
 /* ============================================
    3. LIVRABLES (5 cards translucides sur dark)
@@ -759,3 +770,20 @@ body.pilier-page {
    ============================================ */
 .pilier-section .faq-list { max-width: 920px; margin: 0 auto; }
 .pilier-section .faq-trigger .num { color: var(--gold); }
+
+/* FAQ sur crème : inversion claire des couleurs */
+.pilier-section--cream .faq-item { border-bottom-color: rgba(58, 15, 18, 0.12); }
+.pilier-section--cream .faq-trigger { color: var(--oxblood); }
+.pilier-section--cream .faq-trigger:hover { color: var(--burnt); }
+.pilier-section--cream .faq-trigger .num { color: var(--burnt); opacity: 1; }
+.pilier-section--cream .faq-trigger .icon { border-color: rgba(58, 15, 18, 0.25); }
+.pilier-section--cream .faq-trigger .icon::before,
+.pilier-section--cream .faq-trigger .icon::after { background: var(--oxblood); }
+.pilier-section--cream .faq-item.open .faq-trigger .icon {
+  background: var(--burnt);
+  border-color: var(--burnt);
+}
+.pilier-section--cream .faq-item.open .faq-trigger .icon::before,
+.pilier-section--cream .faq-item.open .faq-trigger .icon::after { background: var(--cream); }
+.pilier-section--cream .faq-answer-inner { color: var(--oxblood); opacity: 0.82; }
+.pilier-section--cream .faq-answer-inner em { color: var(--burnt); }

@@ -140,46 +140,43 @@
 
   const ring = document.getElementById('cursorRing');
   const dot = document.getElementById('cursorDot');
-  const text = document.getElementById('cursorText');
 
-  let mouseX = 0, mouseY = 0;
-  let ringX = 0, ringY = 0;
+  // Le libellé contextuel ("Démarrer", "Auditer"…) est retiré : cible dirigeants,
+  // on privilégie un curseur lisible et prévisible plutôt qu'un effet de style.
+  const text = document.getElementById('cursorText');
+  if (text) text.remove();
+
+  // Position appliquée directement, sans interpolation : zéro traînée.
+  // On passe par transform (composited) plutôt que left/top pour éviter
+  // tout reflow et rester à 60fps même sur machine modeste.
+  let x = 0, y = 0, queued = false;
+
+  const paint = () => {
+    const t = `translate3d(${x}px, ${y}px, 0) translate(-50%, -50%)`;
+    dot.style.transform = t;
+    ring.style.transform = t;
+    queued = false;
+  };
 
   document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
-    dot.style.left = mouseX + 'px';
-    dot.style.top = mouseY + 'px';
-  });
+    x = e.clientX;
+    y = e.clientY;
+    // Une seule peinture par frame max, mais toujours sur la position la plus récente
+    if (!queued) { queued = true; requestAnimationFrame(paint); }
+  }, { passive: true });
 
-  function animate() {
-    ringX += (mouseX - ringX) * 0.18;
-    ringY += (mouseY - ringY) * 0.18;
-    ring.style.left = ringX + 'px';
-    ring.style.top = ringY + 'px';
-    requestAnimationFrame(animate);
-  }
-  animate();
+  // Survol : un seul état, léger. Délégation d'événements plutôt que N listeners.
+  const HOVER_SEL = 'a, button, [role="button"], input, textarea, select, label, .showcase-card, .faq-item, .pillar, .sector';
 
-  const linkSelectors = 'a, button, .method-step, .showcase-card, .role-cell, .faq-item';
-  document.querySelectorAll(linkSelectors).forEach(el => {
-    el.addEventListener('mouseenter', () => {
-      if (el.matches('[data-cta]') || el.closest('[data-cta]')) {
-        document.body.classList.add('cursor-cta');
-        const t = (el.textContent || '').toLowerCase();
-        if (t.includes('audit')) text.textContent = 'Auditer';
-        else if (t.includes('email')) text.textContent = 'Écrire';
-        else if (t.includes('appel')) text.textContent = 'Appeler';
-        else text.textContent = 'Démarrer';
-      } else {
-        document.body.classList.add('cursor-link');
-      }
-    });
-    el.addEventListener('mouseleave', () => {
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest(HOVER_SEL)) document.body.classList.add('cursor-link');
+  }, { passive: true });
+
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest(HOVER_SEL) && !e.relatedTarget?.closest(HOVER_SEL)) {
       document.body.classList.remove('cursor-link');
-      document.body.classList.remove('cursor-cta');
-    });
-  });
+    }
+  }, { passive: true });
 
   document.addEventListener('mouseleave', () => {
     ring.style.opacity = '0';

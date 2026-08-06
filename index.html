@@ -3,12 +3,12 @@
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Shyft · Sites web et acquisition pour PME, conçus avec soin, livrés en 30 jours</title>
-<meta name="description" content="Shyft est l'agence digitale qui prend en charge toute la chaîne (stratégie, identité, site, acquisition, pilotage) pour faire grandir les PME. Une équipe de quatre profils complémentaires, sans sous-traitance.">
+<title>Shyft · Sites web et acquisition client pour PME, livrés en 30 jours</title>
+<meta name="description" content="Agence de conception de sites web optimisés pour la conversion. Shyft prend en charge toute la chaîne (stratégie, identité, site web, acquisition client, pilotage) pour faire grandir les PME. Sans sous-traitance, livré en 30 jours.">
 
 <!-- Open Graph -->
-<meta property="og:title" content="Shyft · Stratégie, site, acquisition pour PME">
-<meta property="og:description" content="Le dispositif digital complet pour votre PME. Toute la chaîne, ou seulement ce qu'il vous manque.">
+<meta property="og:title" content="Shyft · Sites web et acquisition client pour PME">
+<meta property="og:description" content="Conception de sites web optimisés pour la conversion. Le dispositif digital complet pour votre PME : stratégie, identité, site web, acquisition client, pilotage.">
 <meta property="og:type" content="website">
 
 <!-- Favicon -->
@@ -19,7 +19,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
 <link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,700&family=JetBrains+Mono:wght@400;500&family=Beth+Ellen&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,700&family=JetBrains+Mono:wght@400;500&family=Beth+Ellen&family=Geist:wght@700;800;900&display=swap" rel="stylesheet">
 
 <!-- Styles -->
 <link rel="stylesheet" href="assets/css/styles.css">
@@ -75,8 +75,32 @@
       </a>
       <div class="nav-links">
         <a href="index.html">Accueil</a>
-        <a href="services.html">Services</a>
-        <a href="secteurs.html">Secteurs</a>
+
+        <div class="nav-group">
+          <a href="services.html" class="nav-group-trigger">Services</a>
+          <div class="nav-mega" role="menu">
+          <a href="piliers/strategie.html" class="nav-mega-item"><span class="nav-mega-name">Stratégie</span><span class="nav-mega-desc">Positionnement &amp; roadmap</span></a>
+          <a href="piliers/identite.html" class="nav-mega-item"><span class="nav-mega-name">Identité</span><span class="nav-mega-desc">Logo, charte, design system</span></a>
+          <a href="piliers/site-web.html" class="nav-mega-item"><span class="nav-mega-name">Site web</span><span class="nav-mega-desc">Sur-mesure, pensé pour convertir</span></a>
+          <a href="piliers/acquisition.html" class="nav-mega-item"><span class="nav-mega-name">Acquisition</span><span class="nav-mega-desc">SEO, GEO, ads, cold email</span></a>
+          <a href="piliers/pilotage.html" class="nav-mega-item"><span class="nav-mega-name">Pilotage</span><span class="nav-mega-desc">Direction marketing externalisée</span></a>
+          <a href="services.html" class="nav-mega-all">Voir tous les services →</a>
+          </div>
+        </div>
+
+        <div class="nav-group">
+          <a href="secteurs.html" class="nav-group-trigger">Secteurs</a>
+          <div class="nav-mega nav-mega--wide" role="menu">
+          <a href="secteurs/retail.html" class="nav-mega-item"><span class="nav-mega-name">Retail &amp; distribution</span><span class="nav-mega-desc">Auchan · Decathlon · Castorama</span></a>
+          <a href="secteurs/sante-pharma.html" class="nav-mega-item"><span class="nav-mega-name">Santé · Pharma</span><span class="nav-mega-desc">Bioderma · UPSA · Ménarini</span></a>
+          <a href="secteurs/finance.html" class="nav-mega-item"><span class="nav-mega-name">Finance &amp; paiement</span><span class="nav-mega-desc">Cofidis · Crédit Agricole</span></a>
+          <a href="secteurs/it-saas.html" class="nav-mega-item"><span class="nav-mega-name">IT, logiciels &amp; SaaS</span><span class="nav-mega-desc">Docoon · iXbat</span></a>
+          <a href="secteurs/energies.html" class="nav-mega-item"><span class="nav-mega-name">Énergies renouvelables</span><span class="nav-mega-desc">Marché en consolidation</span></a>
+          <a href="secteurs/conseil-b2b.html" class="nav-mega-item"><span class="nav-mega-name">Conseil B2B</span><span class="nav-mega-desc">Finaxim</span></a>
+          <a href="secteurs.html" class="nav-mega-all">Voir tous les secteurs →</a>
+          </div>
+        </div>
+
         <a href="agence.html">Agence</a>
         <a href="contact.html">Contact</a>
       </div>
@@ -108,13 +132,14 @@
     <!-- Headline · animation word-by-word (blur + slide + scale) -->
     <h1 class="hero-glass-h1">
       <span class="word-animate" data-delay="0">La</span>
-      <span class="word-animate" data-delay="150">conception</span>
-      <span class="word-animate" data-delay="300">de</span>
-      <span class="word-animate" data-delay="450">sites</span>
-      <span class="word-animate" data-delay="600">optimisés</span>
-      <span class="word-animate" data-delay="750">pour</span>
-      <span class="word-animate" data-delay="900">la</span>
-      <span class="word-animate" data-delay="1050"><img class="h1-svg h1-svg--conversion" src="assets/logos/conversion.svg" alt="conversion" />.</span>
+      <span class="word-animate" data-delay="130">conception</span>
+      <span class="word-animate" data-delay="260">de</span>
+      <span class="word-animate" data-delay="390">sites</span>
+      <span class="word-animate" data-delay="520">web</span>
+      <span class="word-animate" data-delay="650">optimisés</span>
+      <span class="word-animate" data-delay="780">pour</span>
+      <span class="word-animate" data-delay="910">la</span>
+      <span class="word-animate" data-delay="1040"><img class="h1-svg h1-svg--conversion" src="assets/logos/conversion.svg" alt="conversion" />.</span>
     </h1>
 
     <!-- Subtext -->
@@ -132,7 +157,7 @@
         Diagnostiquer mon dispositif
       </a>
       <a href="#univers" class="hero-glass-btn hero-glass-btn--ghost">
-        Voir le carnet
+        Voir notre savoir-faire
       </a>
     </div>
 
@@ -167,7 +192,8 @@
     <div class="hero-stats-video">
       <video
         class="hero-stats-video-media"
-        autoplay loop muted playsinline preload="metadata"
+        autoplay loop muted playsinline preload="auto"
+        poster="assets/vid/Shyft-poster.jpg"
         aria-label="Vidéo de présentation Shyft">
         <source src="assets/vid/Shyft.mp4" type="video/mp4">
       </video>
@@ -200,7 +226,7 @@
   <div class="manifesto-grid">
     <div class="manifesto-side reveal">
       <!-- <span class="label">Le constat</span> -->
-      <h2 data-split>Un site, ça ne suffit plus.<br>Il faut un <em>dispositif</em>.</h2>
+      <h2 data-split>Un site web, ça ne suffit plus.<br>Il faut un <em>dispositif</em>.</h2>
     </div>
     <div class="manifesto-text reveal">
       <p>
@@ -231,7 +257,7 @@
       <!-- <span class="label label--center">Notre approche modulaire</span> -->
       <h2 data-split>Le site web au centre,<br><em>les briques autour</em>.</h2>
       <p class="lede">
-        Un site sur-mesure pensé pour convertir, au centre. Autour, quatre briques
+        Un site web sur-mesure pensé pour convertir, au centre. Autour, quatre briques
         modulaires que vous prenez à votre rythme. La chaîne complète, ou juste
         le maillon qui vous manque.
       </p>
@@ -261,6 +287,9 @@
             <li>Roadmap marketing 12 mois</li>
             <li>KPI &amp; tableaux de bord</li>
           </ul>
+          <a href="piliers/strategie.html" class="pillar-cta">
+            En savoir plus <span aria-hidden="true">→</span>
+          </a>
         </div>
       </article>
 
@@ -284,6 +313,9 @@
             <li>Plaquettes, présentations, argumentaires</li>
             <li>Templates réseaux sociaux</li>
           </ul>
+          <a href="piliers/identite.html" class="pillar-cta">
+            En savoir plus <span aria-hidden="true">→</span>
+          </a>
         </div>
       </article>
 
@@ -309,6 +341,9 @@
             <li>Landing pages &amp; tunnels de conversion</li>
             <li>Gamification &amp; micro-interactions sur-mesure</li>
           </ul>
+          <a href="piliers/site-web.html" class="pillar-cta">
+            En savoir plus <span aria-hidden="true">→</span>
+          </a>
         </div>
       </article>
 
@@ -332,6 +367,9 @@
             <li>Cold emailing B2B &amp; séquences nurturing</li>
             <li>Marketing automation (HubSpot, Brevo)</li>
           </ul>
+          <a href="piliers/acquisition.html" class="pillar-cta">
+            En savoir plus <span aria-hidden="true">→</span>
+          </a>
         </div>
       </article>
 
@@ -355,6 +393,9 @@
             <li>Alignement marketing &amp; commerce</li>
             <li>Direction marketing externalisée</li>
           </ul>
+          <a href="piliers/pilotage.html" class="pillar-cta">
+            En savoir plus <span aria-hidden="true">→</span>
+          </a>
         </div>
       </article>
     </div>
@@ -531,13 +572,12 @@
   </div>
 </section>
 
-<!-- ============ CARNET · Le carnet du studio ============ -->
+<!-- ============ SAVOIR-FAIRE · démonstrations ============ -->
 <section id="univers" class="section section--deep showcase-section">
   <div class="showcase-aura" aria-hidden="true"></div>
   <div class="container">
     <div class="section-header section-header--center reveal">
-      <!-- <span class="label label--center">Carnet · Explorations</span> -->
-      <h2 data-split>Notre carnet</h2>
+      <h2 data-split>Notre savoir-faire</h2>
     </div>
 
     <ol class="showcase-grid reveal" data-count="9" data-stagger>
@@ -559,6 +599,7 @@
               <span class="showcase-frame-pill" aria-hidden="true">Ouvrir <em>↗</em></span>
             </div>
           </div>
+          <span class="showcase-tag">Retail · Luxe</span>
         </a>
       </li>
 
@@ -579,6 +620,7 @@
               <span class="showcase-frame-pill" aria-hidden="true">Ouvrir <em>↗</em></span>
             </div>
           </div>
+          <span class="showcase-tag">Santé · Pharma</span>
         </a>
       </li>
 
@@ -599,6 +641,7 @@
               <span class="showcase-frame-pill" aria-hidden="true">Ouvrir <em>↗</em></span>
             </div>
           </div>
+          <span class="showcase-tag">IT · SaaS</span>
         </a>
       </li>
 
@@ -619,6 +662,7 @@
               <span class="showcase-frame-pill" aria-hidden="true">Ouvrir <em>↗</em></span>
             </div>
           </div>
+          <span class="showcase-tag">Retail · Mode</span>
         </a>
       </li>
 
@@ -639,6 +683,7 @@
               <span class="showcase-frame-pill" aria-hidden="true">Ouvrir <em>↗</em></span>
             </div>
           </div>
+          <span class="showcase-tag">Services · Immobilier</span>
         </a>
       </li>
 
@@ -659,6 +704,7 @@
               <span class="showcase-frame-pill" aria-hidden="true">Ouvrir <em>↗</em></span>
             </div>
           </div>
+          <span class="showcase-tag">Conseil B2B</span>
         </a>
       </li>
 
@@ -679,6 +725,7 @@
               <span class="showcase-frame-pill" aria-hidden="true">Ouvrir <em>↗</em></span>
             </div>
           </div>
+          <span class="showcase-tag">Hôtellerie</span>
         </a>
       </li>
 
@@ -699,6 +746,7 @@
               <span class="showcase-frame-pill" aria-hidden="true">Ouvrir <em>↗</em></span>
             </div>
           </div>
+          <span class="showcase-tag">Retail · Alimentaire</span>
         </a>
       </li>
 
@@ -719,6 +767,7 @@
               <span class="showcase-frame-pill" aria-hidden="true">Ouvrir <em>↗</em></span>
             </div>
           </div>
+          <span class="showcase-tag">Énergies · Bâtiment</span>
         </a>
       </li>
 
@@ -996,7 +1045,7 @@
     </div>
 
     <div class="footer-cols">
-      <div class="footer-col"><h4>Agence</h4><ul><li><a href="agence.html">Notre histoire</a></li><li><a href="agence.html#equipe">Équipe</a></li><li><a href="index.html#univers">Notre carnet</a></li></ul></div>
+      <div class="footer-col"><h4>Agence</h4><ul><li><a href="agence.html">Notre histoire</a></li><li><a href="agence.html#equipe">Équipe</a></li><li><a href="index.html#univers">Notre savoir-faire</a></li></ul></div>
       <div class="footer-col"><h4>Services</h4><ul><li><a href="piliers/strategie.html">Stratégie</a></li><li><a href="piliers/identite.html">Identité</a></li><li><a href="piliers/site-web.html">Site web</a></li><li><a href="piliers/acquisition.html">Acquisition</a></li><li><a href="piliers/pilotage.html">Pilotage</a></li></ul></div>
       <div class="footer-col"><h4>Secteurs</h4><ul><li><a href="secteurs/retail.html">Retail</a></li><li><a href="secteurs/sante-pharma.html">Santé · Pharma</a></li><li><a href="secteurs/finance.html">Finance</a></li><li><a href="secteurs/it-saas.html">IT · SaaS</a></li><li><a href="secteurs/energies.html">Énergies</a></li><li><a href="secteurs/conseil-b2b.html">Conseil B2B</a></li></ul></div>
       <div class="footer-col"><h4>Contact</h4><ul><li><a href="contact.html">Page contact</a></li><li><a href="mailto:contact@shyft.fr">contact@shyft.fr</a></li><li><a href="#">LinkedIn</a></li></ul></div>
@@ -1004,7 +1053,7 @@
 
     <div class="footer-meta">
       <span>© Shyft · 2026</span>
-      <span>Agence indépendante · <span style="color:#0055A4;font-weight:600;">Made</span> <span style="color:#fff;">in</span> <span style="color:#EF4135;font-weight:600;">France</span></span>
+      <span>Indépendante · Paris</span>
       <span><a href="#">Mentions légales</a> · <a href="#">CGV</a></span>
     </div>
   </div>

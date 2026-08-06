@@ -5,12 +5,12 @@
    ============================================================ */
 
 /* === Accents par secteur (variables CSS) === */
-.secteur-page.is-retail   { --accent: #D97A2C; --accent-rgb: 217, 122, 44; }
-.secteur-page.is-pharma   { --accent: #1E4A6E; --accent-rgb: 30, 74, 110; }
-.secteur-page.is-finance  { --accent: #1E3A8A; --accent-rgb: 30, 58, 138; }
-.secteur-page.is-it-saas  { --accent: #6B4FCF; --accent-rgb: 107, 79, 207; }
-.secteur-page.is-energies { --accent: #4F7F5C; --accent-rgb: 79, 127, 92; }
-.secteur-page.is-conseil  { --accent: #7A2E3F; --accent-rgb: 122, 46, 63; }
+.secteur-page.is-retail   { --accent: #B0703A; --accent-rgb: 176, 112, 58; }
+.secteur-page.is-pharma   { --accent: #2C4F63; --accent-rgb: 44, 79, 99; }
+.secteur-page.is-finance  { --accent: #313F63; --accent-rgb: 49, 63, 99; }
+.secteur-page.is-it-saas  { --accent: #5A5080; --accent-rgb: 90, 80, 128; }
+.secteur-page.is-energies { --accent: #4A6B53; --accent-rgb: 74, 107, 83; }
+.secteur-page.is-conseil  { --accent: #6B3540; --accent-rgb: 107, 53, 64; }
 
 /* ============================================
    1. HERO SECTEUR · gradient orange en fond + split layout texte/photo
