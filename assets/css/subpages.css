@@ -120,8 +120,7 @@ h1.subpage-huge em {
   font-weight: 400;
   color: var(--gold);
   display: inline-block;
-  transform: rotate(-2deg);
-  margin: 0 0.05em;
+  margin: 0 0.04em;
   text-shadow: 0 0 30px rgba(212, 165, 55, 0.35);
 }
 

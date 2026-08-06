@@ -1,4 +1,20 @@
 /* ============================================
+   0. POLICES LOCALES
+   ============================================ */
+
+/* Sirage · display géométrique, utilisée pour les mots d'emphase.
+   Servie depuis le projet : une police installée sur le poste du
+   concepteur n'existe pas chez le visiteur. */
+@font-face {
+  font-family: 'Sirage';
+  src: url('../fonts/Sirage.woff2') format('woff2'),
+       url('../fonts/Sirage.otf')   format('opentype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* ============================================
    1. DESIGN TOKENS
    ============================================ */
 :root {
@@ -22,7 +38,7 @@
   --font-display: 'Satoshi', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-body: 'General Sans', -apple-system, BlinkMacSystemFont, sans-serif;
   --font-editorial: 'Fraunces', Georgia, serif;
-  --font-emphasis: 'Beth Ellen', 'Fraunces', Georgia, cursive;
+  --font-emphasis: 'Sirage', 'Fraunces', Georgia, serif;
   --font-mono: 'JetBrains Mono', ui-monospace, monospace;
 
   /* Type scale */
@@ -4644,10 +4660,11 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
   font-style: normal;
   font-weight: 400;
   color: var(--gold);
-  font-size: 1.05em;
+  /* Sirage a une x-height normale et un dessin large : ni sur-dimension
+     ni inclinaison, contrairement à la manuscrite précédente. */
+  font-size: 0.96em;
   display: inline-block;
-  transform: rotate(-2deg);
-  margin: 0 0.05em;
+  margin: 0 0.04em;
   text-shadow: 0 0 30px rgba(212, 165, 55, 0.35);
 }
 
@@ -4906,11 +4923,10 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
   font-style: normal;
   font-weight: 400;
   color: var(--gold);
-  font-size: 1.05em;
-  padding: 0 0.05em;
+  font-size: 0.96em;
+  padding: 0 0.04em;
   position: relative;
   display: inline-block;
-  transform: rotate(-2deg);
 }
 .hero-h1-line--2 em::after {
   content: '';
