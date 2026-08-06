@@ -1,0 +1,10 @@
+# Shyft · robots.txt
+
+User-agent: *
+Allow: /
+
+# Les démonstrations du carnet sont des maquettes : elles n'ont pas
+# vocation à être indexées ni à concurrencer les pages du site.
+Disallow: /assets/templates/
+
+Sitemap: https://matis-mur.github.io/Shyft/sitemap.xml

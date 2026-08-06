@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Page introuvable · Shyft®</title>
+<meta name="description" content="Cette page n'existe pas ou a été déplacée. Retrouvez les services, secteurs et coordonnées de Shyft.">
+<meta name="robots" content="noindex, follow">
+
+<link rel="icon" type="image/svg+xml" href="/Shyft/assets/logos/favicon2.svg">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<!-- Chemins absolus : la 404 peut être servie depuis n'importe quelle profondeur d'URL -->
+<link rel="stylesheet" href="/Shyft/assets/css/styles.css">
+<link rel="stylesheet" href="/Shyft/assets/css/subpages.css">
+
+<style>
+  .nf {
+    min-height: 100vh;
+    min-height: 100dvh;
+    background: var(--oxblood);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: calc(var(--nav-h, 88px) + 3rem) var(--gutter) 4rem;
+    position: relative;
+    overflow: hidden;
+    isolation: isolate;
+  }
+  .nf::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 80% 15%, rgba(212, 165, 55, 0.12), transparent 60%),
+      radial-gradient(circle at 10% 90%, rgba(139, 26, 31, 0.32), transparent 55%);
+    pointer-events: none;
+  }
+  .nf-inner {
+    position: relative;
+    z-index: 2;
+    max-width: 720px;
+    text-align: center;
+  }
+  .nf-code {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    color: var(--gold);
+    opacity: 0.85;
+    margin-bottom: 1.75rem;
+  }
+  .nf h1 {
+    font-family: var(--font-display);
+    font-size: clamp(2.4rem, 7vw, 4.75rem);
+    font-weight: 700;
+    line-height: 0.98;
+    letter-spacing: -0.045em;
+    color: var(--cream);
+    margin: 0 0 1.5rem;
+  }
+  .nf h1 em {
+    font-family: var(--font-emphasis);
+    font-style: normal;
+    font-weight: 400;
+    color: var(--gold);
+  }
+  .nf p {
+    font-size: 1.0625rem;
+    line-height: 1.65;
+    color: var(--cream);
+    opacity: 0.78;
+    max-width: 48ch;
+    margin: 0 auto 2.75rem;
+  }
+  .nf-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem 1.75rem;
+    padding-top: 2.25rem;
+    margin-top: 2.5rem;
+    border-top: 1px solid rgba(242, 235, 220, 0.14);
+  }
+  .nf-links a {
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--cream);
+    opacity: 0.7;
+    text-decoration: none;
+    padding-bottom: 3px;
+    border-bottom: 1px solid transparent;
+    transition: opacity 0.25s, color 0.25s, border-color 0.25s;
+  }
+  .nf-links a:hover {
+    opacity: 1;
+    color: var(--gold);
+    border-bottom-color: var(--gold);
+  }
+</style>
+</head>
+<body>
+
+<main class="nf">
+  <div class="nf-inner">
+    <p class="nf-code">Erreur 404</p>
+
+    <h1>Cette page n'existe <em>plus</em>.</h1>
+
+    <p>
+      Le lien est peut-être erroné, ou la page a été déplacée depuis.
+      Reprenons depuis l'accueil, ou dites-nous ce que vous cherchiez.
+    </p>
+
+    <a href="/Shyft/" class="btn-primary" data-cta>
+      <span class="label-text">Retour à l'accueil</span>
+      <span class="arrow">→</span>
+    </a>
+
+    <nav class="nf-links" aria-label="Liens principaux">
+      <a href="/Shyft/services.html">Services</a>
+      <a href="/Shyft/secteurs.html">Secteurs</a>
+      <a href="/Shyft/agence.html">L'agence</a>
+      <a href="/Shyft/contact.html">Contact</a>
+    </nav>
+  </div>
+</main>
+
+</body>
+</html>
