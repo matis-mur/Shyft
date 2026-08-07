@@ -203,12 +203,34 @@
     <div class="hero-stats-video">
       <video
         class="hero-stats-video-media"
-        autoplay loop muted playsinline preload="auto"
+        autoplay loop muted playsinline preload="none"
         poster="assets/vid/Shyft-poster.jpg"
-        aria-label="Vidéo de présentation Shyft">
-        <source src="assets/vid/Shyft.mp4" type="video/mp4">
-      </video>
+        data-src="assets/vid/Shyft.mp4"
+        aria-label="Vidéo de présentation Shyft"></video>
     </div>
+    <script>
+    /* La vidéo pèse 16 Mo : sur mobile on s'en tient au poster (129 Ko).
+       Sur desktop elle n'est attachée qu'à l'entrée dans le viewport,
+       jamais au chargement de la page. */
+    (function () {
+      var v = document.querySelector('.hero-stats-video-media');
+      if (!v || !v.dataset.src) return;
+      if (window.matchMedia('(max-width: 900px)').matches) return;
+
+      var load = function () {
+        if (v.src) return;
+        v.src = v.dataset.src;
+        var p = v.play();
+        if (p && p.catch) p.catch(function () {});
+      };
+
+      if (!('IntersectionObserver' in window)) { load(); return; }
+      var io = new IntersectionObserver(function (entries) {
+        if (entries[0].isIntersecting) { load(); io.disconnect(); }
+      }, { rootMargin: '200px' });
+      io.observe(v);
+    })();
+    </script>
 
     <!-- Colonne droite : 04 (haut) + 03 (bas) -->
     <div class="hero-stat hero-stat--tr">
@@ -446,6 +468,7 @@
       <h2 data-split>Une méthode <em>co-construite</em></h2>
     </div>
 
+    <!-- DESKTOP · la roue orbitale reste la version de référence -->
     <div class="methode-grid">
 
       <div class="methode-text">
@@ -479,8 +502,165 @@
       </div>
 
     </div>
+
+    <!-- MOBILE · même contenu en accordéon, la roue étant illisible sous 900px -->
+    <div class="duo" id="duo">
+      <span class="duo-axis" aria-hidden="true"></span>
+
+      <article class="duo-step">
+        <button type="button" class="duo-head" aria-expanded="false" aria-controls="duo-p1">
+          <span class="duo-num">01</span>
+          <span class="duo-title">Cadrage</span>
+          <span class="duo-chev" aria-hidden="true"></span>
+        </button>
+        <div class="duo-panel" id="duo-p1" role="region">
+          <div class="duo-panel-inner">
+            <span class="duo-ghost" aria-hidden="true">01</span>
+            <div class="duo-col duo-col--you">
+              <h4>Vous apportez</h4>
+              <p>Votre marché, vos clients, ce qui bloque aujourd'hui et les objectifs que vous visez. Deux heures d'atelier, pas davantage.</p>
+            </div>
+            <div class="duo-col duo-col--us">
+              <h4>Nous produisons</h4>
+              <p>Une note de cadrage qui fixe le positionnement, les cibles prioritaires et les parcours de conversion à construire.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="duo-step">
+        <button type="button" class="duo-head" aria-expanded="false" aria-controls="duo-p2">
+          <span class="duo-num">02</span>
+          <span class="duo-title">Direction artistique</span>
+          <span class="duo-chev" aria-hidden="true"></span>
+        </button>
+        <div class="duo-panel" id="duo-p2" role="region">
+          <div class="duo-panel-inner">
+            <span class="duo-ghost" aria-hidden="true">02</span>
+            <div class="duo-col duo-col--you">
+              <h4>Vous tranchez</h4>
+              <p>Deux directions vous sont présentées. Vous en choisissez une, vous demandez des ajustements. L'identité est verrouillée avant toute production.</p>
+            </div>
+            <div class="duo-col duo-col--us">
+              <h4>Nous produisons</h4>
+              <p>Deux propositions visuelles complètes&nbsp;: typographies, couleurs, traitement des images, principes d'interface.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="duo-step">
+        <button type="button" class="duo-head" aria-expanded="false" aria-controls="duo-p3">
+          <span class="duo-num">03</span>
+          <span class="duo-title">Maquettes &amp; copy</span>
+          <span class="duo-chev" aria-hidden="true"></span>
+        </button>
+        <div class="duo-panel" id="duo-p3" role="region">
+          <div class="duo-panel-inner">
+            <span class="duo-ghost" aria-hidden="true">03</span>
+            <div class="duo-col duo-col--you">
+              <h4>Vous validez</h4>
+              <p>Page par page, mots compris. Vous voyez exactement ce que verront vos clients avant qu'une seule ligne de code soit écrite.</p>
+            </div>
+            <div class="duo-col duo-col--us">
+              <h4>Nous produisons</h4>
+              <p>Les maquettes des pages clés, avec le copywriting intégré et pensé pour le référencement dès la conception.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="duo-step">
+        <button type="button" class="duo-head" aria-expanded="false" aria-controls="duo-p4">
+          <span class="duo-num">04</span>
+          <span class="duo-title">Développement</span>
+          <span class="duo-chev" aria-hidden="true"></span>
+        </button>
+        <div class="duo-panel" id="duo-p4" role="region">
+          <div class="duo-panel-inner">
+            <span class="duo-ghost" aria-hidden="true">04</span>
+            <div class="duo-col duo-col--you">
+              <h4>Vous suivez</h4>
+              <p>Une préproduction accessible à tout moment. Vous regardez le site se construire et vous nous dites ce qui cloche, au fil de l'eau.</p>
+            </div>
+            <div class="duo-col duo-col--us">
+              <h4>Nous produisons</h4>
+              <p>Le site codé sur-mesure&nbsp;: performance native, mobile irréprochable, aucun plugin propriétaire qui vous enferme.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="duo-step">
+        <button type="button" class="duo-head" aria-expanded="false" aria-controls="duo-p5">
+          <span class="duo-num">05</span>
+          <span class="duo-title">Mise en ligne</span>
+          <span class="duo-chev" aria-hidden="true"></span>
+        </button>
+        <div class="duo-panel" id="duo-p5" role="region">
+          <div class="duo-panel-inner">
+            <span class="duo-ghost" aria-hidden="true">05</span>
+            <div class="duo-col duo-col--you">
+              <h4>Vous reprenez la main</h4>
+              <p>Une formation de trente minutes suffit pour gérer vos contenus en autonomie. Le code vous appartient, sans dépendance à notre égard.</p>
+            </div>
+            <div class="duo-col duo-col--us">
+              <h4>Nous produisons</h4>
+              <p>La mise en production, le suivi analytique, la Search Console et l'ensemble du référencement technique.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+
+      <article class="duo-step">
+        <button type="button" class="duo-head" aria-expanded="false" aria-controls="duo-p6">
+          <span class="duo-num">06</span>
+          <span class="duo-title">Suivi inclus</span>
+          <span class="duo-chev" aria-hidden="true"></span>
+        </button>
+        <div class="duo-panel" id="duo-p6" role="region">
+          <div class="duo-panel-inner">
+            <span class="duo-ghost" aria-hidden="true">06</span>
+            <div class="duo-col duo-col--you">
+              <h4>Vous signalez</h4>
+              <p>Un détail qui vous gêne, un texte à reprendre, une question&nbsp;: vous écrivez, sans compter les points ni surveiller un quota.</p>
+            </div>
+            <div class="duo-col duo-col--us">
+              <h4>Nous corrigeons</h4>
+              <p>Tout ce qui doit l'être après la livraison, sans facture supplémentaire ni délai de carence.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </div>
   </div>
 </section>
+
+<script>
+(function () {
+  var duo = document.getElementById('duo');
+  if (!duo) return;
+
+  var heads = duo.querySelectorAll('.duo-head');
+
+  // Accordéon : une seule étape ouverte à la fois, pour garder la
+  // section courte et lisible.
+  heads.forEach(function (h) {
+    h.addEventListener('click', function () {
+      var open = h.getAttribute('aria-expanded') === 'true';
+      heads.forEach(function (o) {
+        o.setAttribute('aria-expanded', 'false');
+        o.closest('.duo-step').classList.remove('is-open');
+      });
+      if (!open) {
+        h.setAttribute('aria-expanded', 'true');
+        h.closest('.duo-step').classList.add('is-open');
+      }
+    });
+  });
+
+})();
+</script>
 
 <!-- ============ SECTEURS ============ -->
 <section id="secteurs" class="section section--cream">
@@ -783,12 +963,33 @@
       </li>
 
     </ol>
+
+    <!-- Mobile : seules les 4 premières démos sont affichées (5 iframes de
+         moins à charger). Ce bouton déplie le reste à la demande. -->
+    <button type="button" class="showcase-more" id="showcaseMore">
+      <span>Voir les 5 autres démonstrations</span>
+      <em aria-hidden="true">+</em>
+    </button>
   </div>
 </section>
 
+<script>
+(function () {
+  var btn  = document.getElementById('showcaseMore');
+  var grid = document.querySelector('.showcase-grid');
+  if (!btn || !grid) return;
+  btn.addEventListener('click', function () {
+    grid.classList.add('is-expanded');
+    btn.remove();
+  });
+})();
+</script>
+
 <!-- ============ STUDIO ============ -->
 <section id="studio" class="section studio-fullbleed">
-  <img class="studio-bg" src="assets/img/team.jpg" alt="L'équipe Shyft" loading="lazy">
+  <img class="studio-bg" src="assets/img/team.jpg" alt="L'équipe Shyft" loading="lazy" decoding="async"
+       srcset="assets/img/team-mobile.jpg 900w, assets/img/team.jpg 2400w"
+       sizes="(max-width: 900px) 100vw, 100vw">
   <div class="studio-overlay" aria-hidden="true"></div>
 
   <span class="studio-team-label">Notre équipe</span>
@@ -796,28 +997,28 @@
   <div class="studio-zones">
     <div class="studio-zone" data-person="1">
       <div class="studio-member">
-        <h4>Noé</h4>
+        <h4><a href="https://www.linkedin.com/in/noe-mur/" target="_blank" rel="noopener noreferrer" class="member-link">Noé<span class="sr-only"> — profil LinkedIn</span></a></h4>
         <p>Marketing digital &amp; UI Design</p>
       </div>
     </div>
 
     <div class="studio-zone" data-person="2">
       <div class="studio-member">
-        <h4>Laurent</h4>
+        <h4><a href="https://www.linkedin.com/in/laurent-mur/" target="_blank" rel="noopener noreferrer" class="member-link">Laurent<span class="sr-only"> — profil LinkedIn</span></a></h4>
         <p>Directeur Marketing &amp; Stratégie</p>
       </div>
     </div>
 
     <div class="studio-zone" data-person="3">
       <div class="studio-member">
-        <h4>Anne-Carole</h4>
+        <h4><a href="https://www.linkedin.com/in/anne-carole-mur-6aa54679/" target="_blank" rel="noopener noreferrer" class="member-link">Anne-Carole<span class="sr-only"> — profil LinkedIn</span></a></h4>
         <p>Art Director &amp; Project Manager</p>
       </div>
     </div>
 
     <div class="studio-zone" data-person="4">
       <div class="studio-member">
-        <h4>Matis</h4>
+        <h4><a href="https://www.linkedin.com/in/matis-mur/" target="_blank" rel="noopener noreferrer" class="member-link">Matis<span class="sr-only"> — profil LinkedIn</span></a></h4>
         <p>UX/UI Designer &amp; Full Stack Developer</p>
       </div>
     </div>
@@ -978,6 +1179,13 @@
       </ul>
       <a href="&#109;&#97;&#105;&#108;&#116;&#111;&#58;&#99;&#111;&#110;&#116;&#97;&#99;&#116;&#64;&#115;&#104;&#121;&#102;&#116;&#46;&#102;&#114;" class="contact-direct">
         &#99;&#111;&#110;&#116;&#97;&#99;&#116;&#64;&#115;&#104;&#121;&#102;&#116;&#46;&#102;&#114; <span class="arrow">↗</span>
+      </a>
+
+      <!-- Mobile uniquement : le formulaire complet vit sur contact.html.
+           Le dupliquer ici imposait 890px de scroll supplémentaire. -->
+      <a href="contact.html#form" class="btn-primary contact-cta-mobile" data-cta>
+        <span class="label-text">Écrire à l'équipe</span>
+        <span class="arrow">→</span>
       </a>
     </aside>
 

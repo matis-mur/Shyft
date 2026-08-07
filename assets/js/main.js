@@ -300,6 +300,10 @@
 
   const nodeEls = Array.from(nodesWrap.querySelectorAll('.orbital-node'));
 
+  // Sous 900px l'orbite n'est ni affichée ni animée : inutile de faire
+  // tourner une boucle rAF en permanence sur mobile.
+  const isNarrow = () => window.matchMedia('(max-width: 900px)').matches;
+
   function positionNodes() {
     const total = STEPS.length;
     const stageWidth = stage.offsetWidth;
@@ -332,6 +336,8 @@
   }
 
   function tick() {
+    // Sur mobile c'est la timeline qui est affichée : on arrête la boucle.
+    if (isNarrow()) { rafId = null; return; }
     if (autoRotate) {
       rotation = (rotation + ROTATION_SPEED) % 360;
     }

@@ -4299,8 +4299,11 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
   position: relative;
   z-index: 2;
   display: flex;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
+  gap: 0.5rem 1.75rem;
+  text-align: center;
   font-family: var(--font-mono);
   font-size: 0.6875rem;
   text-transform: uppercase;
@@ -5237,3 +5240,434 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
   .hero-marquee, .hero-eyebrow { opacity: 1 !important; transform: none !important; }
   .hero-h1-line--2 em::after { transform: scaleX(1); }
 }
+
+/* =====================================================================
+   MOBILE · refonte des trois zones qui tenaient mal sous 900px
+   1. Méthode : timeline verticale à la place de l'orbite
+   2. Piliers : cartes compactes, hiérarchie conservée
+   3. Footer : épuré, sans filigrane ni colonnes
+   ===================================================================== */
+
+/* ---------- 1. MÉTHODE ---------- */
+
+
+
+/* ---------- 2. PILIERS ---------- */
+
+@media (max-width: 700px) {
+  /* Cartes nettement plus basses : titre, pitch et prix sur une seule
+     lecture, sans le pavé vertical qu'imposait le format desktop. */
+  .pillar {
+    padding: 1.25rem 1.15rem;
+    gap: 0.5rem;
+    border-radius: var(--r-md);
+  }
+  .pillar--core { padding: 1.4rem 1.15rem 1.25rem; }
+
+  .pillar h3 { font-size: 1.25rem; }
+  .pillar-pitch {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    opacity: 0.75;
+  }
+
+  /* Prix sur une seule ligne au lieu d'un bloc empilé */
+  .pillar-price {
+    display: flex;
+    align-items: baseline;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+    margin: 0.15rem 0 0;
+  }
+  .pillar-price em { font-size: 0.625rem; letter-spacing: 0.12em; }
+  .pillar-price strong { font-size: 1.5rem; }
+  .pillar-price small { font-size: 0.6875rem; }
+
+  .pillar-toggle {
+    font-size: 0.5625rem;
+    padding: 0.4rem 0.8rem;
+  }
+  /* Le badge chevauchait le bord de la carte sur petit écran */
+  .pillar-badge {
+    position: static;
+    align-self: flex-start;
+    margin-bottom: 0.35rem;
+    transform: none;
+  }
+}
+
+/* ---------- 3. FOOTER ---------- */
+
+@media (max-width: 700px) {
+  /* Le wordmark en filigrane passait derrière les liens et les rendait
+     illisibles (fond bordeaux sur texte bordeaux). Retiré sur mobile. */
+  .footer-mark { display: none; }
+
+  footer { padding-top: 3rem; }
+
+  /* Une seule colonne, listes resserrées */
+  .footer-cols {
+    grid-template-columns: 1fr;
+    gap: 1.75rem;
+    margin-bottom: 2.25rem;
+  }
+  .footer-col h4 {
+    font-size: 0.625rem;
+    padding-bottom: 0.55rem;
+    margin-bottom: 0.75rem;
+  }
+  .footer-col li + li { margin-top: 0.5rem; }
+  .footer-col a { font-size: 0.9375rem; }
+  /* Flèche au survol inutile sans souris : on récupère la place */
+  .footer-col a::before { content: none; }
+
+  .footer-meta {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.6875rem;
+  }
+}
+
+/* =====================================================================
+   MOBILE · allègement de la home
+   Mesuré avant : 17 690 px de haut (21 écrans) et ~20 Mo de médias.
+   Rien n'est perdu : tout reste accessible sur les pages dédiées
+   ou en dépliant à la demande.
+   ===================================================================== */
+
+.showcase-more { display: none; }
+
+@media (max-width: 900px) {
+
+  /* ---- Carnet : 4 démos au lieu de 9 ---- */
+  .showcase-grid:not(.is-expanded) .showcase-item:nth-child(n + 5) { display: none; }
+
+  .showcase-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    margin: 1.75rem auto 0;
+    padding: 0.8rem 1.4rem;
+    background: transparent;
+    border: 1px solid rgba(212, 165, 55, 0.4);
+    border-radius: 100px;
+    color: var(--gold);
+    font-family: var(--font-mono);
+    font-size: 0.6875rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    cursor: pointer;
+  }
+  .showcase-more em { font-style: normal; font-size: 1rem; line-height: 1; }
+  .showcase-section .container { display: flex; flex-direction: column; }
+
+  /* ---- Contact : le formulaire vit sur contact.html ---- */
+  #contact .contact-form { display: none; }
+  #contact .contact-grid { display: block; }
+  .contact-cta-mobile { display: inline-flex; margin-top: 1.75rem; }
+
+  /* ---- Secteurs : cartes resserrées ---- */
+  .sector { padding: 1.5rem 1.35rem; gap: 0.85rem; }
+  .sector h3 { font-size: 1.0625rem; }
+  .sector-pitch { font-size: 0.875rem; line-height: 1.5; }
+  /* Les chiffres détaillés restent sur chaque page secteur */
+  .sector-stats { display: none; }
+  .sector-cta { margin-top: 0.85rem !important; }
+
+  /* ---- Respiration : purement décoratif ---- */
+  .respiration { display: none; }
+
+  /* ---- Studio : image de fond allégée ---- */
+  .studio-fullbleed { min-height: 420px; }
+}
+
+/* Le CTA mobile du contact n'existe pas au-delà : le formulaire est là */
+@media (min-width: 901px) {
+  .contact-cta-mobile { display: none; }
+}
+
+/* ---------------------------------------------------------------------
+   MOBILE · respiration verticale
+   Les marges de section valaient 112px en haut et en bas, calibrées pour
+   un grand écran. Sur 390px de large elles représentaient à elles seules
+   près de 3 écrans de vide. Ramenées à 64px, l'air reste suffisant.
+   --------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  :root { --section-py: 4rem; }
+
+  /* Entêtes de section : l'écart au contenu était calibré desktop */
+  .section-header { margin-bottom: 2rem; }
+  .section-header h2 { margin-bottom: 0.85rem; }
+  .section-header .lede { font-size: 0.9375rem; line-height: 1.55; }
+
+
+  /* Bloc audit : mise en page verticale compacte */
+  .pillars-audit { padding: 1.75rem 1.35rem; gap: 1.25rem; }
+  .pillars-audit h3 { font-size: 1.25rem; }
+  .pillars-audit p { font-size: 0.875rem; line-height: 1.55; }
+
+  /* Notes de bas de section : utiles, mais discrètes */
+  .prestations-note,
+  .sectors-note { font-size: 0.6875rem; margin-top: 1.75rem; }
+}
+
+/* ---------------------------------------------------------------------
+   MOBILE · footer sur deux colonnes
+   Les 17 liens empilés faisaient 879px. En deux colonnes la hauteur est
+   divisée par deux sans rien retirer : les liens restent dans le DOM,
+   donc le maillage interne pour le référencement est préservé.
+   --------------------------------------------------------------------- */
+@media (max-width: 700px) {
+  .footer-cols {
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem 1.25rem;
+  }
+  .footer-col h4 { font-size: 0.5625rem; letter-spacing: 0.16em; }
+  .footer-col a  { font-size: 0.8125rem; }
+  .footer-col li + li { margin-top: 0.4rem; }
+}
+
+/* Entête de la section approche : le chapô était calibré pour deux colonnes */
+@media (max-width: 900px) {
+  #approche .section-header .lede { font-size: 0.875rem; max-width: 34ch; }
+  #approche .section-header { margin-bottom: 1.5rem; }
+}
+
+/* =====================================================================
+   MÉTHODE · accordéon « vous / nous »
+   Remplace la roue orbitale. Chaque étape indique qui mène, et se
+   déplie sur deux colonnes : ce que le client apporte, ce que nous
+   produisons. Le titre « co-construite » devient lisible d'un regard.
+   ===================================================================== */
+
+
+.duo {
+  position: relative;
+  max-width: 940px;
+  margin: 0 auto;
+  padding-left: 2.75rem;
+}
+
+/* Axe vertical : or plein sur toute la hauteur */
+.duo-axis {
+  position: absolute;
+  left: 0.75rem;
+  top: 0.5rem;
+  bottom: 0.5rem;
+  width: 2px;
+  background: var(--gold);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.duo-step {
+  position: relative;
+  border-bottom: 1px solid rgba(242, 235, 220, 0.09);
+}
+.duo-step:first-child { border-top: 1px solid rgba(242, 235, 220, 0.09); }
+
+/* Pastille sur l'axe, alignée sur le titre */
+.duo-step::before {
+  content: '';
+  position: absolute;
+  left: -2.24rem;
+  top: 1.85rem;
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  background: var(--oxblood-deep);
+  border: 2px solid rgba(212, 165, 55, 0.4);
+  transition: background 0.35s var(--ease-out),
+              border-color 0.35s var(--ease-out),
+              box-shadow 0.35s var(--ease-out),
+              transform 0.35s var(--ease-out);
+  z-index: 2;
+}
+.duo-step:hover::before { border-color: var(--gold); }
+.duo-step.is-open::before {
+  background: var(--gold);
+  border-color: var(--gold);
+  transform: scale(1.25);
+  box-shadow: 0 0 0 6px rgba(212, 165, 55, 0.14),
+              0 0 18px rgba(212, 165, 55, 0.6);
+}
+
+/* --- Ligne cliquable --- */
+.duo-head {
+  width: 100%;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.35rem 0.25rem 1.35rem 0;
+  background: none;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+  color: inherit;
+  transition: padding-left 0.35s var(--ease-out);
+}
+.duo-step:hover .duo-head,
+.duo-step.is-open .duo-head { padding-left: 0.5rem; }
+
+.duo-num {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.16em;
+  color: var(--gold);
+  opacity: 0.55;
+  transition: opacity 0.3s;
+}
+.duo-step.is-open .duo-num { opacity: 1; }
+
+.duo-title {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2.4vw, 1.875rem);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+  line-height: 1.15;
+  transition: color 0.3s;
+}
+.duo-step.is-open .duo-title { color: var(--gold); }
+
+.duo-chev {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  flex-shrink: 0;
+}
+.duo-chev::before,
+.duo-chev::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 13px;
+  height: 1.5px;
+  background: var(--gold);
+  border-radius: 2px;
+  transform: translate(-50%, -50%);
+  transition: transform 0.4s var(--ease-out), opacity 0.3s;
+}
+.duo-chev::after { transform: translate(-50%, -50%) rotate(90deg); }
+.duo-step.is-open .duo-chev::after {
+  transform: translate(-50%, -50%) rotate(0deg);
+  opacity: 0;
+}
+
+/* --- Panneau dépliant --- */
+.duo-panel {
+  display: grid;
+  grid-template-rows: 0fr;                 /* dépliage fluide, sans hauteur fixe */
+  transition: grid-template-rows 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.duo-step.is-open .duo-panel { grid-template-rows: 1fr; }
+
+.duo-panel-inner {
+  overflow: hidden;
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  opacity: 0;
+  transform: translateY(-6px);
+  transition: opacity 0.4s var(--ease-out) 0.08s,
+              transform 0.4s var(--ease-out) 0.08s;
+}
+.duo-step.is-open .duo-panel-inner {
+  opacity: 1;
+  transform: translateY(0);
+  padding: 0.25rem 0 2.5rem;
+}
+
+/* Numéro en filigrane, ancré à droite du panneau */
+.duo-ghost {
+  position: absolute;
+  right: -0.5rem;
+  bottom: -2.5rem;
+  font-family: var(--font-editorial);
+  font-style: italic;
+  font-weight: 300;
+  font-size: 11rem;
+  line-height: 1;
+  color: var(--gold);
+  opacity: 0.05;
+  pointer-events: none;
+  user-select: none;
+}
+
+.duo-col { position: relative; z-index: 1; }
+.duo-col h4 {
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 0.85rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid rgba(242, 235, 220, 0.12);
+}
+.duo-col--you h4 { color: var(--cream); opacity: 0.75; }
+.duo-col--us  h4 { color: var(--gold); }
+.duo-col p {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--cream);
+  opacity: 0.72;
+  margin: 0;
+}
+
+
+/* --- Mobile --- */
+@media (max-width: 760px) {
+  .duo { padding-left: 2rem; }
+  .duo-axis { left: 0.5rem; }
+  .duo-step::before { left: -1.78rem; top: 1.5rem; }
+
+  .duo-title { font-size: 1.125rem; }
+
+  .duo-panel-inner { grid-template-columns: 1fr; gap: 1.5rem; }
+  .duo-step.is-open .duo-panel-inner { padding-bottom: 1.75rem; }
+  .duo-ghost { font-size: 6rem; bottom: -1.5rem; opacity: 0.045; }
+  .duo-col p { font-size: 0.875rem; }
+}
+
+/* ---------------------------------------------------------------------
+   MÉTHODE · répartition desktop / mobile
+   La roue orbitale reste la version de référence sur grand écran.
+   Sous 900px elle devient illisible (nœuds superposés, carte de détail
+   par-dessus) : l'accordéon prend le relais avec le même contenu.
+   --------------------------------------------------------------------- */
+.duo { display: none; }
+
+@media (max-width: 900px) {
+  .methode-grid { display: none; }
+  .duo { display: block; }
+}
+
+/* ---------------------------------------------------------------------
+   ÉQUIPE · prénoms cliquables vers LinkedIn
+   Présent sur la home (.studio-member) et sur la page agence
+   (.agence-member-name). Le prénom reste identique au repos ; seul le
+   passage en or au survol signale qu'il est cliquable.
+   --------------------------------------------------------------------- */
+
+/* Texte réservé aux lecteurs d'écran */
+.sr-only {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.member-link {
+  color: inherit;
+  text-decoration: none;
+  transition: color 0.3s var(--ease-out);
+}
+.member-link:hover { color: var(--gold); }
+
