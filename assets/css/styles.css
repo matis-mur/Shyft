@@ -535,9 +535,58 @@ body .contact-intro h2 em {
 .nav-cta:hover::after { transform: translateX(4px); }
 
 @media (max-width: 880px) {
-  .nav-links { display: none; }
   .nav-inner { padding: 0.65rem 1rem; }
   .site-header.scrolled .nav-inner { padding: 0.45rem 0.6rem 0.45rem 0.85rem; }
+
+  /* --- Menu mobile : ouvert par le logo --- */
+  /* Le panneau se déplie sous la barre de navigation. Fermé, il est
+     retiré du flux (visibility) pour ne pas capter les clics. */
+  .nav-links {
+    display: block;
+    position: absolute;
+    top: calc(100% + 0.5rem);
+    left: 0;
+    right: 0;
+    padding: 0.5rem;
+    background: color-mix(in srgb, 92% var(--oxblood-deep), transparent);
+    backdrop-filter: blur(18px) saturate(1.2);
+    -webkit-backdrop-filter: blur(18px) saturate(1.2);
+    border: 1px solid rgba(212, 165, 55, 0.22);
+    border-radius: 18px;
+    box-shadow: 0 24px 50px -18px rgba(0, 0, 0, 0.65);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition: opacity 0.28s var(--ease-out),
+                transform 0.28s var(--ease-out),
+                visibility 0.28s;
+  }
+  .nav.is-open .nav-links {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+  }
+
+  /* Liens en pleine largeur, séparés par un filet */
+  .nav-links > a,
+  .nav-links .nav-group > .nav-group-trigger {
+    display: block;
+    padding: 0.95rem 1rem;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+    opacity: 0.9;
+    border-radius: 10px;
+  }
+  .nav-links > a + a,
+  .nav-links .nav-group + a,
+  .nav-links > a + .nav-group,
+  .nav-links .nav-group + .nav-group { border-top: 1px solid rgba(242, 235, 220, 0.07); }
+  .nav-links > a:active,
+  .nav-links .nav-group-trigger:active { background: rgba(212, 165, 55, 0.12); }
+
+  /* Le logo devient le bouton du menu : on le signale par une rotation */
+  .nav.is-open .logo-mark-icon { transform: rotate(90deg); }
+  .logo-mark-icon { transition: transform 0.3s var(--ease-out); }
 }
 
 /* ============================================
@@ -5671,3 +5720,9 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
 }
 .member-link:hover { color: var(--gold); }
 
+
+/* Saut de ligne réservé au mobile (mise en page des accroches) */
+.br-mobile { display: none; }
+@media (max-width: 700px) {
+  .br-mobile { display: block; }
+}

@@ -609,3 +609,42 @@
     window.addEventListener('resize', fitAll, { passive: true });
   }
 })();
+
+/* ============================================
+   MENU MOBILE · ouvert par le logo
+   ============================================
+   Sous 880px la barre de navigation n'affiche plus les liens : le logo
+   sert de bouton d'ouverture. Au-delà, il redevient un simple lien vers
+   l'accueil.
+*/
+(function () {
+  const nav  = document.querySelector('.nav');
+  const logo = document.querySelector('.logo-mark');
+  if (!nav || !logo) return;
+
+  const isMobile = () => window.matchMedia('(max-width: 880px)').matches;
+
+  const close = () => {
+    nav.classList.remove('is-open');
+    logo.setAttribute('aria-expanded', 'false');
+  };
+
+  logo.addEventListener('click', (e) => {
+    if (!isMobile()) return;            // desktop : lien vers l'accueil
+    e.preventDefault();
+    const open = nav.classList.toggle('is-open');
+    logo.setAttribute('aria-expanded', String(open));
+  });
+
+  // Fermeture : clic à l'extérieur, touche Échap, ou navigation
+  document.addEventListener('click', (e) => {
+    if (nav.classList.contains('is-open') && !nav.contains(e.target)) close();
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') close();
+  });
+  nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', close));
+
+  // Repassage en desktop : on nettoie l'état
+  window.addEventListener('resize', () => { if (!isMobile()) close(); }, { passive: true });
+})();

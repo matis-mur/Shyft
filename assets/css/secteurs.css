@@ -798,3 +798,25 @@
 .secteur-section .faq-trigger .num {
   color: var(--accent);
 }
+
+/* ---------------------------------------------------------------------
+   MOBILE · logos clients réduits de moitié
+   Le gabarit de 42px de haut était calibré pour un affichage en ligne
+   sur grand écran. Sur mobile, les logos se retrouvaient empilés et
+   démesurés par rapport au texte qui les entoure.
+   --------------------------------------------------------------------- */
+@media (max-width: 700px) {
+  .secteur-logo {
+    height: 21px;
+    max-width: 80px;
+  }
+  .secteur-logo img { max-width: 80px; }
+
+  .secteur-logos-list {
+    gap: 1.25rem 1.75rem;
+  }
+  .secteur-logos-intro {
+    font-size: 0.6875rem;
+    margin-bottom: 1.25rem;
+  }
+}
