@@ -972,9 +972,26 @@ h1.subpage-huge--logo {
 
 /* FAQ courte sur page contact (reprend pattern .faq-* mais conteneur narrow) */
 .contact-faq-section {
-  background: var(--oxblood-deep);
+  background: var(--cream);
+  color: var(--oxblood);
   padding: var(--section-py) var(--gutter);
 }
+
+/* Le bloc FAQ est prévu pour un fond sombre : sur crème, on inverse
+   les couleurs de texte, de filets et d'icônes. */
+.contact-faq-section .hub-section-eyebrow { color: var(--oxblood); opacity: 0.6; }
+.contact-faq-section .section-header h2 { color: var(--oxblood); }
+.contact-faq-section .section-header h2 em { color: var(--burnt); }
+
+.contact-faq-section .faq-item { border-color: rgba(58, 15, 18, 0.14); }
+.contact-faq-section .faq-trigger { color: var(--oxblood); }
+.contact-faq-section .faq-trigger:hover { color: var(--burnt); }
+.contact-faq-section .faq-trigger .num { color: var(--burnt); opacity: 0.7; }
+.contact-faq-section .faq-trigger .icon::before,
+.contact-faq-section .faq-trigger .icon::after { background: var(--burnt); }
+.contact-faq-section .faq-answer-inner { color: var(--oxblood); opacity: 0.78; }
+.contact-faq-section .faq-answer-inner em { color: var(--burnt); }
+.contact-faq-section .faq-item.open .faq-trigger { color: var(--burnt); }
 .contact-faq-section .container {
   max-width: 920px;
 }
@@ -1067,21 +1084,6 @@ h1.subpage-huge--logo {
   transition: width 0.5s var(--ease-out);
 }
 .hub-card:hover::before { width: 100%; }
-.hub-card::after {
-  content: attr(data-num);
-  position: absolute;
-  bottom: -0.75rem;
-  right: 1.25rem;
-  font-family: var(--font-editorial);
-  font-style: italic;
-  font-weight: 300;
-  font-size: 9rem;
-  line-height: 1;
-  color: var(--card-accent, var(--gold));
-  opacity: 0.06;
-  pointer-events: none;
-  z-index: 0;
-}
 
 .hub-card-num {
   font-family: var(--font-mono);

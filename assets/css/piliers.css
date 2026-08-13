@@ -325,22 +325,6 @@ body.pilier-page {
 }
 .pilier-livrable:hover::before { width: 100%; }
 
-/* Numéro géant italique Fraunces en filigrane bas-droite */
-.pilier-livrable::after {
-  content: attr(data-num);
-  position: absolute;
-  bottom: -0.5rem;
-  right: 1.25rem;
-  font-family: var(--font-editorial);
-  font-style: italic;
-  font-weight: 300;
-  font-size: 9rem;
-  line-height: 1;
-  color: var(--gold);
-  opacity: 0.05;
-  pointer-events: none;
-  z-index: 0;
-}
 
 .pilier-livrable-num {
   font-family: var(--font-mono);
@@ -439,22 +423,6 @@ body.pilier-page {
 }
 .pilier-methode-card:hover::before { width: 100%; }
 
-/* Numéro géant en filigrane Fraunces italic en bas-droite */
-.pilier-methode-card::after {
-  content: attr(data-num);
-  position: absolute;
-  bottom: -0.5rem;
-  right: 1.25rem;
-  font-family: var(--font-editorial);
-  font-style: italic;
-  font-weight: 300;
-  font-size: 9rem;
-  line-height: 1;
-  color: var(--oxblood);
-  opacity: 0.05;
-  pointer-events: none;
-  z-index: 0;
-}
 
 .pilier-methode-card-num {
   font-family: var(--font-mono);
@@ -787,3 +755,102 @@ body.pilier-page {
 .pilier-section--cream .faq-item.open .faq-trigger .icon::after { background: var(--cream); }
 .pilier-section--cream .faq-answer-inner { color: var(--oxblood); opacity: 0.82; }
 .pilier-section--cream .faq-answer-inner em { color: var(--burnt); }
+
+/* ---------------------------------------------------------------------
+   NAVIGATION sur fond clair
+   Le hero des pages piliers est en crème : les liens, prévus pour un
+   fond oxblood, y devenaient illisibles. On les repasse en oxblood
+   tant que la barre n'est pas en mode « pill » (au scroll, elle
+   retrouve son fond sombre et ses couleurs d'origine).
+   --------------------------------------------------------------------- */
+.pilier-page .site-header:not(.scrolled) .nav-links a,
+.pilier-page .site-header:not(.scrolled) .nav-group-trigger {
+  color: var(--oxblood);
+  opacity: 0.75;
+}
+.pilier-page .site-header:not(.scrolled) .nav-links a:hover,
+.pilier-page .site-header:not(.scrolled) .nav-group-trigger:hover {
+  color: var(--burnt);
+  opacity: 1;
+}
+/* Le méga-menu garde son fond sombre : son contenu reste en crème */
+.pilier-page .site-header:not(.scrolled) .nav-mega a {
+  color: var(--cream);
+  opacity: 0.85;
+}
+.pilier-page .site-header:not(.scrolled) .nav-mega a:hover {
+  color: var(--gold);
+  opacity: 1;
+}
+
+/* ---------------------------------------------------------------------
+   BLOC AUDIT (page services) — même langage que .pillars-audit de la home
+   --------------------------------------------------------------------- */
+.services-audit {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 2.5rem;
+  align-items: center;
+  margin-top: 2.5rem;
+  padding: 2.25rem 2.25rem;
+  background: var(--oxblood-deep);
+  border: 1px solid rgba(212, 165, 55, 0.28);
+  border-radius: var(--r-lg);
+}
+.services-audit-eyebrow {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.85rem;
+}
+.services-audit h3 {
+  font-family: var(--font-display);
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+  margin-bottom: 0.85rem;
+}
+.services-audit p {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--cream);
+  opacity: 0.75;
+  max-width: 56ch;
+  margin: 0;
+}
+.services-audit p em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  color: var(--gold);
+  opacity: 1;
+}
+.services-audit-cta {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 1rem;
+}
+.services-audit-price {
+  font-family: var(--font-display);
+  color: var(--cream);
+  white-space: nowrap;
+}
+.services-audit-price strong { font-size: 2rem; font-weight: 600; letter-spacing: -0.03em; }
+.services-audit-price small {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  opacity: 0.6;
+  margin-left: 0.25rem;
+}
+@media (max-width: 800px) {
+  .services-audit {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+    padding: 1.75rem 1.35rem;
+  }
+  .services-audit-cta { align-items: flex-start; }
+}

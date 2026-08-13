@@ -168,6 +168,25 @@
   // Survol : un seul état, léger. Délégation d'événements plutôt que N listeners.
   const HOVER_SEL = 'a, button, [role="button"], input, textarea, select, label, .showcase-card, .faq-item, .pillar, .sector';
 
+  // Surfaces dorées : le point du curseur y passe en oxblood, sans quoi
+  // l'or sur l'or devient invisible.
+  const GOLD_SEL = [
+    '.btn-primary', '.hero-glass-btn--primary', '.nav-cta',
+    '.contact-guarantees', '.hero-pill-badge', '.pillar-badge',
+    '.pillar--core .pillar-toggle:hover', '.offer--featured', '.offer-tag',
+    '.announcement', '.faq-item.open .faq-trigger'
+  ].join(',');
+
+  document.addEventListener('mouseover', (e) => {
+    if (e.target.closest(GOLD_SEL)) document.body.classList.add('cursor-on-gold');
+  }, { passive: true });
+
+  document.addEventListener('mouseout', (e) => {
+    if (e.target.closest(GOLD_SEL) && !e.relatedTarget?.closest(GOLD_SEL)) {
+      document.body.classList.remove('cursor-on-gold');
+    }
+  }, { passive: true });
+
   document.addEventListener('mouseover', (e) => {
     if (e.target.closest(HOVER_SEL)) document.body.classList.add('cursor-link');
   }, { passive: true });

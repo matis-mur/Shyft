@@ -395,12 +395,30 @@
       panel.removeAttribute('hidden');
 
       // Fonction de toggle réutilisable (appelée par le bouton OU par le bloc entier)
+      // Les cartes sont positionnées en absolu dans un conteneur a ratio fixe :
+      // une carte depliee debordait par-dessus la section suivante. On mesure
+      // le debordement reel et on allonge le conteneur d'autant, ce qui pousse
+      // le bloc « Pas sur de ce qu'il vous faut ? » vers le bas.
+      const ajusterHauteur = () => {
+        const stage = document.querySelector('.pillars-orbit');
+        if (!stage) return;
+        stage.style.paddingBottom = '';
+        const ouverte = stage.querySelector('.pillar-details.is-open');
+        stage.classList.toggle('has-open', !!ouverte);
+        if (!ouverte) return;
+        const carte = ouverte.closest('.pillar').getBoundingClientRect();
+        const debord = carte.bottom - stage.getBoundingClientRect().bottom;
+        if (debord > 0) stage.style.paddingBottom = Math.ceil(debord + 24) + 'px';
+      };
+
       const togglePanel = () => {
         const isOpen = btn.getAttribute('aria-expanded') === 'true';
         btn.setAttribute('aria-expanded', String(!isOpen));
         panel.classList.toggle('is-open', !isOpen);
         const label = btn.querySelector('span');
         if (label) label.textContent = isOpen ? 'Détails' : 'Fermer';
+        setTimeout(ajusterHauteur, 30);
+        setTimeout(ajusterHauteur, 420);
       };
 
       // Clic sur le bouton "Détails" classique
@@ -412,11 +430,24 @@
       // Clic n'importe où sur le bloc .pillar → toggle aussi
       // Exclut les clics sur des liens internes (h3 a, .pillar-cta) qui doivent naviguer.
       const pillar = btn.closest('.pillar');
+      const panelLink = panel.querySelector('.pillar-cta');
+
       if (pillar) {
         pillar.style.cursor = 'pointer';
         pillar.addEventListener('click', (e) => {
           // Si on a cliqué sur un lien (ou un descendant d'un lien), on laisse la navigation se faire
           if (e.target.closest('a')) return;
+
+          // Une fois le panneau ouvert, tout clic dans la zone dépliée mène
+          // à la page du pilier : la carte bouge (orbite), viser le petit
+          // lien « En savoir plus » était trop difficile.
+          const dansLePanneau = panel.contains(e.target);
+          const estOuvert = btn.getAttribute('aria-expanded') === 'true';
+          if (dansLePanneau && estOuvert && panelLink) {
+            window.location.href = panelLink.href;
+            return;
+          }
+
           togglePanel();
         });
         // Accessibilité clavier : Enter / Espace ouvrent aussi

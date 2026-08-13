@@ -120,14 +120,22 @@ body::after {
   .cursor-dot {
     position: fixed;
     top: 0; left: 0;
-    width: 7px;
-    height: 7px;
+    width: 8px;
+    height: 8px;
     background: var(--gold);
     border-radius: 50%;
     pointer-events: none;
     z-index: 10000;
     will-change: transform;
-    transition: opacity 0.2s linear;
+    transition: opacity 0.2s linear, background 0.15s linear;
+  }
+
+  /* Sur une surface dorée, le curseur passe en oxblood : c'est le seul
+     cas où l'or sur l'or le rendait invisible. */
+  body.cursor-on-gold .cursor-dot { background: var(--oxblood); }
+  body.cursor-on-gold .cursor-ring {
+    border-color: var(--oxblood);
+    background: rgba(58, 15, 18, 0.1);
   }
   .cursor-ring {
     position: fixed;
@@ -5725,4 +5733,31 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
 .br-mobile { display: none; }
 @media (max-width: 700px) {
   .br-mobile { display: block; }
+}
+
+/* ---------------------------------------------------------------------
+   PILIERS · une carte dépliée doit rester au-dessus de la suite
+   Les cartes sont en position absolue dans un conteneur à ratio fixe :
+   dépliée, une carte du bas dépassait sous le bloc « Commencez par un
+   audit », qui la recouvrait. On élève le stage tant qu'une carte est
+   ouverte, et on maintient le bloc audit en dessous.
+   --------------------------------------------------------------------- */
+.pillars-orbit:has(.pillar-details.is-open) {
+  z-index: 30;
+}
+.pillars-audit {
+  position: relative;
+  z-index: 1;
+}
+/* Repli pour les navigateurs sans :has() — la classe est posée en JS */
+.pillars-orbit.has-open {
+  z-index: 30;
+}
+
+/* Orbite figée pendant la lecture d'une carte : le contenu déplié reste
+   stable, lisible et cliquable — et sa position ne varie plus, donc le
+   calcul de débordement au-dessus du bloc audit reste valable. */
+.pillars-orbit.has-open .pillar--satellite,
+.pillars-orbit:has(.pillar-details.is-open) .pillar--satellite {
+  animation-play-state: paused;
 }
