@@ -26,70 +26,6 @@
 })();
 
 /* ============================================
-   GOOEY TEXT MORPHING
-   ============================================ */
-(function() {
-  const text1 = document.getElementById('gooeyText1');
-  const text2 = document.getElementById('gooeyText2');
-  if (!text1 || !text2) return;
-
-  const texts = ['conversion.', 'croissance.', 'performance.','conversion.'];
-  const morphTime = 1;
-  const cooldownTime = 2.2;
-  let textIndex = texts.length - 1;
-  let time = new Date();
-  let morph = 0;
-  let cooldown = cooldownTime;
-
-  function setMorph(fraction) {
-    text2.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-    text2.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
-    fraction = 1 - fraction;
-    text1.style.filter = `blur(${Math.min(8 / fraction - 8, 100)}px)`;
-    text1.style.opacity = `${Math.pow(fraction, 0.4) * 100}%`;
-  }
-
-  function doCooldown() {
-    morph = 0;
-    text2.style.filter = '';
-    text2.style.opacity = '100%';
-    text1.style.filter = '';
-    text1.style.opacity = '0%';
-  }
-
-  function doMorph() {
-    morph -= cooldown;
-    cooldown = 0;
-    let fraction = morph / morphTime;
-    if (fraction > 1) {
-      cooldown = cooldownTime;
-      fraction = 1;
-    }
-    setMorph(fraction);
-  }
-
-  function animate() {
-    requestAnimationFrame(animate);
-    const newTime = new Date();
-    const shouldIncrementIndex = cooldown > 0;
-    const dt = (newTime.getTime() - time.getTime()) / 1000;
-    time = newTime;
-    cooldown -= dt;
-    if (cooldown <= 0) {
-      if (shouldIncrementIndex) {
-        textIndex = (textIndex + 1) % texts.length;
-        text1.textContent = texts[textIndex % texts.length];
-        text2.textContent = texts[(textIndex + 1) % texts.length];
-      }
-      doMorph();
-    } else {
-      doCooldown();
-    }
-  }
-  animate();
-})();
-
-/* ============================================
    HOVER BUTTON GLOW (sur tous les btn-primary)
    ============================================ */
 (function() {
@@ -141,11 +77,6 @@
   const ring = document.getElementById('cursorRing');
   const dot = document.getElementById('cursorDot');
 
-  // Le libellé contextuel ("Démarrer", "Auditer"…) est retiré : cible dirigeants,
-  // on privilégie un curseur lisible et prévisible plutôt qu'un effet de style.
-  const text = document.getElementById('cursorText');
-  if (text) text.remove();
-
   // Position appliquée directement, sans interpolation : zéro traînée.
   // On passe par transform (composited) plutôt que left/top pour éviter
   // tout reflow et rester à 60fps même sur machine modeste.
@@ -172,9 +103,8 @@
   // l'or sur l'or devient invisible.
   const GOLD_SEL = [
     '.btn-primary', '.hero-glass-btn--primary', '.nav-cta',
-    '.contact-guarantees', '.hero-pill-badge', '.pillar-badge',
-    '.pillar--core .pillar-toggle:hover', '.offer--featured', '.offer-tag',
-    '.announcement', '.faq-item.open .faq-trigger'
+    '.contact-guarantees', '.pillar-badge',
+    '.pillar--core .pillar-toggle:hover', '.faq-item.open .faq-trigger'
   ].join(',');
 
   document.addEventListener('mouseover', (e) => {

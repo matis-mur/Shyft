@@ -20,21 +20,6 @@
   const hasFinePointer = () => window.matchMedia('(hover: hover) and (pointer: fine)').matches;
 
   /* ============================================
-     1. NAV CONTEXTUELLE AU SCROLL · DÉSACTIVÉ
-     ============================================
-     Mode actuel : les liens nav sont visibles dès le top de la page.
-     Au scroll, le visuel se transforme en pill compacte (via .scrolled
-     géré par main.js), mais les liens restent affichés.
-     Ce module ne fait plus que nettoyer la classe .nav--minimal au cas
-     où elle traînerait depuis un état précédent.
-  */
-  (function navContextualCleanup() {
-    const nav = document.querySelector('.nav');
-    if (!nav) return;
-    nav.classList.remove('nav--minimal');
-  })();
-
-  /* ============================================
      1.b WORD-APPEAR · animation staggerée du h1 hero
      ============================================
      Chaque .word-animate du h1 a un data-delay (ms).
