@@ -89,129 +89,6 @@ body.pilier-page {
   position: relative;
   z-index: 3;
 }
-
-/* ============================================
-   1. HERO PILIER (50-60vh, oxblood, layout éditorial)
-   ============================================ */
-.pilier-hero {
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  padding: calc(var(--nav-h, 88px) + 5rem) var(--gutter) 5rem;
-  background: var(--oxblood);
-}
-.pilier-hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(circle 700px at 85% 15%, rgba(212, 165, 55, 0.15), transparent 55%),
-    radial-gradient(circle 600px at 10% 90%, rgba(139, 26, 31, 0.4), transparent 55%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.pilier-hero-inner {
-  position: relative;
-  z-index: 2;
-  max-width: var(--max);
-  margin: 0 auto;
-}
-
-/* Eyebrow numérotée du pilier ("01 — Stratégie") */
-.pilier-eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.75rem;
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--gold);
-  opacity: 0.85;
-  margin-bottom: 2rem;
-}
-.pilier-eyebrow-num {
-  background: var(--gold);
-  color: var(--oxblood-deep);
-  padding: 0.3rem 0.55rem;
-  border-radius: 4px;
-  font-weight: 600;
-}
-
-/* Titre principal · style brutaliste mais wrap autorisé */
-.pilier-title {
-  font-family: var(--font-display);
-  font-size: clamp(2.75rem, 7vw, 6rem);
-  font-weight: 600;
-  line-height: 0.96;
-  letter-spacing: -0.045em;
-  color: var(--cream);
-  max-width: 18ch;
-  margin-bottom: 2rem;
-}
-.pilier-title em {
-  font-family: var(--font-emphasis);
-  font-style: normal;
-  font-weight: 400;
-  color: var(--gold);
-}
-
-/* Grid sous le titre · sub à gauche, meta à droite (prix + délai) */
-.pilier-hero-grid {
-  display: grid;
-  grid-template-columns: 1.4fr 1fr;
-  gap: 4rem;
-  align-items: start;
-  margin-bottom: 3rem;
-}
-@media (max-width: 880px) {
-  .pilier-hero-grid { grid-template-columns: 1fr; gap: 2rem; }
-}
-
-.pilier-hero-sub {
-  font-size: clamp(1.0625rem, 1.5vw, 1.25rem);
-  line-height: 1.6;
-  color: var(--cream);
-  opacity: 0.85;
-  max-width: 52ch;
-}
-
-/* Table meta (prix · délai) à droite du hero */
-.pilier-hero-meta {
-  border-top: 1px solid rgba(242, 235, 220, 0.2);
-}
-.pilier-hero-meta-row {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  align-items: baseline;
-  gap: 1rem;
-  padding: 1rem 0;
-  border-bottom: 1px solid rgba(242, 235, 220, 0.2);
-}
-.pilier-hero-meta-key {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--cream);
-  opacity: 0.6;
-}
-.pilier-hero-meta-val {
-  font-family: var(--font-display);
-  font-size: 1.0625rem;
-  font-weight: 600;
-  color: var(--cream);
-  text-align: right;
-}
-.pilier-hero-meta-val small {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  font-weight: 400;
-  opacity: 0.65;
-  margin-left: 0.3rem;
-}
-
 /* ============================================
    2. SECTIONS COMMUNES PILIERS
    ============================================ */
@@ -324,29 +201,6 @@ body.pilier-page {
   transition: width 0.5s var(--ease-out);
 }
 .pilier-livrable:hover::before { width: 100%; }
-
-
-.pilier-livrable-num {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.22em;
-  color: var(--gold);
-  opacity: 0.85;
-  font-weight: 600;
-  margin-bottom: 1.75rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  position: relative;
-  z-index: 1;
-}
-.pilier-livrable-num::before {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: var(--gold);
-}
-
 .pilier-livrable h3 {
   font-family: var(--font-display);
   font-size: clamp(1.5rem, 2.2vw, 1.875rem);
@@ -422,29 +276,6 @@ body.pilier-page {
   transition: width 0.5s var(--ease-out);
 }
 .pilier-methode-card:hover::before { width: 100%; }
-
-
-.pilier-methode-card-num {
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.22em;
-  color: var(--burnt);
-  opacity: 0.85;
-  font-weight: 600;
-  margin-bottom: 1.75rem;
-  display: inline-flex;
-  align-items: center;
-  gap: 0.65rem;
-  position: relative;
-  z-index: 1;
-}
-.pilier-methode-card-num::before {
-  content: '';
-  width: 24px;
-  height: 1px;
-  background: var(--burnt);
-}
-
 .pilier-methode-card h3 {
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 2.4vw, 2.125rem);

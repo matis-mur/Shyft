@@ -107,7 +107,6 @@
 .secteur-hero-visual--energies { background-image: url('../img/energies.jpg'); }
 .secteur-hero-visual--conseil  { background-image: url('../img/conseil.jpg'); }
 
-/* Masque le placeholder (label + symbole) dès qu'une vraie photo est posée */
 .secteur-hero-visual--retail .secteur-hero-visual-symbol,
 .secteur-hero-visual--retail .secteur-hero-visual-label,
 .secteur-hero-visual--pharma .secteur-hero-visual-symbol,
@@ -119,9 +118,7 @@
 .secteur-hero-visual--energies .secteur-hero-visual-symbol,
 .secteur-hero-visual--energies .secteur-hero-visual-label,
 .secteur-hero-visual--conseil .secteur-hero-visual-symbol,
-.secteur-hero-visual--conseil .secteur-hero-visual-label,
-.secteur-hero-visual.has-photo .secteur-hero-visual-symbol,
-.secteur-hero-visual.has-photo .secteur-hero-visual-label {
+.secteur-hero-visual--conseil .secteur-hero-visual-label{
   display: none;
 }
 /* Label discret dans le coin (visible tant qu'aucune photo n'est ajoutée) */
@@ -302,16 +299,7 @@
 .secteur-logo img[src*="monext"]          { transform: scale(1.5); }
 .secteur-logo img[src*="docoon"]          { transform: scale(1.2); }
 .secteur-logo img[src*="ixbat"]           { transform: scale(1.1); }
-.secteur-logo img[src*="services-it"]     { transform: scale(1.1); }
-/* Finaxim seul → plus grand visuellement */
-.secteur-logo--solo {
-  height: 64px;
-  max-width: 240px;
-}
-.secteur-logo--solo img {
-  max-width: 240px;
-}
-.secteur-logo img[src*="finaxim"]         { transform: scale(1.1); }
+.secteur-logo img[src*="services-it"]     { transform: scale(1.1); }.secteur-logo img[src*="finaxim"]         { transform: scale(1.1); }
 
 /* ============================================
    ANIMATION POP · stats, leviers, enjeux, problématiques
@@ -354,34 +342,6 @@
     transition: none;
   }
 }
-
-/* ============================================
-   2bis. CODES NAF (bandeau bas de page secteur)
-   ============================================ */
-.secteur-naf {
-  background: var(--oxblood-deep);
-  padding: 1.75rem var(--gutter);
-  border-top: 1px solid rgba(242, 235, 220, 0.06);
-}
-.secteur-naf-inner {
-  max-width: var(--max);
-  margin: 0 auto;
-  font-family: var(--font-mono);
-  font-size: 0.75rem;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--cream);
-  opacity: 0.5;
-  text-align: center;
-  line-height: 1.7;
-}
-.secteur-naf-label {
-  font-weight: 500;
-  margin-right: 0.5rem;
-  color: var(--gold);
-  opacity: 0.8;
-}
-
 /* ============================================
    3. SECTIONS COMMUNES (palette Shyft)
    ============================================ */
@@ -619,74 +579,6 @@
   color: var(--cream);
   opacity: 0.7;
 }
-
-/* ============================================
-   7. CAS D'USAGE (2 cartes cream avec blocks)
-   ============================================ */
-.secteur-cas {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 2rem;
-}
-@media (max-width: 880px) {
-  .secteur-cas { grid-template-columns: 1fr; }
-}
-.secteur-cas-card {
-  background: var(--cream);
-  color: var(--oxblood);
-  border-radius: var(--r-md);
-  padding: 2.5rem 2.25rem;
-  position: relative;
-  overflow: hidden;
-  isolation: isolate;
-  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-  transition: transform 0.35s var(--ease-out);
-}
-.secteur-cas-card:hover { transform: translateY(-4px); }
-/* Petit ruban accent en haut de la card */
-.secteur-cas-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 4px;
-  background: var(--accent);
-}
-.secteur-cas-card h3 {
-  font-family: var(--font-display);
-  font-size: 1.1875rem;
-  font-weight: 600;
-  color: var(--oxblood);
-  letter-spacing: -0.01em;
-  margin-bottom: 1.75rem;
-  line-height: 1.25;
-}
-.secteur-cas-block + .secteur-cas-block {
-  margin-top: 1.25rem;
-  padding-top: 1.25rem;
-  border-top: 1px solid rgba(58, 15, 18, 0.12);
-}
-.secteur-cas-block-label {
-  font-family: var(--font-mono);
-  font-size: 0.6875rem;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: var(--accent);
-  margin-bottom: 0.45rem;
-  display: block;
-  font-weight: 600;
-}
-.secteur-cas-block p {
-  font-family: var(--font-editorial);
-  font-style: italic;
-  font-weight: 400;
-  font-size: 1rem;
-  line-height: 1.55;
-  color: var(--oxblood);
-  opacity: 0.88;
-}
-
 /* ============================================
    7bis. PROBLÉMATIQUES TYPIQUES (remplace les "cas d'usage")
    Scénarios-types sans noms ni chiffres fictifs
