@@ -1463,11 +1463,11 @@ section { position: relative; }
   border-color: transparent;
 }
 /* ============================================
-   14. STUDIO FULLBLEED · style No graphism
+   14. ÉQUIPE FULLBLEED · style No graphism
    Photo plein écran, label discret, 4 noms + rôles
    en bas, pills "nicknames" au hover de chaque zone.
    ============================================ */
-.studio-fullbleed.section {
+.equipe-fullbleed.section {
   padding: 0;
   position: relative;
   overflow: hidden;
@@ -1478,7 +1478,7 @@ section { position: relative; }
   flex-direction: column;
 }
 
-.studio-bg {
+.equipe-bg {
   position: absolute;
   inset: 0;
   width: 100%;
@@ -1489,7 +1489,7 @@ section { position: relative; }
   z-index: 1;
 }
 
-.studio-overlay {
+.equipe-overlay {
   position: absolute;
   inset: 0;
   z-index: 2;
@@ -1504,7 +1504,7 @@ section { position: relative; }
       rgba(31, 6, 8, 0.95) 100%);
 }
 
-.studio-team-label {
+.equipe-team-label {
   position: absolute;
   bottom: clamp(14rem, 26vh, 20rem);
   left: clamp(1.5rem, 6vw, 5rem);
@@ -1517,7 +1517,7 @@ section { position: relative; }
   letter-spacing: -0.005em;
 }
 
-.studio-zones {
+.equipe-zones {
   position: relative;
   z-index: 3;
   margin-top: auto;
@@ -1528,7 +1528,7 @@ section { position: relative; }
   align-items: end;
 }
 
-.studio-zone {
+.equipe-zone {
   position: relative;
   height: 100%;
   display: flex;
@@ -1538,7 +1538,7 @@ section { position: relative; }
   padding: 0 0.75rem;
 }
 /* Membre (nom + rôle), légèrement atténué par défaut · réveille au hover */
-.studio-member {
+.equipe-member {
   position: relative;
   z-index: 5;
   color: var(--cream);
@@ -1547,12 +1547,12 @@ section { position: relative; }
     transform 0.4s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.studio-zone:hover .studio-member {
+.equipe-zone:hover .equipe-member {
   opacity: 1;
   transform: translateY(-8px);
 }
 
-.studio-member h4 {
+.equipe-member h4 {
   font-family: var(--font-display);
   font-size: clamp(1.75rem, 3.3vw, 3rem);
   font-weight: 500;
@@ -1565,7 +1565,7 @@ section { position: relative; }
   display: inline-block;
 }
 /* Petit filet gold qui apparaît sous le nom au hover · identifie la zone */
-.studio-member h4::after {
+.equipe-member h4::after {
   content: '';
   position: absolute;
   bottom: -8px;
@@ -1575,11 +1575,11 @@ section { position: relative; }
   background: var(--gold);
   transition: width 0.45s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.studio-zone:hover .studio-member h4::after {
+.equipe-zone:hover .equipe-member h4::after {
   width: 38px;
 }
 
-.studio-member p {
+.equipe-member p {
   font-size: clamp(0.9375rem, 1.15vw, 1.0625rem);
   color: rgba(242, 235, 220, 0.85);
   line-height: 1.4;
@@ -1589,30 +1589,30 @@ section { position: relative; }
 
 /* Mobile : photo en haut, noms en dessous en 2x2, pills toujours visibles */
 @media (max-width: 768px) {
-  .studio-fullbleed.section {
+  .equipe-fullbleed.section {
     min-height: 0;
     display: block;
   }
-  .studio-bg {
+  .equipe-bg {
     position: relative;
     height: auto;
     aspect-ratio: 4 / 3;
   }
-  .studio-overlay { display: none; }
-  .studio-team-label {
+  .equipe-overlay { display: none; }
+  .equipe-team-label {
     position: relative;
     bottom: auto;
     left: auto;
     display: block;
     padding: 2rem var(--gutter) 0.75rem;
   }
-  .studio-zones {
+  .equipe-zones {
     grid-template-columns: 1fr 1fr;
     gap: 2rem 1.5rem;
     padding: 0 var(--gutter) 4rem;
     margin-top: 0;
   }
-  .studio-zone { padding: 0; }  .studio-zone:hover .studio-member { transform: none; }
+  .equipe-zone { padding: 0; }  .equipe-zone:hover .equipe-member { transform: none; }
 }
 /* ============================================
    15. APPROCHE · 5 piliers
@@ -3590,8 +3590,8 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
   /* ---- Respiration : purement décoratif ---- */
   .respiration { display: none; }
 
-  /* ---- Studio : image de fond allégée ---- */
-  .studio-fullbleed { min-height: 420px; }
+  /* ---- Équipe : image de fond allégée ---- */
+  .equipe-fullbleed { min-height: 420px; }
 }
 
 /* Le CTA mobile du contact n'existe pas au-delà : le formulaire est là */
@@ -3860,7 +3860,7 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
 
 /* ---------------------------------------------------------------------
    ÉQUIPE · prénoms cliquables vers LinkedIn
-   Présent sur la home (.studio-member) et sur la page agence
+   Présent sur la home (.equipe-member) et sur la page agence
    (.agence-member-name). Le prénom reste identique au repos ; seul le
    passage en or au survol signale qu'il est cliquable.
    --------------------------------------------------------------------- */
