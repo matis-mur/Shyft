@@ -192,25 +192,6 @@ body .secteur-cta-final h2 em,
 body .manifesto-side h2 em,
 body .contact-intro h2 em {
   font-family: var(--font-emphasis);
-}
-
-/* ============================================
-   5. ANNOUNCEMENT BAR
-   ============================================ */
-.announcement {
-  background: var(--black);
-  color: var(--cream);
-  padding: 0.6rem var(--gutter);
-  font-family: var(--font-mono);
-  font-size: var(--fs-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  border-bottom: 1px solid rgba(242, 235, 220, 0.08);
-  position: relative;
-  z-index: 50;
 }@keyframes pulse {
   0%, 100% { opacity: 1; transform: scale(1); }
   50% { opacity: 0.4; transform: scale(0.85); }
@@ -468,14 +449,6 @@ body .contact-intro h2 em {
   .nav-mega { display: none; }
   .nav-group-trigger::after { display: none; }
 }
-
-/* Mode minimal : au top de la page, on cache les liens (logo + CTA seuls) */
-
-/* prefers-reduced-motion : toggle instantané, pas de transition */
-@media (prefers-reduced-motion: reduce) {
-  .nav-links,
-}
-
 .nav-cta {
   background: var(--cream);
   color: var(--oxblood);
@@ -1437,32 +1410,7 @@ section { position: relative; }
   .orbital-node-label { font-size: 0.625rem; }
   .orbital-core { width: 64px; height: 64px; }
   .orbital-core-inner { width: 24px; height: 24px; }
-}
-.offer--featured {
-  background: linear-gradient(180deg, var(--leather), var(--oxblood-deep));
-  border-color: rgba(212, 165, 55, 0.35);
-}
-.offer--featured::before { opacity: 0.8; }
-
-.offer-tag {
-  display: inline-block;
-  font-family: var(--font-mono);
-  font-size: var(--fs-mono);
-  text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: var(--gold);
-  padding: 0.35rem 0.8rem;
-  border: 1px solid rgba(212, 165, 55, 0.3);
-  border-radius: 100px;
-  margin-bottom: 1.5rem;
-  align-self: flex-start;
-}
-.offer--featured .offer-tag {
-  background: var(--gold);
-  color: var(--oxblood);
-  border-color: transparent;
-}
-/* ============================================
+}/* ============================================
    14. ÉQUIPE FULLBLEED · style No graphism
    Photo plein écran, label discret, 4 noms + rôles
    en bas, pills "nicknames" au hover de chaque zone.
@@ -3278,22 +3226,7 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
   padding: clamp(2rem, 6vh, 5rem) var(--gutter);
   max-width: 1200px;
   width: 100%;
-}.hero-pill-badge {
-  display: inline-flex;
-  align-items: center;
-  height: 26px;
-  padding: 0 0.6rem;
-  border-radius: 7px;
-  background: var(--gold);
-  color: var(--oxblood);
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 0.66rem;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  box-shadow: 0 0 12px rgba(212, 165, 55, 0.5);
-}
-/* ---- Headline ---- */
+}/* ---- Headline ---- */
 .hero-glass-h1 {
   font-family: var(--font-editorial);
   font-weight: 500;
@@ -3437,7 +3370,7 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
 }
 
 /* Responsive */
-@media (max-width: 720px) {  .hero-pill-badge { height: 22px; font-size: 0.6rem; padding: 0 0.5rem; }  .hero-glass-h1 { font-size: clamp(2.2rem, 10vw, 3.6rem); margin-top: 1.5rem; }
+@media (max-width: 720px) {  .hero-glass-h1 { font-size: clamp(2.2rem, 10vw, 3.6rem); margin-top: 1.5rem; }
   .hero-glass-sub { font-size: 0.98rem; }
   .hero-glass-btn { height: 48px; font-size: 0.95rem; padding: 0 1.5rem; width: 100%; }
   .hero-glass-ctas { flex-direction: column; align-items: stretch; width: 100%; max-width: 320px; }
