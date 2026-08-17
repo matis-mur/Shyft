@@ -3228,6 +3228,13 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
   background: #150507 url('../img/hero.jpg') center / cover no-repeat;
 }
 
+@media (max-width: 900px) {
+  /* Même visuel en définition mobile : 12 Ko au lieu de 124 */
+  .hero--glass .hero-static {
+    background-image: url('../img/hero-mobile.jpg');
+  }
+}
+
 /* Scrim pour lisibilité (assombrit le shader autour du texte) */
 .hero--glass .hero-scrim {
   position: absolute; inset: 0;
