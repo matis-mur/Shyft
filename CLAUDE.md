@@ -33,7 +33,7 @@ Variables CSS dans `:root` de `styles.css` :
 
 1. **Jamais de tiret cadratin** nulle part : ni dans le site, ni dans les commits, ni dans les textes proposés.
 2. **Jamais le mot « studio »** : Shyft est une agence.
-3. **Ne jamais pusher sans demande explicite de Matis.** Commits locaux OK.
+3. **Git appartient à Matis.** Ne jamais lancer `git add`, `git commit` ni `git push` : modifier les fichiers, puis fournir à Matis un bloc de commandes prêt à copier avec un message de commit proposé. Les commandes en lecture seule (status, diff, log) restent autorisées.
 4. Tout le contenu, les commentaires de code et les messages de commit sont **en français**.
 5. Aucune promesse contractuelle dans les textes : pas de « prix fixe », pas de « délai garanti ». Les prix sont « à partir de », les délais indicatifs.
 6. Ne pas revendiquer les grandes marques (UPSA, Bioderma, Auchan…) comme clientes de Shyft : c'est l'expérience passée de la direction stratégie, formulée prudemment, uniquement sur les pages secteurs.

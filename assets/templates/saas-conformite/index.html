@@ -1,0 +1,598 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="robots" content="noindex, nofollow">
+  <title>Endos · Facturation électronique et conformité réglementaire</title>
+  <meta name="description" content="Endos émet, reçoit, contrôle et archive vos factures électroniques dans le respect du cadre réglementaire. Démonstration Shyft, entreprise fictive.">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- ============ NAVIGATION ============ -->
+  <header class="entete" id="haut">
+    <div class="conteneur entete-inner">
+      <a href="#haut" class="marque" aria-label="Endos, retour en haut de page">
+        <img class="marque-logo" src="endos.png" alt="Endos" width="112" height="37">
+      </a>
+      <nav class="nav" aria-label="Navigation principale">
+        <a href="#plateformes">Plateformes</a>
+        <a href="#profils">Pour qui</a>
+        <a href="#api">API</a>
+        <a href="#ressources">Ressources</a>
+      </nav>
+      <a href="#contact" class="btn btn-plein entete-cta">Demander une démo</a>
+      <button class="entete-burger" type="button" aria-expanded="false" aria-controls="menuMobile" aria-label="Ouvrir le menu">
+        <span></span><span></span>
+      </button>
+    </div>
+    <div class="menu-mobile" id="menuMobile" hidden>
+      <a href="#plateformes">Plateformes</a>
+      <a href="#profils">Pour qui</a>
+      <a href="#api">API</a>
+      <a href="#ressources">Ressources</a>
+      <a href="#contact" class="btn btn-plein">Demander une démo</a>
+    </div>
+  </header>
+
+  <main>
+
+    <!-- ============ HERO : promesse + preuve réglementaire + interface factice ============ -->
+    <section class="hero">
+
+      <div class="hero-copy">
+        <p class="hero-preuve">
+          <span class="hero-preuve-pastille" aria-hidden="true"></span>
+          Opérateur de dématérialisation · immatriculation PDP en cours d'instruction
+        </p>
+
+        <h1 class="hero-title">
+          La facturation électronique,
+          <em>conforme par construction.</em>
+        </h1>
+
+        <p class="hero-lede">
+          Endos émet, reçoit, contrôle et archive vos factures électroniques dans le
+          respect du cadre réglementaire français et européen. Formats structurés,
+          piste d'audit fiable, archivage à valeur probante : chaque étape est
+          couverte, chaque flux est traçable.
+        </p>
+
+        <div class="hero-actions">
+          <a class="btn btn-plein" href="#contact">
+            Demander une démo
+            <svg viewBox="0 0 24 16" aria-hidden="true"><path d="M1 8h21M16 1.5 22.5 8 16 14.5"/></svg>
+          </a>
+          <a class="btn btn-ligne" href="#plateformes">Découvrir les plateformes</a>
+        </div>
+
+        <ul class="hero-reperes" aria-label="Repères de conformité">
+          <li>Factur-X, UBL, CII</li>
+          <li>Piste d'audit fiable</li>
+          <li>Archivage 10 ans</li>
+        </ul>
+      </div>
+
+      <!-- Maquette produit inclinée : détail d'une facture dans la console.
+           Tout en HTML/CSS/SVG, logo embarqué, aucune requête externe. -->
+      <div class="hero-visual" aria-hidden="true">
+        <div class="scene">
+          <div class="app-shell">
+            <div class="app">
+
+              <aside class="sidebar">
+                <span class="logo"></span>
+                <nav class="nav">
+                  <span class="nav-item">
+                    <svg viewBox="0 0 20 20"><rect x="1.5" y="1.5" width="6.5" height="6.5" rx="1.6"/><rect x="12" y="1.5" width="6.5" height="6.5" rx="1.6"/><rect x="1.5" y="12" width="6.5" height="6.5" rx="1.6"/><rect x="12" y="12" width="6.5" height="6.5" rx="1.6"/></svg>
+                    <span>Tableau de bord</span>
+                  </span>
+                  <span class="nav-item is-active">
+                    <svg viewBox="0 0 20 20"><rect x="2" y="3" width="12" height="14" rx="2"/><path d="M5.5 7h5M5.5 10h5M5.5 13h3"/><path d="M14 6h3a1 1 0 0 1 1 1v8"/></svg>
+                    <span>Ventes</span>
+                  </span>
+                  <span class="nav-item">
+                    <svg viewBox="0 0 20 20"><rect x="1.5" y="4.5" width="17" height="11" rx="2.2"/><path d="M1.5 9h17"/></svg>
+                    <span>Achats</span>
+                  </span>
+                  <span class="nav-item">
+                    <svg viewBox="0 0 20 20"><path d="M1.8 5.2a1.7 1.7 0 0 1 1.7-1.7h3.4l1.9 2.3h7.4a1.7 1.7 0 0 1 1.7 1.7v7.3a1.7 1.7 0 0 1-1.7 1.7H3.5a1.7 1.7 0 0 1-1.7-1.7z"/></svg>
+                    <span>Autres documents</span>
+                  </span>
+                  <span class="nav-item">
+                    <svg viewBox="0 0 20 20"><rect x="1.5" y="3.5" width="17" height="13" rx="2"/><circle cx="7" cy="9" r="2"/><path d="M3.8 14c.5-1.7 1.7-2.5 3.2-2.5s2.7.8 3.2 2.5M13 8h3.4M13 11h3.4"/></svg>
+                    <span>Répertoire</span>
+                  </span>
+                  <span class="nav-item">
+                    <svg viewBox="0 0 20 20"><path d="M10 2.2 18.4 6H1.6z"/><path d="M4 8v6M8 8v6M12 8v6M16 8v6M1.6 17h16.8"/></svg>
+                    <span>Déclarations</span>
+                  </span>
+                  <span class="nav-item">
+                    <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="2.8"/><path d="M10 1.6l1 2.2 2.4-.5 1.1 2.2 2.4.5-.5 2.4 1.6 1.6-1.6 1.6.5 2.4-2.4.5-1.1 2.2-2.4-.5-1 2.2-1-2.2-2.4.5-1.1-2.2-2.4-.5.5-2.4L1.4 10l1.6-1.6-.5-2.4 2.4-.5L6 3.3l2.4.5z"/></svg>
+                    <span>Administration</span>
+                  </span>
+                </nav>
+              </aside>
+
+              <div class="main">
+                <div class="topbar">
+                  <span class="back">
+                    <svg viewBox="0 0 20 20"><path d="M12.5 3.5 6 10l6.5 6.5"/></svg>
+                  </span>
+                  <span class="doc-title">Facture 5020552089332</span>
+                  <span class="tabs">
+                    <span class="tab is-active">Général</span>
+                    <span class="tab">Destinataires</span>
+                    <span class="tab">Activités</span>
+                    <span class="tab">Métadonnées</span>
+                  </span>
+                  <span class="gear">
+                    <svg viewBox="0 0 20 20"><circle cx="10" cy="10" r="2.8"/><path d="M10 1.6l1 2.2 2.4-.5 1.1 2.2 2.4.5-.5 2.4 1.6 1.6-1.6 1.6.5 2.4-2.4.5-1.1 2.2-2.4-.5-1 2.2-1-2.2-2.4.5-1.1-2.2-2.4-.5.5-2.4L1.4 10l1.6-1.6-.5-2.4 2.4-.5L6 3.3l2.4.5z"/></svg>
+                  </span>
+                </div>
+
+                <div class="statusbar">
+                  <span class="statusbar-label">Facture</span>
+                  <span class="pill">Déposée</span>
+                </div>
+
+                <div class="panels">
+                  <div class="panel">
+                    <span class="panel-title">Informations</span>
+                    <div class="card">
+                      <div class="card-head">
+                        <span class="pill">Déposée</span>
+                        <span class="card-head-link">Autres métadonnées</span>
+                      </div>
+                      <div class="fields">
+                        <div class="field">
+                          <span class="lab">Numéro de facture</span>
+                          <span class="val">F383920373</span>
+                        </div>
+                        <div class="field">
+                          <span class="lab">Date de facture</span>
+                          <span class="val">11/02/2026</span>
+                        </div>
+                        <div class="field-row cols-2">
+                          <div class="field"><span class="lab">Tiers</span><span class="val">Endos</span></div>
+                          <div class="field"><span class="lab">Code</span><span class="val">508988</span></div>
+                        </div>
+                        <div class="field-row cols-3">
+                          <div class="field"><span class="lab">HT</span><span class="val">690 &euro;</span></div>
+                          <div class="field"><span class="lab">TVA</span><span class="val">134 &euro;</span></div>
+                          <div class="field"><span class="lab">TTC</span><span class="val">824 &euro;</span></div>
+                        </div>
+                        <div class="field">
+                          <span class="lab">Date d'échéance</span>
+                          <span class="val">18/02/2026</span>
+                        </div>
+                        <div class="field-row cols-3">
+                          <div class="field"><span class="lab">Mode de paiement</span><span class="val">Virement</span></div>
+                          <div class="field"><span class="lab">Payé</span><span class="val">0 &euro;</span></div>
+                          <div class="field"><span class="lab">Montant dû</span><span class="val">824 &euro;</span></div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="panel">
+                    <span class="panel-title">Facture</span>
+                    <div class="card invoice">
+                      <span class="invoice-logo"></span>
+                      <span class="invoice-to">Facturer à</span>
+                      <span class="invoice-addr">
+                        Jacques Dupont<br>
+                        Endos<br>
+                        36 rue des Cerisiers, 75013 Paris
+                      </span>
+                      <span class="invoice-object">Mise en service</span>
+                      <div class="invoice-table">
+                        <span class="it-head">Description</span>
+                        <span class="it-row">Produit A</span>
+                        <span class="it-row">Service B</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ============ RÉFÉRENCES FICTIVES : défilement typographique ============ -->
+    <section class="references" aria-label="Ils utilisent Endos">
+      <p class="references-intro conteneur">Des directions financières qui tiennent leurs échéances</p>
+      <div class="references-defile">
+        <div class="references-piste">
+          <ul class="references-liste">
+            <li>Ciments Bressandier</li>
+            <li>Groupe Halveque</li>
+            <li>Transports Vauclerc</li>
+            <li>Éditions Corbeval</li>
+            <li>Mutuelle Montarlier</li>
+            <li>Coopérative Meslane</li>
+          </ul>
+          <ul class="references-liste" aria-hidden="true">
+            <li>Ciments Bressandier</li>
+            <li>Groupe Halveque</li>
+            <li>Transports Vauclerc</li>
+            <li>Éditions Corbeval</li>
+            <li>Mutuelle Montarlier</li>
+            <li>Coopérative Meslane</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ TROIS PLATEFORMES ============ -->
+    <section class="plateformes" id="plateformes">
+      <div class="conteneur">
+        <header class="section-tete">
+          <p class="section-eyebrow">Plateformes</p>
+          <h2>Trois briques, une seule chaîne de conformité.</h2>
+          <p class="section-lede">
+            Chaque plateforme fonctionne seule et se raccorde aux autres. Vous
+            démarrez par l'obligation qui vous concerne, vous étendez quand vous le décidez.
+          </p>
+        </header>
+        <div class="plateformes-grille">
+          <article class="carte">
+            <span class="carte-num" aria-hidden="true">01</span>
+            <span class="carte-icone" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke-width="2" stroke-linecap="round">
+                <rect x="7" y="4" width="18" height="24" rx="2.5" class="trait"></rect>
+                <path d="M12 11h8 M12 16h8 M12 21h5" class="trait"></path>
+                <circle cx="23" cy="23" r="6" class="pastille"></circle>
+                <path d="M20.5 23l1.8 1.8 3.2-3.4" class="coche"></path>
+              </svg>
+            </span>
+            <h3>Endos Facture</h3>
+            <p>
+              Émission et réception de factures électroniques aux formats Factur-X, UBL
+              et CII. Contrôles réglementaires avant transmission, circuits de validation
+              internes, suivi des statuts de bout en bout.
+            </p>
+            <ul>
+              <li>Raccordement à l'annuaire officiel des destinataires</li>
+              <li>Contrôles de cohérence avant émission</li>
+              <li>Cycle de vie complet : dépôt, rejet, encaissement</li>
+            </ul>
+          </article>
+          <article class="carte">
+            <span class="carte-num" aria-hidden="true">02</span>
+            <span class="carte-icone" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke-width="2" stroke-linecap="round">
+                <rect x="4" y="7" width="24" height="18" rx="2.5" class="trait"></rect>
+                <circle cx="16" cy="16" r="5" class="trait"></circle>
+                <circle cx="16" cy="16" r="1.6" class="plein"></circle>
+                <path d="M16 11v-1.5 M16 22.5V21 M11 16H9.5 M22.5 16H21" class="pastille"></path>
+              </svg>
+            </span>
+            <h3>Endos Archive</h3>
+            <p>
+              Archivage à valeur probante de l'ensemble de vos pièces : factures,
+              avoirs, justificatifs. Scellement, horodatage et journal de preuve,
+              conservés dix ans sur le territoire européen.
+            </p>
+            <ul>
+              <li>Coffre numérique conforme NF Z42-013</li>
+              <li>Journal de preuve consultable à tout moment</li>
+              <li>Restitution intégrale en cas de contrôle fiscal</li>
+            </ul>
+          </article>
+          <article class="carte">
+            <span class="carte-num" aria-hidden="true">03</span>
+            <span class="carte-icone" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke-width="2" stroke-linecap="round">
+                <path d="M5 10h14 M19 10l-3.5-3.5 M19 10l-3.5 3.5" class="trait"></path>
+                <path d="M27 22H13 M13 22l3.5-3.5 M13 22l3.5 3.5" class="pastille"></path>
+                <circle cx="27" cy="10" r="2" class="plein"></circle>
+                <circle cx="5" cy="22" r="2" class="trait"></circle>
+              </svg>
+            </span>
+            <h3>Endos Flux</h3>
+            <p>
+              Supervision de vos échanges : e-reporting des transactions, EDI avec vos
+              partenaires historiques, connecteurs vers vos outils comptables et votre ERP.
+              Une seule console pour tous les flux.
+            </p>
+            <ul>
+              <li>E-reporting des données de transaction et de paiement</li>
+              <li>Connecteurs ERP et outils comptables du marché</li>
+              <li>Alertes en cas de rupture ou de rejet de flux</li>
+            </ul>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SEGMENTATION PAR PROFIL : onglets accessibles ============ -->
+    <section class="profils" id="profils">
+      <div class="conteneur">
+        <header class="section-tete">
+          <p class="section-eyebrow">Pour qui</p>
+          <h2>Le même socle, quatre façons de s'en servir.</h2>
+        </header>
+        <div class="onglets" data-onglets>
+          <div class="onglets-barre" role="tablist" aria-label="Choisir un profil">
+            <button role="tab" id="onglet-daf" aria-controls="panneau-daf" aria-selected="true" type="button">Directions financières</button>
+            <button role="tab" id="onglet-dsi" aria-controls="panneau-dsi" aria-selected="false" type="button">Directions informatiques</button>
+            <button role="tab" id="onglet-editeurs" aria-controls="panneau-editeurs" aria-selected="false" type="button">Éditeurs</button>
+            <button role="tab" id="onglet-integrateurs" aria-controls="panneau-integrateurs" aria-selected="false" type="button">Intégrateurs</button>
+          </div>
+          <div class="onglets-panneau" role="tabpanel" id="panneau-daf" aria-labelledby="onglet-daf" tabindex="0">
+            <h3>Tenir l'échéance sans immobiliser vos équipes.</h3>
+            <p>
+              La réforme impose de nouveaux formats, de nouveaux circuits et un calendrier
+              serré. Endos absorbe la complexité technique pour que vos équipes comptables
+              gardent leurs habitudes : mêmes validations, mêmes exports, nouvelles obligations couvertes.
+            </p>
+            <ul>
+              <li>Bascule progressive, service par service, sans arrêt de la facturation</li>
+              <li>Tableaux de bord de conformité lisibles en comité de direction</li>
+              <li>Réduction des délais de règlement par le suivi des statuts</li>
+            </ul>
+          </div>
+          <div class="onglets-panneau" role="tabpanel" id="panneau-dsi" aria-labelledby="onglet-dsi" tabindex="0" hidden>
+            <h3>Une intégration documentée, pas un chantier de plus.</h3>
+            <p>
+              API REST, webhooks, environnement de test permanent : Endos s'intègre à votre
+              système d'information sans en modifier l'architecture. La sécurité est traitée
+              en amont : chiffrement en transit et au repos, hébergement européen, journalisation complète.
+            </p>
+            <ul>
+              <li>Environnement de recette identique à la production</li>
+              <li>Reprise de l'existant : EDI, dépôts de fichiers, connecteurs ERP</li>
+              <li>Supervision et alertes intégrables à vos outils d'exploitation</li>
+            </ul>
+          </div>
+          <div class="onglets-panneau" role="tabpanel" id="panneau-editeurs" aria-labelledby="onglet-editeurs" tabindex="0" hidden>
+            <h3>Ajoutez la conformité à votre logiciel, gardez votre produit.</h3>
+            <p>
+              Votre logiciel de gestion émet des factures, la réglementation lui impose
+              désormais un circuit officiel. Endos s'embarque dans votre produit en marque
+              blanche : vos clients restent chez vous, la conformité passe par nous.
+            </p>
+            <ul>
+              <li>API en marque blanche, personnalisable à votre charte</li>
+              <li>Facturation à l'usage, sans engagement de volume</li>
+              <li>Accompagnement de votre équipe produit au démarrage</li>
+            </ul>
+          </div>
+          <div class="onglets-panneau" role="tabpanel" id="panneau-integrateurs" aria-labelledby="onglet-integrateurs" tabindex="0" hidden>
+            <h3>Un partenaire outillé pour vos déploiements clients.</h3>
+            <p>
+              Vous pilotez des projets de dématérialisation pour vos clients : Endos vous
+              donne un environnement partenaire dédié, une console multi-dossiers et une
+              marge récurrente sur chaque compte raccordé.
+            </p>
+            <ul>
+              <li>Console multi-clients avec droits délégués</li>
+              <li>Programme partenaire : certification, support prioritaire</li>
+              <li>Documentation d'implémentation et modèles de cadrage</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ LA CONSOLE : vue direction, MacBook dessiné en CSS ============ -->
+    <section class="console">
+      <div class="conteneur console-grille">
+        <div class="console-visuel" role="img" aria-label="La vue direction de la console Endos : score de conformité global et classement des entités">
+          <div class="app-fenetre">
+            <div class="fenetre-barre">
+              <span class="fenetre-pastilles" aria-hidden="true"><i></i><i></i><i></i></span>
+              <span class="fenetre-url">app.endos.fr · Vue direction</span>
+            </div>
+            <div class="app-fenetre-corps">
+              <div class="tdb">
+                <aside class="tdb-lateral" aria-hidden="true">
+                  <span class="tdb-marque"><i></i>Endos</span>
+                  <span class="tdb-nav tdb-nav-actif">Vue direction</span>
+                  <span class="tdb-nav">Factures</span>
+                  <span class="tdb-nav">Archives</span>
+                  <span class="tdb-nav">Flux</span>
+                  <span class="tdb-nav">Rapports</span>
+                </aside>
+                <div class="tdb-principal">
+                  <div class="tdb-entete">
+                    <span class="tdb-titre">Conformité · groupe</span>
+                    <span class="tdb-periode">30 derniers jours</span>
+                  </div>
+                  <div class="tdb-score">
+                    <span class="tdb-score-valeur">98,4 %</span>
+                    <span class="tdb-score-delta">↑ 0,6 pt vs mois dernier</span>
+                  </div>
+                  <div class="tdb-graphe">
+                    <svg viewBox="0 0 300 62" preserveAspectRatio="none" aria-hidden="true">
+                      <path class="tdb-aire" d="M0,44 L30,40 L60,46 L90,32 L120,36 L150,24 L180,28 L210,16 L240,20 L270,10 L300,13 L300,62 L0,62 Z"></path>
+                      <path class="tdb-trait console-graphe-trait" d="M0,44 L30,40 L60,46 L90,32 L120,36 L150,24 L180,28 L210,16 L240,20 L270,10 L300,13"></path>
+                    </svg>
+                  </div>
+                  <ul class="tdb-classement">
+                    <li><span class="tdb-rang">1</span><span class="tdb-nom">Comptabilité fournisseurs</span><span class="tdb-delta tdb-delta-haut">↑ 0,3</span><span class="tdb-pct">99,6 %</span></li>
+                    <li><span class="tdb-rang">2</span><span class="tdb-nom">Filiale Bordeaux</span><span class="tdb-delta tdb-delta-haut">↑ 1,1</span><span class="tdb-pct">99,1 %</span></li>
+                    <li><span class="tdb-rang">3</span><span class="tdb-nom">Direction des achats</span><span class="tdb-delta">=</span><span class="tdb-pct">98,2 %</span></li>
+                    <li><span class="tdb-rang">4</span><span class="tdb-nom">Filiale Lyon</span><span class="tdb-delta tdb-delta-bas">↓ 0,8</span><span class="tdb-pct">96,8 %</span></li>
+                    <li><span class="tdb-rang">5</span><span class="tdb-nom">Notes de frais</span><span class="tdb-delta tdb-delta-haut">↑ 2,0</span><span class="tdb-pct">95,4 %</span></li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="console-texte">
+          <p class="section-eyebrow">La console</p>
+          <h2>Ce que votre comité de direction verra.</h2>
+          <p>
+            Un score de conformité consolidé, l'état de chaque entité, les rejets à
+            traiter : la console Endos donne à la direction une lecture immédiate,
+            sans exports ni retraitements. Le détail opérationnel reste chez les
+            équipes, la synthèse remonte seule.
+          </p>
+          <ul class="console-points">
+            <li>Score consolidé par entité, filiale ou service</li>
+            <li>Alertes ciblées : rejets, retards, ruptures de flux</li>
+            <li>Partage en lecture seule pour vos commissaires aux comptes</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ BLOC DÉVELOPPEURS ET API ============ -->
+    <section class="api" id="api">
+      <div class="api-decor" aria-hidden="true">
+        <span class="aura aura-api"></span>
+        <span class="grille-fond"></span>
+      </div>
+      <div class="conteneur api-grille">
+        <div class="api-texte">
+          <p class="section-eyebrow section-eyebrow-clair">Développeurs</p>
+          <h2>Une API pensée pour être lue avant d'être vendue.</h2>
+          <p>
+            Toute la plateforme est pilotable par API REST : émission, statuts, archivage,
+            e-reporting. Chaque endpoint est documenté avec ses cas d'erreur, chaque
+            événement est disponible en webhook. L'environnement de test est ouvert,
+            sans rendez-vous commercial.
+          </p>
+          <ul class="api-points">
+            <li>Authentification par jeton, rotation sans coupure</li>
+            <li>Webhooks signés pour chaque changement de statut</li>
+            <li>Bibliothèques d'exemples et collection de requêtes fournies</li>
+          </ul>
+          <a href="#contact" class="btn btn-ligne btn-ligne-clair">Ouvrir un compte de test</a>
+        </div>
+        <div class="api-code" aria-label="Exemple d'appel à l'API Endos">
+          <div class="api-code-barre">
+            <span>POST</span> /v1/factures
+          </div>
+<pre><code>{
+  "emetteur":     "FR-84210361800012",
+  "destinataire": "FR-51482397400021",
+  "format":       "factur-x",
+  "montant_ht":   12480.00,
+  "devise":       "EUR",
+  "archivage":    true
+}
+
+// 201 Créée · statut : "deposee"
+// webhook à venir : facture.conforme<span class="caret" aria-hidden="true"></span></code></pre>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ CHIFFRES CLÉS : compteurs animés au scroll ============ -->
+    <section class="chiffres" aria-label="Chiffres clés">
+      <span class="chiffres-filigrane" aria-hidden="true">conforme</span>
+      <div class="conteneur chiffres-grille">
+        <div class="chiffre">
+          <span class="chiffre-valeur" data-compteur="38" data-suffixe=" M">0</span>
+          <span class="chiffre-libelle">de factures traitées chaque année</span>
+        </div>
+        <div class="chiffre">
+          <span class="chiffre-valeur" data-compteur="99.95" data-decimales="2" data-suffixe=" %">0</span>
+          <span class="chiffre-libelle">de disponibilité constatée sur douze mois</span>
+        </div>
+        <div class="chiffre">
+          <span class="chiffre-valeur" data-compteur="640" data-suffixe="">0</span>
+          <span class="chiffre-libelle">entreprises raccordées, de la PME au grand compte</span>
+        </div>
+        <div class="chiffre">
+          <span class="chiffre-valeur" data-compteur="15" data-suffixe=" jours">0</span>
+          <span class="chiffre-libelle">de délai moyen de mise en production</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ RESSOURCES FICTIVES ============ -->
+    <section class="ressources" id="ressources">
+      <div class="conteneur">
+        <header class="section-tete">
+          <p class="section-eyebrow">Ressources</p>
+          <h2>De quoi préparer vos arbitrages.</h2>
+        </header>
+        <div class="ressources-grille">
+          <a class="ressource" href="#contact">
+            <span class="ressource-type">Guide</span>
+            <h3>Réforme de la facturation électronique : le calendrier et vos obligations</h3>
+            <p>Ce qui change pour l'émission, la réception et l'e-reporting, échéance par échéance.</p>
+            <span class="ressource-action">Télécharger le guide</span>
+          </a>
+          <a class="ressource" href="#contact">
+            <span class="ressource-type">Webinaire</span>
+            <h3>DAF : bâtir son dossier de mise en conformité en six semaines</h3>
+            <p>Une méthode de cadrage éprouvée, du diagnostic des flux au choix de la plateforme.</p>
+            <span class="ressource-action">Voir le replay</span>
+          </a>
+          <a class="ressource" href="#contact">
+            <span class="ressource-type">Modèle</span>
+            <h3>Cahier des charges type pour choisir sa plateforme de dématérialisation</h3>
+            <p>Les questions à poser, les pièges contractuels, la grille de comparaison prête à remplir.</p>
+            <span class="ressource-action">Récupérer le modèle</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ DOUBLE APPEL À L'ACTION ============ -->
+    <section class="cta-final" id="contact">
+      <div class="cta-decor" aria-hidden="true">
+        <span class="aura aura-cta"></span>
+        <span class="cta-sceau-geant"></span>
+      </div>
+      <div class="conteneur cta-final-inner">
+        <h2>Votre échéance ne bougera pas. Votre dispositif, si.</h2>
+        <p>
+          Trente minutes avec un expert Endos : un état des lieux de vos flux, les écarts
+          à combler, un calendrier réaliste. Sans engagement et sans relance commerciale.
+        </p>
+        <div class="cta-final-actions">
+          <a href="#contact" class="btn btn-plein btn-grand">Demander une démo<span class="btn-fleche" aria-hidden="true">→</span></a>
+          <a href="#contact" class="btn btn-ligne btn-ligne-clair btn-grand">Parler à un expert</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============ PIED DE PAGE ============ -->
+  <footer class="pied">
+    <div class="conteneur pied-grille">
+      <div class="pied-marque">
+        <img class="marque-logo marque-logo-claire" src="endos.png" alt="Endos" width="112" height="37">
+        <p>Plateforme de dématérialisation et de facturation électronique.</p>
+      </div>
+      <nav class="pied-col" aria-label="Plateformes">
+        <h4>Plateformes</h4>
+        <a href="#plateformes">Endos Facture</a>
+        <a href="#plateformes">Endos Archive</a>
+        <a href="#plateformes">Endos Flux</a>
+      </nav>
+      <nav class="pied-col" aria-label="Entreprise">
+        <h4>Entreprise</h4>
+        <a href="#profils">Pour qui</a>
+        <a href="#api">Développeurs</a>
+        <a href="#contact">Contact</a>
+      </nav>
+      <nav class="pied-col" aria-label="Ressources">
+        <h4>Ressources</h4>
+        <a href="#ressources">Guide de la réforme</a>
+        <a href="#ressources">Webinaires</a>
+        <a href="#ressources">Documentation API</a>
+      </nav>
+    </div>
+    <div class="conteneur pied-bas">
+      <p>Démonstration Shyft, entreprise fictive. Aucune des sociétés citées n'existe.</p>
+      <p>Maquette réalisée par <a href="https://shyft.fr" rel="noopener">Shyft</a></p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
