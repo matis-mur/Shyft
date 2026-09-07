@@ -198,24 +198,33 @@
       <video
         class="hero-stats-video-media"
         autoplay loop muted playsinline preload="none"
-        poster="assets/vid/Shyft-poster.jpg"
+        poster="assets/vid/Shyft-poster.jpeg"
         data-src="assets/vid/Shyft.mp4"
         aria-label="Vidéo de présentation Shyft"></video>
     </div>
     <script>
-    /* La vidéo pèse 16 Mo : sur mobile on s'en tient au poster (129 Ko).
-       Sur desktop elle n'est attachée qu'à l'entrée dans le viewport,
-       jamais au chargement de la page. */
+    /* Sur mobile on s'en tient au poster : la vidéo n'est jamais téléchargée.
+       Sur desktop elle n'est attachée qu'à l'entrée dans le viewport, et la
+       lecture n'est lancée qu'une fois assez de données en mémoire tampon :
+       démarrer avant provoquait des à-coups le temps du téléchargement. */
     (function () {
       var v = document.querySelector('.hero-stats-video-media');
       if (!v || !v.dataset.src) return;
       if (window.matchMedia('(max-width: 900px)').matches) return;
 
-      var load = function () {
-        if (v.src) return;
-        v.src = v.dataset.src;
+      var lire = function () {
         var p = v.play();
         if (p && p.catch) p.catch(function () {});
+      };
+
+      var load = function () {
+        if (v.src) return;
+        v.preload = 'auto';
+        v.src = v.dataset.src;
+        // canplaythrough : le navigateur estime pouvoir lire sans interruption
+        v.addEventListener('canplaythrough', lire, { once: true });
+        // Filet de sécurité si l'événement tarde (connexion lente)
+        setTimeout(function () { if (v.paused) lire(); }, 6000);
       };
 
       if (!('IntersectionObserver' in window)) { load(); return; }
