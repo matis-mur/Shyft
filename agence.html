@@ -241,6 +241,18 @@
   font-style: italic;
   color: var(--burnt);
 }
+/* Précision contractuelle : lisible mais nettement secondaire.
+   Sélecteur descendant pour passer devant .agence-valeur p */
+.agence-valeur p.agence-valeur-note {
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(58, 15, 18, 0.12);
+  font-size: 0.8125rem;
+  line-height: 1.55;
+  color: var(--oxblood);
+  opacity: 0.6;
+}
+.agence-valeur p.agence-valeur-note sup { color: var(--burnt); }
 
 /* === Tableau comparatif : agence / freelance / Shyft === */
 .agence-compare {
@@ -837,8 +849,8 @@
         <h3>Pas de sous-traitance</h3>
         <p>
           Stratégie, design, code, copy, acquisition&nbsp;: tout est porté en interne.
-          Vous parlez à celui qui fait, sans intermédiaire. <em>Pas d'agence opaque qui
-          rebadge le travail d'un freelance.</em>
+          Vous parlez à celui qui fait, sans intermédiaire. <em>Pas d'agence qui sous-traite
+          à un freelance et signe le travail à sa place.</em>
         </p>
       </article>
 
@@ -860,7 +872,12 @@
         <p>
           Devis complet et plafonné dès le départ. Pas de coûts cachés, pas de
           rallonges surprises. Si un retard vient de notre fait, on continue à travailler
-          sans surcoût jusqu'à la livraison.
+          sans surcoût jusqu'à la livraison.<sup>*</sup>
+        </p>
+        <p class="agence-valeur-note">
+          <sup>*</sup>Le délai court sur nos phases de production. Il est suspendu le temps
+          de vos validations et de la remise de vos contenus. Un changement de périmètre
+          demandé en cours de route fait l'objet d'un avenant chiffré avant d'être engagé.
         </p>
       </article>
 
@@ -868,9 +885,11 @@
         <span class="agence-valeur-num">04 · Long terme</span>
         <h3>Accompagnement inclus</h3>
         <p>
-          30 jours de suivi gratuit après chaque livraison. Au-delà, pas de préavis
-          abusif ni de contrat verrouillé. <em>Si vous n'êtes pas satisfaits, vous partez
-          librement.</em> On préfère un client qui revient à un client qui n'a pas le choix.
+          À la mise en ligne démarrent 30 jours de garantie&nbsp;: pendant un mois, nous
+          corrigeons les bugs et ajustons ce qui doit l'être, sans facture. Au-delà, la
+          maintenance est optionnelle, sans préavis abusif ni contrat verrouillé.
+          <em>Si vous n'êtes pas satisfaits, vous partez librement</em>, avec votre code
+          source. On préfère un client qui revient à un client qui n'a pas le choix.
         </p>
       </article>
     </div>

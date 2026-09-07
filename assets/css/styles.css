@@ -612,6 +612,8 @@ body .contact-intro h2 em {
 .hero-stats-section .hero-stat-num em { color: var(--gold-soft); }
 .hero-stats-section .hero-stat-lab-main { color: var(--oxblood); opacity: 0.92; }
 .hero-stats-section .hero-stat-lab-sub  { color: var(--oxblood); opacity: 0.65; }
+/* Mention tarifaire secondaire : information utile, hiérarchie plus discrète */
+.hero-stats-section .hero-stat-lab-sub--fine { font-size: 0.8125rem; opacity: 0.55; }
 
 /* ===========================================================
    HERO STATS · grille 3 colonnes avec vidéo centrale
