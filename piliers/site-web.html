@@ -28,6 +28,274 @@
 <link rel="stylesheet" href="../assets/css/styles.css">
 <link rel="stylesheet" href="../assets/css/subpages.css">
 <link rel="stylesheet" href="../assets/css/piliers.css">
+
+<style>
+/* ===========================================================
+   ROADMAP · zigzag horizontal, 5 phases sur 30 jours
+   Typographie alignée sur les conventions du site (rem),
+   pas d'échelle locale. Le dévoilement suit le défilement :
+   pas de position sticky, incompatible avec l'overflow hidden
+   de .pilier-section et l'overflow-x du body.
+   =========================================================== */
+
+.rmz-lede {
+  margin-top: 1.25rem;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: var(--oxblood);
+  opacity: 0.75;
+  max-width: 54ch;
+}
+
+/* ---------- Épinglage : la scène défile, le contenu reste fixe ----------
+   .pilier-section porte overflow:hidden, qui neutralise position:sticky
+   pour ses descendants. On l'ouvre pour cette section seulement. */
+#methode { overflow: visible; }
+
+.rmz-scene { position: relative; height: calc(100vh + 190vh); }
+
+.rmz-epingle {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 5.5rem 0 2rem;   /* dégage l'en-tête collant du site */
+}
+
+.rmz-piste { flex: none; }
+
+/* ---------- La piste ---------- */
+.rmz-piste {
+  position: relative;
+  height: clamp(380px, 56vh, 620px);
+  margin-top: clamp(1.75rem, 3.5vh, 2.75rem);
+}
+
+/* Position par attribut, pas par nth-child : l'axe du zigzag est
+   lui aussi un enfant de la piste et décalerait tout le comptage. */
+.rmz-col { position: absolute; top: 0; bottom: 0; width: 20%; }
+.rmz-col[data-col="1"] { left: 0; }
+.rmz-col[data-col="2"] { left: 20%; }
+.rmz-col[data-col="3"] { left: 40%; }
+.rmz-col[data-col="4"] { left: 60%; }
+.rmz-col[data-col="5"] { left: 80%; }
+
+.rmz-slot { position: absolute; left: 5%; right: 5%; }
+.rmz-slot--haut { top: 0; height: 44%; }
+.rmz-slot--bas  { bottom: 0; height: 44%; }
+
+/* Chiffre fantôme, dans la case laissée libre par la carte */
+.rmz-chiffre {
+  position: absolute;
+  left: 0; right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  text-align: center;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(5rem, 8vw, 7.5rem);
+  line-height: 0.8;
+  letter-spacing: -0.06em;
+  color: transparent;
+  -webkit-text-stroke: 1.5px rgba(58, 15, 18, 0.16);
+  user-select: none;
+  pointer-events: none;
+}
+
+/* ---------- La carte ---------- */
+.rmz-carte {
+  /* Échelle propre aux cartes : cinq colonnes côte à côte ne peuvent pas
+     porter la typographie pleine largeur du reste du site. Le chapô et la
+     note, eux, gardent les tailles habituelles en rem. */
+  --u: clamp(9px, 0.22vw + 0.52vh, 13px);
+  font-size: var(--u);
+  position: absolute;
+  left: 0; right: 0;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  background: var(--oxblood);
+  border-radius: 12px;
+  padding: 1.3em 1.3em 1.2em;
+  color: var(--cream);
+  overflow: hidden;
+  transform: rotate(var(--incl, 0deg));
+  box-shadow: 0 20px 44px -24px rgba(58, 15, 18, 0.55);
+}
+.rmz-slot--haut .rmz-carte { bottom: 0; }
+.rmz-slot--bas  .rmz-carte { top: 0; }
+
+.rmz-jours {
+  align-self: flex-start;
+  background: var(--gold);
+  color: var(--oxblood);
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 0.35em 0.8em;
+  transform: rotate(-1.4deg);
+  /* Contour volontairement irrégulier : trait tracé à la main */
+  border-radius: 255px 14px 225px 15px / 15px 225px 15px 255px;
+}
+
+.rmz-carte h3 {
+  margin: 0.75em 0 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 2.05em;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  color: var(--cream);
+}
+
+.rmz-dit {
+  margin: 0.45em 0 0;
+  font-size: 1.05em;
+  line-height: 1.4;
+  color: rgba(242, 235, 220, 0.74);
+}
+
+.rmz-livrables { margin: 0.85em 0 0; padding: 0; list-style: none; }
+.rmz-livrables li {
+  padding: 0.4em 0;
+  border-bottom: 1px solid rgba(242, 235, 220, 0.22);
+  font-size: 1.02em;
+  line-height: 1.35;
+}
+.rmz-livrables li:first-child { border-top: 1px solid rgba(242, 235, 220, 0.22); }
+.rmz-livrables em {
+  font-family: var(--font-editorial);
+  font-style: italic;
+  opacity: 0.6;
+}
+
+/* Le tampon est calé en bas : ligne de base commune à toutes les cartes */
+.rmz-pied { margin: auto 0 0; padding-top: 0.9em; }
+.rmz-validation {
+  display: inline-block;
+  background: var(--gold);
+  color: var(--oxblood);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.92em;
+  letter-spacing: 0.04em;
+  padding: 0.45em 1em;
+  transform: rotate(-1.2deg);
+  border-radius: 225px 15px 255px 14px / 255px 15px 225px 15px;
+}
+.rmz-sans {
+  font-family: var(--font-mono);
+  font-size: 0.82em;
+  letter-spacing: 0.08em;
+  color: rgba(242, 235, 220, 0.55);
+}
+
+/* ---------- L'axe zigzag ---------- */
+.rmz-axe { position: absolute; left: 0; right: 0; top: 44%; height: 12%; }
+.rmz-axe svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.rmz-trace {
+  fill: none;
+  stroke: var(--oxblood);
+  stroke-width: 1.8;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+.rmz-echo {
+  fill: none;
+  stroke: var(--oxblood);
+  stroke-width: 1;
+  stroke-linecap: round;
+  opacity: 0.28;
+  stroke-dasharray: 100;
+  stroke-dashoffset: 100;
+}
+
+/* Pastilles posées sur les sommets du zigzag */
+.rmz-node {
+  position: absolute;
+  width: 3.25rem; height: 3.25rem;
+  margin: -1.625rem 0 0 -1.625rem;
+  display: grid;
+  place-items: center;
+  border: 1.7px solid var(--oxblood);
+  border-radius: 50%;
+  background: var(--cream);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: var(--oxblood);
+}
+.rmz-node b { transform: rotate(-3deg); font-weight: 700; }
+.rmz-node--1 { left: 10%; top: 13%; }
+.rmz-node--2 { left: 30%; top: 87%; }
+.rmz-node--3 { left: 50%; top: 13%; }
+.rmz-node--4 { left: 70%; top: 87%; }
+.rmz-node--5 { left: 90%; top: 13%; }
+
+.rmz-note {
+  margin: clamp(1.5rem, 3vh, 2.25rem) auto 0;
+  max-width: 64ch;
+  text-align: center;
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--oxblood);
+  opacity: 0.6;
+}
+
+/* ---------- Dévoilement piloté par le défilement ----------
+   Le JS pose .est-anime puis .est-visible station par station. Sans JS,
+   aucun état masqué n'est appliqué : tout reste lisible.
+   Chaque type garde sa transformation propre (rotation des cartes,
+   centrage des chiffres), sinon le dévoilement l'écraserait. */
+.rmz.est-anime .rmz-carte,
+.rmz.est-anime .rmz-node,
+.rmz.est-anime .rmz-chiffre {
+  opacity: 0;
+  transition: opacity 0.6s cubic-bezier(0.22, 0.61, 0.36, 1),
+              transform 0.6s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.rmz.est-anime .rmz-carte { transform: rotate(var(--incl, 0deg)) translateY(var(--dy, 1.5rem)); }
+.rmz.est-anime .rmz-carte.est-visible { opacity: 1; transform: rotate(var(--incl, 0deg)) translateY(0); }
+.rmz-slot--bas .rmz-carte { --dy: -1.5rem; }
+
+.rmz.est-anime .rmz-node { transform: scale(0.55); }
+.rmz.est-anime .rmz-node.est-visible { opacity: 1; transform: scale(1); }
+
+.rmz.est-anime .rmz-chiffre { transform: translateY(-50%); }
+.rmz.est-anime .rmz-chiffre.est-visible { opacity: 1; transform: translateY(-50%); }
+
+/* ---------- Sous 1000px : le zigzag n'a plus de sens ---------- */
+@media (max-width: 1000px) {
+  .rmz-scene { height: auto; }
+  .rmz-epingle { position: static; height: auto; padding: 0; display: block; }
+  .rmz-piste { height: auto; margin-top: 2.5rem; }
+  .rmz-col { position: static; width: auto; }
+  .rmz-col + .rmz-col { margin-top: 1.25rem; }
+  .rmz-slot { position: static; left: auto; right: auto; }
+  .rmz-slot--haut, .rmz-slot--bas { height: auto; }
+  .rmz-carte { position: static; height: auto; transform: none; }
+  .rmz-chiffre, .rmz-axe, .rmz-node { display: none; }
+  .rmz-note { text-align: left; }
+  .rmz.est-anime .rmz-carte { --dy: 1.5rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .rmz-scene { height: auto; }
+  .rmz-epingle { position: static; height: auto; padding: 0; }
+  .rmz.est-anime .rmz-carte,
+  .rmz.est-anime .rmz-node,
+  .rmz.est-anime .rmz-chiffre { opacity: 1; transition: none; }
+  .rmz.est-anime .rmz-carte { transform: rotate(var(--incl, 0deg)); }
+  .rmz.est-anime .rmz-node { transform: none; }
+  .rmz-trace, .rmz-echo { stroke-dashoffset: 0; }
+}
+</style>
 </head>
 <body class="pilier-page">
 
@@ -74,7 +342,7 @@
           <a href="/secteurs/finance" class="nav-mega-item"><span class="nav-mega-name">Finance &amp; paiement</span><span class="nav-mega-desc">Cofidis · Crédit Agricole</span></a>
           <a href="/secteurs/it-saas" class="nav-mega-item"><span class="nav-mega-name">IT, logiciels &amp; SaaS</span><span class="nav-mega-desc">Docoon · iXbat</span></a>
           <a href="/secteurs/energies" class="nav-mega-item"><span class="nav-mega-name">Énergies renouvelables</span><span class="nav-mega-desc">Marché en consolidation</span></a>
-          <a href="/secteurs/conseil-b2b" class="nav-mega-item"><span class="nav-mega-name">Conseil B2B</span><span class="nav-mega-desc">Finaxim</span></a>
+          <a href="/secteurs/conseil-b2b" class="nav-mega-item"><span class="nav-mega-name">Conseil B2B</span><span class="nav-mega-desc">Finaxim · Letsignit · Mailinblack</span></a>
           <a href="/secteurs" class="nav-mega-all">Voir tous les secteurs →</a>
           </div>
         </div>
@@ -130,6 +398,10 @@
             <span class="subpage-edito-info-key">Périmètre</span>
             <span class="subpage-edito-info-val">5 à 8 pages standard</span>
           </div>
+          <div class="subpage-edito-info-row">
+            <span class="subpage-edito-info-key">Projet</span>
+            <span class="subpage-edito-info-val">Création ou <a href="/refonte-site-internet" class="lien-or" data-apercu="refonte">refonte</a></span>
+          </div>
         </div>
       </div>
     </div>
@@ -153,7 +425,7 @@
       <article class="pilier-livrable reveal" data-num="01">
         <h3>Site sur-mesure</h3>
         <p>
-          Pas de template, pas de plugin. On code votre site web spécifiquement pour vous.
+          Pas de template, pas de plugin. Nous codons votre site web spécifiquement pour vous.
           Un outil qui vous appartient et que <em>vous gardez maître</em> chez vous.
         </p>
       </article>
@@ -169,7 +441,7 @@
       <article class="pilier-livrable reveal" data-num="03">
         <h3>Référencement naturel (SEO)</h3>
         <p>
-          Pour que vos clients vous trouvent sur les moteurs de recherche, on pense le SEO
+          Pour que vos clients vous trouvent sur les moteurs de recherche, nous pensons le SEO
           dès la conception&nbsp;: structure, contenu, vitesse. Tous les leviers activés.
         </p>
       </article>
@@ -193,45 +465,139 @@
   </div>
 </section>
 
-<!-- ============ NOTRE MÉTHODE (grid 3×2 sur cream) ============ -->
-<section class="pilier-section pilier-section--cream" id="methode" data-peel>
-  <div class="pilier-section-inner">
+<!-- ============ NOTRE MÉTHODE · roadmap zigzag, dévoilée au défilement ============ -->
+<section class="pilier-section pilier-section--cream" id="methode">
+  <div class="pilier-section-inner rmz" data-rmz>
+   <div class="rmz-scene">
+    <div class="rmz-epingle">
     <div class="pilier-section-header reveal">
-      <span class="pilier-section-eyebrow">Notre méthode</span>
-      <h2 data-split>Une méthode agile, du <em>cadrage</em> à la mise en ligne.</h2>
+      <h2 data-split>Cinq phases, <em>trente jours</em>, trois validations.</h2>
+      <p class="rmz-lede">
+        Chaque phase se termine par un livrable identifiable. Trois d'entre elles
+        attendent votre feu vert&nbsp;: vous intervenez à trois moments précis,
+        pas en continu.
+      </p>
     </div>
 
-    <div class="pilier-methode-grid" data-stagger>
-      <article class="pilier-methode-card reveal" data-num="01">
-        <h3>Cadrage</h3>
-        <p>On écoute, on questionne, on cadre. Audiences, objectifs, contraintes&nbsp;: la note de cadrage devient la boussole du projet.</p>
-      </article>
+    <div class="rmz-piste">
+      <div class="rmz-axe">
+        <!-- Zigzag : sommets alignés sur les pastilles (10, 30, 50, 70, 90 %).
+             vector-effect garde l'épaisseur du trait malgré l'étirement. -->
+        <svg viewBox="0 0 1000 100" preserveAspectRatio="none" aria-hidden="true">
+          <path class="rmz-echo" pathLength="100" vector-effect="non-scaling-stroke"
+                d="M0,54 L100,17 L300,91 L500,17 L700,91 L900,17 L1000,54"/>
+          <path class="rmz-trace" pathLength="100" vector-effect="non-scaling-stroke"
+                d="M0,50 L100,13 L300,87 L500,13 L700,87 L900,13 L1000,50"/>
+        </svg>
+        <span class="rmz-node rmz-node--1" data-rmz-etape="0" aria-hidden="true"><b>1</b></span>
+        <span class="rmz-node rmz-node--2" data-rmz-etape="1" aria-hidden="true"><b>2</b></span>
+        <span class="rmz-node rmz-node--3" data-rmz-etape="2" aria-hidden="true"><b>3</b></span>
+        <span class="rmz-node rmz-node--4" data-rmz-etape="3" aria-hidden="true"><b>4</b></span>
+        <span class="rmz-node rmz-node--5" data-rmz-etape="4" aria-hidden="true"><b>5</b></span>
+      </div>
 
-      <article class="pilier-methode-card reveal" data-num="02">
-        <h3>Architecture</h3>
-        <p>Arborescence, parcours, modules. On verrouille le périmètre avant d'aller plus loin. Pas de dérive en cours de route.</p>
-      </article>
+      <div class="rmz-col" data-col="1">
+        <div class="rmz-slot rmz-slot--haut">
+          <article class="rmz-carte" data-rmz-etape="0" style="--incl: -0.7deg;">
+            <span class="rmz-jours">Jours 1 à 6</span>
+            <h3>Comprendre</h3>
+            <p class="rmz-dit">Nous regardons ce qui existe déjà et fixons l'intention.</p>
+            <ul class="rmz-livrables">
+            <li>Audit de l'existant</li>
+            <li>Synthèse du brief</li>
+            <li>Note d'intention</li>
+            <li>Premières pistes visuelles</li>
+            </ul>
+            <p class="rmz-pied"><span class="rmz-validation">Validation client</span></p>
+          </article>
+        </div>
+        <div class="rmz-slot rmz-slot--bas">
+          <span class="rmz-chiffre" data-rmz-etape="0" aria-hidden="true">1</span>
+        </div>
+      </div>
 
-      <article class="pilier-methode-card reveal" data-num="03">
-        <h3>Direction</h3>
-        <p>Trois directions visuelles abouties. Vous tranchez, on affine ensemble. <em>Charte existante ou designer client&nbsp;? On s'aligne.</em></p>
-      </article>
+      <div class="rmz-col" data-col="2">
+        <div class="rmz-slot rmz-slot--bas">
+          <article class="rmz-carte" data-rmz-etape="1" style="--incl: 0.8deg;">
+            <span class="rmz-jours">Jours 7 à 12</span>
+            <h3>Montrer</h3>
+            <p class="rmz-dit">Une seule page suffit à valider la direction.</p>
+            <ul class="rmz-livrables">
+            <li>Maquette de l'accueil</li>
+            <li>Plan de contenus</li>
+            </ul>
+            <p class="rmz-pied"><span class="rmz-validation">Validation client</span></p>
+          </article>
+        </div>
+        <div class="rmz-slot rmz-slot--haut">
+          <span class="rmz-chiffre" data-rmz-etape="1" aria-hidden="true">2</span>
+        </div>
+      </div>
 
-      <article class="pilier-methode-card reveal" data-num="04">
-        <h3>Copywriting</h3>
-        <p>Maquettes avec le copy intégré dès le départ. Conversion, SEO et ton de voix pensés ensemble, pas l'un après l'autre.</p>
-      </article>
+      <div class="rmz-col" data-col="3">
+        <div class="rmz-slot rmz-slot--haut">
+          <article class="rmz-carte" data-rmz-etape="2" style="--incl: -0.5deg;">
+            <span class="rmz-jours">Jours 13 à 18</span>
+            <h3>Produire</h3>
+            <p class="rmz-dit">Le site se construit, page après page.</p>
+            <ul class="rmz-livrables">
+            <li>Toutes les pages intégrées</li>
+            <li>Pré-production accessible 24/7</li>
+            <li>Formulaires, tracking et SEO technique</li>
+            </ul>
+            <p class="rmz-pied"><span class="rmz-sans">Pas de validation</span></p>
+          </article>
+        </div>
+        <div class="rmz-slot rmz-slot--bas">
+          <span class="rmz-chiffre" data-rmz-etape="2" aria-hidden="true">3</span>
+        </div>
+      </div>
 
-      <article class="pilier-methode-card reveal" data-num="05">
-        <h3>Développement</h3>
-        <p>Code propre, mobile-first, performance native. Pas de framework lourd ni de plugin douteux. Votre site reste maître chez lui.</p>
-      </article>
+      <div class="rmz-col" data-col="4">
+        <div class="rmz-slot rmz-slot--bas">
+          <article class="rmz-carte" data-rmz-etape="3" style="--incl: 0.6deg;">
+            <span class="rmz-jours">Jours 19 à 24</span>
+            <h3>Vérifier</h3>
+            <p class="rmz-dit">Nous testons tout avant d'ouvrir.</p>
+            <ul class="rmz-livrables">
+            <li>Recette interne</li>
+            <li>Recette client</li>
+            </ul>
+            <p class="rmz-pied"><span class="rmz-validation">Validation client</span></p>
+          </article>
+        </div>
+        <div class="rmz-slot rmz-slot--haut">
+          <span class="rmz-chiffre" data-rmz-etape="3" aria-hidden="true">4</span>
+        </div>
+      </div>
 
-      <article class="pilier-methode-card reveal" data-num="06">
-        <h3>Lancement</h3>
-        <p>Tests, déploiement, tracking, formation. Vous repartez avec les clés du site et tout est en place pour mesurer.</p>
-      </article>
+      <div class="rmz-col" data-col="5">
+        <div class="rmz-slot rmz-slot--haut">
+          <article class="rmz-carte" data-rmz-etape="4" style="--incl: -0.8deg;">
+            <span class="rmz-jours">Jours 25 à 30</span>
+            <h3>Livrer</h3>
+            <p class="rmz-dit">Le site passe en ligne et vous en prenez la main.</p>
+            <ul class="rmz-livrables">
+            <li>Mise en ligne</li>
+            <li>Transmission</li>
+            <li>Code source remis</li>
+            </ul>
+            <p class="rmz-pied"><span class="rmz-sans">Pas de validation</span></p>
+          </article>
+        </div>
+        <div class="rmz-slot rmz-slot--bas">
+          <span class="rmz-chiffre" data-rmz-etape="4" aria-hidden="true">5</span>
+        </div>
+      </div>
     </div>
+
+    <p class="rmz-note reveal">
+      Le compteur porte sur nos phases de production. Il est suspendu le temps de vos
+      validations et de la remise de vos contenus, ce qui explique qu'un projet s'étale
+      en pratique sur quatre à cinq semaines de calendrier.
+    </p>
+    </div>
+   </div>
   </div>
 </section>
 
@@ -247,7 +613,7 @@
       <li class="reveal">Site en ligne sur votre domaine</li>
       <li class="reveal">Code source complet (Git ou archive)</li>
       <li class="reveal">Documentation technique</li>
-      <li class="reveal">Formation 30 min pour gérer le contenu (si CMS)</li>
+      <li class="reveal">Formation 30 min pour gérer vos contenus (si l'option est retenue)</li>
       <li class="reveal">Configuration tracking complète (GA4, Search Console)</li>
       <li class="reveal">Rapport SEO initial avec recommandations</li>
       <li class="reveal">30 jours de suivi gratuit (corrections, ajustements)</li>
@@ -268,11 +634,16 @@
       si besoins spécifiques&nbsp;: e-commerce, espace membre, intégrations particulières.
     </p>
     <span class="pilier-prix-delai">Délai indicatif · 30 jours en moyenne</span>
-    <p class="pilier-prix-note">
-      <strong>Vous avez déjà un site&nbsp;?</strong> La démarche change&nbsp;: audit de
-      l'existant, contenus à reprendre, migration SEO avec redirections 301. Tout est
-      détaillé sur la page <a href="/refonte-site-internet">refonte de site internet</a>.
-    </p>
+    <a href="/refonte-site-internet" class="pilier-bascule">
+      <span class="pilier-bascule-label">Vous avez déjà un site&nbsp;?</span>
+      <span class="pilier-bascule-texte">
+        La démarche change&nbsp;: audit de l'existant, contenus à reprendre, migration SEO
+        avec redirections. Le tarif et le calendrier aussi.
+      </span>
+      <span class="pilier-bascule-cta">
+        Voir la refonte de site internet <span aria-hidden="true">→</span>
+      </span>
+    </a>
   </div>
 </section>
 
@@ -290,7 +661,7 @@
           <span class="pilier-combo-direction-arrow">←</span> En amont
         </span>
         <span class="pilier-combo-name">Stratégie</span>
-        <span class="pilier-combo-desc">On vise quoi, pour qui, contre qui. Le socle de tout le reste.</span>
+        <span class="pilier-combo-desc">Ce que nous visons, pour qui, contre qui. Le socle de tout le reste.</span>
         <span class="pilier-combo-cta">Voir le pilier →</span>
       </a>
 
@@ -340,9 +711,12 @@
           <span class="icon" aria-hidden="true"></span>
         </button>
         <div class="faq-answer"><div class="faq-answer-inner">
-          Par défaut&nbsp;: <em>sur-mesure en code</em> (plus rapide à livrer, plus performant,
-          plus libre). WordPress sur demande explicite uniquement, si votre besoin l'impose
-          (édition autonome quotidienne du contenu).
+          Par défaut, <em>code sur-mesure</em>&nbsp;: plus rapide à livrer, plus performant,
+          et sans dépendance à une licence ni à un plugin. Nous savons faire du WordPress et
+          nous le ferons si vous le demandez, mais nous vous dirons d'abord pourquoi nous ne
+          le recommandons pas&nbsp;: le rendu est plus contraint et le chantier plus long.
+          Dans ce cas, délai et budget sont établis à part, hors forfait 30 jours. Pour tout
+          autre outil imposé de votre côté, nous en parlons dès le premier échange.
         </div></div>
       </div>
       <div class="faq-item reveal">
@@ -352,15 +726,18 @@
           <span class="icon" aria-hidden="true"></span>
         </button>
         <div class="faq-answer"><div class="faq-answer-inner">
-          Par défaut, non&nbsp;: nos sites sont en code, non administrables. Si l'édition
-          autonome est critique pour vous, on installe un CMS léger (Sanity, Storyblok).
-          <em>À discuter en amont</em>.
+          Par défaut, non&nbsp;: nos sites sont en code, ce qui les rend rapides et robustes,
+          mais pas administrables. Si l'édition autonome vous est indispensable, dites-le nous
+          <em>au cadrage</em>&nbsp;: nous partons alors sur un site administrable, avec son
+          propre délai et son propre budget, distincts du forfait 30 jours. Ce n'est pas une
+          option qui s'ajoute en cours de route. Dans tous les cas, le code source vous
+          appartient.
         </div></div>
       </div>
       <div class="faq-item reveal">
         <button class="faq-trigger" aria-expanded="false">
           <span class="num">03</span>
-          <span class="question">Que se passe-t-il si on quitte Shyft après la livraison ?</span>
+          <span class="question">Que se passe-t-il si vous quittez Shyft après la livraison ?</span>
           <span class="icon" aria-hidden="true"></span>
         </button>
         <div class="faq-answer"><div class="faq-answer-inner">
@@ -377,7 +754,7 @@
   <div class="pilier-cta-final-inner reveal">
     <h2 data-split>Prêt à <em>structurer</em> votre site&nbsp;?</h2>
     <p class="pilier-cta-final-sub">
-      Un échange de 30 minutes pour comprendre vos enjeux et estimer le périmètre.
+      Un premier échange pour comprendre vos enjeux et estimer le périmètre.
     </p>
     <a href="/contact?pilier=site-web" class="btn-primary" data-cta>
       <span class="label-text">Démarrer</span><span class="arrow">→</span>
@@ -412,5 +789,97 @@
 <script src="../assets/js/config.js" defer></script>
 <script src="../assets/js/main.js" defer></script>
 <script src="../assets/js/motion.js" defer></script>
+<!-- Roadmap : le zigzag se dessine et les stations paraissent au fil du défilement -->
+<script defer>
+(function () {
+  var zone = document.querySelector('[data-rmz]');
+  if (!zone) return;
+
+  var etapes = Array.prototype.slice.call(zone.querySelectorAll('[data-rmz-etape]'));
+  var traits = zone.querySelectorAll('.rmz-trace, .rmz-echo');
+  if (!etapes.length) return;
+
+  // Mouvement réduit : on ne masque rien, le trait reste dessiné.
+  if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
+  var zigzagAffiche = function () { return window.innerWidth > 1000; };
+
+  zone.classList.add('est-anime');
+
+  /* Sous 1000px le zigzag disparaît et les cartes s'empilent : chacune se
+     dévoile à son propre passage, pas selon l'avancement global. */
+  var observateur = null;
+  function modeEmpile() {
+    if (observateur) return;
+    observateur = new IntersectionObserver(function (entrees) {
+      entrees.forEach(function (e) {
+        if (e.isIntersecting) {
+          e.target.classList.add('est-visible');
+          observateur.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    etapes.forEach(function (el) { observateur.observe(el); });
+  }
+  function quitterModeEmpile() {
+    if (!observateur) return;
+    observateur.disconnect();
+    observateur = null;
+  }
+
+  /* Avancement dans la scène épinglée, de 0 à 1.
+     0 : la scène vient de se caler en haut de l'écran.
+     1 : elle a fini de défiler, le contenu se décolle et la page reprend. */
+  var scene = zone.querySelector('.rmz-scene');
+
+  function avancement() {
+    if (!scene) return 1;
+    var r = scene.getBoundingClientRect();
+    var course = r.height - window.innerHeight;   // distance réellement épinglée
+    if (course <= 0) return 1;
+    return Math.max(0, Math.min(1, -r.top / course));
+  }
+
+  var enAttente = false;
+  function peindre() {
+    enAttente = false;
+    if (!zigzagAffiche()) { modeEmpile(); return; }
+    quitterModeEmpile();
+
+    var p = avancement();
+
+    // Le trait se dessine un peu en avance sur les cartes qu'il annonce.
+    var tire = Math.min(100, p * 112);
+    for (var i = 0; i < traits.length; i++) {
+      traits[i].style.strokeDashoffset = (100 - tire).toFixed(2);
+    }
+
+    etapes.forEach(function (el) {
+      var rang = parseInt(el.getAttribute('data-rmz-etape'), 10) || 0;
+      var seuil = 0.06 + rang * 0.19;   // 6, 25, 44, 63 puis 82 % de la course
+      el.classList.toggle('est-visible', p >= seuil);
+    });
+  }
+
+  function planifier() {
+    if (enAttente) return;
+    enAttente = true;
+    requestAnimationFrame(peindre);
+  }
+
+  window.addEventListener('scroll', planifier, { passive: true });
+  window.addEventListener('resize', planifier, { passive: true });
+  window.addEventListener('load', peindre);
+
+  /* Onglet en arrière-plan : le navigateur suspend requestAnimationFrame.
+     On repeint donc au retour, sinon la frise resterait figée. */
+  document.addEventListener('visibilitychange', function () {
+    if (!document.hidden) { enAttente = false; peindre(); }
+  });
+
+  peindre();
+})();
+</script>
+
 </body>
 </html>

@@ -410,6 +410,60 @@ body.pilier-page {
   max-width: 48ch;
   margin: 0 auto 1rem;
 }
+/* Bascule vers la refonte. Juste après le prix, un visiteur qui a déjà un site se
+   demande si ce tarif le concerne. La réponse doit se voir, pas se cacher en note. */
+.pilier-bascule {
+  display: block;
+  max-width: 48ch;
+  margin: 2.75rem auto 0;
+  padding: 1.6rem 1.75rem;
+  text-align: center;
+  text-decoration: none;
+  background: rgba(212, 165, 55, 0.06);
+  border: 1px solid rgba(212, 165, 55, 0.34);
+  border-radius: var(--r-md);
+  transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease;
+}
+.pilier-bascule:hover,
+.pilier-bascule:focus-visible {
+  background: rgba(212, 165, 55, 0.11);
+  border-color: var(--gold);
+  transform: translateY(-2px);
+}
+.pilier-bascule-label {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.0625rem;
+  color: var(--cream);
+  margin-bottom: 0.5rem;
+}
+.pilier-bascule-texte {
+  display: block;
+  font-size: 0.9375rem;
+  line-height: 1.6;
+  color: var(--cream);
+  opacity: 0.75;
+  margin-bottom: 1rem;
+}
+.pilier-bascule-cta {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border-bottom: 1px solid rgba(212, 165, 55, 0.5);
+  padding-bottom: 3px;
+  transition: border-color 0.3s ease;
+}
+.pilier-bascule:hover .pilier-bascule-cta { border-bottom-color: var(--gold); }
+.pilier-bascule-cta span {
+  display: inline-block;
+  transition: transform 0.3s ease;
+}
+.pilier-bascule:hover .pilier-bascule-cta span { transform: translateX(4px); }
+
 .pilier-prix-delai {
   font-family: var(--font-mono);
   font-size: 0.75rem;
@@ -625,8 +679,12 @@ body.pilier-page {
   margin-top: 2.5rem;
   padding: 2.25rem 2.25rem;
   background: var(--oxblood-deep);
-  border: 1px solid rgba(212, 165, 55, 0.28);
+  /* Contour or épais : cette carte est la porte d'entrée pour un dirigeant
+     qui hésite, elle doit se détacher des cinq piliers au-dessus. */
+  border: 6px solid var(--gold);
   border-radius: var(--r-lg);
+  box-shadow: 0 0 0 1px rgba(212, 165, 55, 0.18),
+              0 24px 50px -30px rgba(212, 165, 55, 0.45);
 }
 .services-audit-eyebrow {
   display: block;

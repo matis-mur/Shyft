@@ -553,26 +553,20 @@
 }
 .profil-ligne + .profil-ligne { margin-top: 0.9rem; }
 
-/* Pastille claire : les logos officiels sont dessinés pour fond blanc */
+/* Logos fournis en blanc : ni pastille ni cadre, ils se posent sur l'oxblood.
+   Emplacement de largeur fixe pour que les trois lignes s'alignent, mais taille
+   libre à l'intérieur : les ratios vont de 1,85:1 (IAE) à 4,2:1 (onepoint), les
+   brider dans une boîte carrée les rendrait tous d'une hauteur différente. */
 .profil-logo {
-  width: 46px;
-  height: 34px;
+  width: 72px;
+  height: 26px;
   object-fit: contain;
-  padding: 4px 6px;
-  background: var(--cream);
-  border-radius: 6px;
+  object-position: left center;
   flex-shrink: 0;
 }
-.profil-logo--texte {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  color: #007B87;
-}
+/* Un blason quasi carré paraît deux fois plus petit qu'un logotype en longueur
+   à hauteur égale. On le laisse remplir l'emplacement en largeur. */
+.profil-logo--carre { height: 38px; }
 
 .profil-ligne-titre {
   font-size: 0.9375rem;
@@ -684,7 +678,7 @@
           <a href="/secteurs/finance" class="nav-mega-item"><span class="nav-mega-name">Finance &amp; paiement</span><span class="nav-mega-desc">Cofidis · Crédit Agricole</span></a>
           <a href="/secteurs/it-saas" class="nav-mega-item"><span class="nav-mega-name">IT, logiciels &amp; SaaS</span><span class="nav-mega-desc">Docoon · iXbat</span></a>
           <a href="/secteurs/energies" class="nav-mega-item"><span class="nav-mega-name">Énergies renouvelables</span><span class="nav-mega-desc">Marché en consolidation</span></a>
-          <a href="/secteurs/conseil-b2b" class="nav-mega-item"><span class="nav-mega-name">Conseil B2B</span><span class="nav-mega-desc">Finaxim</span></a>
+          <a href="/secteurs/conseil-b2b" class="nav-mega-item"><span class="nav-mega-name">Conseil B2B</span><span class="nav-mega-desc">Finaxim · Letsignit · Mailinblack</span></a>
           <a href="/secteurs" class="nav-mega-all">Voir tous les secteurs →</a>
           </div>
         </div>
@@ -760,8 +754,8 @@
       qu'il doit déclencher qui compte.
     </p>
     <p>
-      <svg class="shyft-word" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg> prend en charge <strong>toute la chaîne</strong>&nbsp;: positionnement,
-      identité, site, acquisition, pilotage. Quatre profils complémentaires (stratégie,
+      <svg class="shyft-word" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg> se positionne sur <strong>toute la chaîne</strong>&nbsp;: positionnement,
+      identité, site web, acquisition, pilotage. Quatre profils complémentaires (stratégie,
       marketing, design, développement) réunis sous une même marque, <em>sans sous-traitance</em>,
       sans agence opaque.
     </p>
@@ -789,10 +783,10 @@
     </div>
 
     <div class="agence-team-grid" data-stagger>
-      <article class="agence-member agence-member--link reveal" onclick="window.open('https://www.linkedin.com/in/laurent-mur/','_blank','noopener')" role="link" tabindex="0" aria-label="Laurent · profil LinkedIn">
+      <article class="agence-member agence-member--link reveal" data-profil-card>
         <span class="agence-member-photo" style="background-image: url('assets/img/laurent.jpeg');"></span>
         <span class="agence-member-role">Direction · Stratégie</span>
-        <h3 class="agence-member-name">Laurent</h3>
+        <h3 class="agence-member-name"><button type="button" class="member-link" data-profil="laurent" aria-haspopup="dialog">Laurent</button></h3>
         <p class="agence-member-bio">
           Plus de 25 ans de direction marketing dans des environnements complexes (pharma,
           retail, finance, énergie). Pilote la stratégie et le positionnement chez <svg class="shyft-word" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg>.
@@ -800,10 +794,10 @@
         </p>
       </article>
 
-      <article class="agence-member agence-member--link reveal" onclick="window.open('https://www.linkedin.com/in/anne-carole-mur-6aa54679/','_blank','noopener')" role="link" tabindex="0" aria-label="Anne-Carole · profil LinkedIn">
+      <article class="agence-member agence-member--link reveal" data-profil-card>
         <span class="agence-member-photo" style="background-image: url('assets/img/anne-carole.jpeg');"></span>
-        <span class="agence-member-role">Art Direction · Project Management</span>
-        <h3 class="agence-member-name">Anne-Carole</h3>
+        <span class="agence-member-role">Marketing · Project management</span>
+        <h3 class="agence-member-name"><button type="button" class="member-link" data-profil="anne-carole" aria-haspopup="dialog">Anne-Carole</button></h3>
         <p class="agence-member-bio">
           Garante de la qualité visuelle et de la cohérence du dispositif. Coordonne les
           projets, arbitre les directions créatives, assure que chaque livraison atteint
@@ -811,10 +805,10 @@
         </p>
       </article>
 
-      <article class="agence-member agence-member--link reveal" onclick="window.open('https://www.linkedin.com/in/noe-mur/','_blank','noopener')" role="link" tabindex="0" aria-label="Noé · profil LinkedIn">
+      <article class="agence-member agence-member--link reveal" data-profil-card>
         <span class="agence-member-photo" style="background-image: url('assets/img/noe.jpeg');"></span>
-        <span class="agence-member-role">Marketing digital · UI Design</span>
-        <h3 class="agence-member-name">Noé</h3>
+        <span class="agence-member-role">Marketing digital &amp; acquisition</span>
+        <h3 class="agence-member-name"><button type="button" class="member-link" data-profil="noe" aria-haspopup="dialog">Noé</button></h3>
         <p class="agence-member-bio">
           Conçoit les interfaces, structure les parcours de conversion et active les
           leviers d'acquisition. La passerelle entre design et performance, où l'esthétique
@@ -871,7 +865,7 @@
         <h3>Prix &amp; délai tenus</h3>
         <p>
           Devis complet et plafonné dès le départ. Pas de coûts cachés, pas de
-          rallonges surprises. Si un retard vient de notre fait, on continue à travailler
+          rallonges surprises. Si un retard vient de notre fait, nous continuons à travailler
           sans surcoût jusqu'à la livraison.<sup>*</sup>
         </p>
         <p class="agence-valeur-note">
@@ -889,7 +883,7 @@
           corrigeons les bugs et ajustons ce qui doit l'être, sans facture. Au-delà, la
           maintenance est optionnelle, sans préavis abusif ni contrat verrouillé.
           <em>Si vous n'êtes pas satisfaits, vous partez librement</em>, avec votre code
-          source. On préfère un client qui revient à un client qui n'a pas le choix.
+          source. Nous préférons un client qui revient à un client qui n'a pas le choix.
         </p>
       </article>
     </div>
@@ -902,7 +896,7 @@
     <div class="agence-compare-header reveal">
       <h2 data-split>Agence, freelance, ou <svg class="shyft-word shyft-word--accent" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg>&nbsp;?</h2>
       <p class="agence-compare-lede">
-        Trois façons de faire refaire son site web quand on dirige une PME.
+        Trois façons de faire refaire son site web quand vous dirigez une PME.
         Voici honnêtement ce qui les sépare, et pourquoi nous avons construit
         <svg class="shyft-word" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg> comme une troisième voie.
       </p>
@@ -1017,7 +1011,7 @@
 <section class="pilier-cta-final" data-peel>
   <div class="pilier-cta-final-inner reveal">
     <h2 data-split>Envie d'en savoir <em>plus</em>&nbsp;?</h2>
-    <p class="pilier-cta-final-sub">Un échange de 30 minutes pour comprendre votre situation, vous dire honnêtement si nous sommes les bons interlocuteurs.</p>
+    <p class="pilier-cta-final-sub">Un premier échange pour comprendre votre situation, vous dire honnêtement si nous sommes les bons interlocuteurs.</p>
     <a href="/contact" class="btn-primary" data-cta><span class="label-text">Échanger avec nous</span><span class="arrow">→</span></a>
   </div>
 </section>
@@ -1053,59 +1047,24 @@
     </button>
 
     <header class="profil-head">
-      <span class="profil-photo" style="background-image: url('assets/img/matis.jpeg');"></span>
-      <div class="">
-        <h3 class="profil-nom" id="profilNom">Matis Mur</h3>
-        <p class="profil-role">UX/UI designer &amp; développeur full stack</p>
-        <p class="profil-lieu">Paris et périphérie</p>
+      <span class="profil-photo" id="profilPhoto"></span>
+      <div>
+        <h3 class="profil-nom" id="profilNom"></h3>
+        <p class="profil-role" id="profilRole"></p>
+        <p class="profil-lieu" id="profilLieu"></p>
       </div>
     </header>
 
-    <p class="profil-bio">
-      Ingénieur santé et technologies, diplômé d'un MBA management et stratégie.
-      Il conçoit les interfaces et développe les sites Shyft, du premier wireframe
-      jusqu'à la mise en production.
-    </p>
+    <p class="profil-bio" id="profilBio"></p>
+
+    <div id="profilBlocs"></div>
 
     <section class="profil-bloc">
-      <h4>En parallèle</h4>
-      <div class="profil-ligne">
-        <img class="profil-logo" src="assets/logos/profils/ey.png" alt="EY" loading="lazy">
-        <div>
-          <p class="profil-ligne-titre">Consultant digital health sciences</p>
-          <p class="profil-ligne-meta">EY · depuis 2026</p>
-        </div>
-      </div>
+      <h4 id="profilTagsTitre"></h4>
+      <div class="profil-tags" id="profilTags"></div>
     </section>
 
-    <section class="profil-bloc">
-      <h4>Formation</h4>
-      <div class="profil-ligne">
-        <img class="profil-logo" src="assets/logos/profils/iae-sorbonne.png" alt="IAE Paris · Université Paris 1 Panthéon-Sorbonne" loading="lazy">
-        <div>
-          <p class="profil-ligne-titre">MBA management &amp; stratégie</p>
-          <p class="profil-ligne-meta">IAE Paris · Panthéon-Sorbonne</p>
-        </div>
-      </div>
-      <div class="profil-ligne">
-        <span class="profil-logo profil-logo--texte">ECE</span>
-        <div>
-          <p class="profil-ligne-titre">Ingénieur santé &amp; innovation</p>
-          <p class="profil-ligne-meta">ECE Paris · 2020–2025</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="profil-bloc">
-      <h4>Il intervient sur</h4>
-      <div class="profil-tags">
-        <span>Design d'interface</span>
-        <span>Développement</span>
-        <span>Performance</span>
-      </div>
-    </section>
-
-    <a class="profil-lien" href="https://www.linkedin.com/in/matis-mur/" target="_blank" rel="noopener noreferrer">
+    <a class="profil-lien" id="profilLien" target="_blank" rel="noopener noreferrer">
       Voir le profil LinkedIn <span aria-hidden="true">↗</span>
     </a>
 
@@ -1118,9 +1077,126 @@
   const closeBtn = document.getElementById('profilClose');
   if (!overlay) return;
 
+  /* Une seule fiche dans le DOM, remplie à l'ouverture. Quatre gabarits figés
+     auraient quadruplé le markup pour un contenu vu par un visiteur sur dix. */
+  const PROFILS = {
+    laurent: {
+      photo: 'assets/img/laurent.jpeg',
+      nom: 'Laurent Mur',
+      role: 'Directeur marketing &amp; digital',
+      lieu: 'France',
+      bio: "Il définit la stratégie et la met en œuvre lui-même, rédaction et design compris, puis transmet les méthodes aux équipes internes. Vingt-cinq ans de direction marketing en pharma, retail, finance et énergie.",
+      blocs: [
+        { titre: 'En parallèle', lignes: [
+          { titre: 'Directeur marketing freelance', meta: 'Conseil et accompagnement opérationnel · depuis 2020' }
+        ]}
+      ],
+      tagsTitre: 'Il intervient sur',
+      tags: ['Positionnement', 'Stratégie digitale', 'Plan marketing', 'KPI &amp; pilotage'],
+      linkedin: 'https://www.linkedin.com/in/laurent-mur/'
+    },
+    'anne-carole': {
+      photo: 'assets/img/anne-carole.jpeg',
+      nom: 'Anne-Carole Mur',
+      role: 'Marketing · Project management',
+      lieu: 'France',
+      bio: "Vingt ans de marketing et de relation client, d'abord chez Cofidis, puis à la direction de la communication de Gaarden. Elle coordonne les projets Shyft et arbitre les directions créatives.",
+      blocs: [
+        { titre: 'En parallèle', lignes: [
+          { titre: 'Consultante marketing', meta: 'Indépendante' }
+        ]},
+        { titre: 'Parcours', lignes: [
+          { titre: 'Direction communication &amp; relation client', meta: 'Gaarden · 2015-2020' },
+          { titre: 'Marketing', meta: 'Cofidis · 1996-2007' }
+        ]}
+      ],
+      tagsTitre: 'Elle intervient sur',
+      tags: ['Direction artistique', 'Pilotage de projet', 'Relation client'],
+      linkedin: 'https://www.linkedin.com/in/anne-carole-mur-6aa54679/'
+    },
+    noe: {
+      photo: 'assets/img/noe.jpeg',
+      nom: 'Noé Mur',
+      role: 'Marketing digital &amp; acquisition',
+      lieu: 'France',
+      bio: "SEO, LinkedIn, emailing, CRM : il construit les dispositifs qui font venir les prospects et mesure ce qu'ils rapportent. Fondateur de Sorell, un outil de veille sectorielle pour dirigeants.",
+      blocs: [
+        { titre: 'En parallèle', lignes: [
+          { logo: 'black-moutons.png', alt: 'Black Moutons',
+            titre: 'Chef de projets marketing et digital', meta: 'Les Blacks Moutons · depuis 2026' },
+          { logo: 'sorell.png', alt: 'Sorell', carre: true,
+            titre: 'Fondateur', meta: 'Sorell · Veille sectorielle automatisée' }
+        ]},
+        { titre: 'Formation', lignes: [
+          { logo: 'iseg.png', alt: 'ISEG', carre: true,
+            titre: 'Master Marketing, Brand Management &amp; Innovation', meta: 'ISEG · 2026-2028' }
+        ]}
+      ],
+      tagsTitre: 'Il intervient sur',
+      tags: ['Acquisition', 'SEO &amp; contenu', 'CRM &amp; automation'],
+      linkedin: 'https://www.linkedin.com/in/noe-mur/'
+    },
+    matis: {
+      photo: 'assets/img/matis.jpeg',
+      nom: 'Matis Mur',
+      role: 'UX/UI designer &amp; développeur full stack',
+      lieu: 'France',
+      bio: "Ingénieur santé et innovation, diplômé d'un MBA management et stratégie. Il conçoit les interfaces et développe les sites Shyft, du premier wireframe jusqu'à la mise en production.",
+      blocs: [
+        { titre: 'En parallèle', lignes: [
+          { logo: 'onepoint.png', alt: 'onepoint',
+            titre: 'Associate, AI Builder', meta: 'onepoint · Agentic Studio · depuis 2026' }
+        ]},
+        { titre: 'Formation', lignes: [
+          { logo: 'iae-sorbonne.png', alt: 'IAE Paris · Université Paris 1 Panthéon-Sorbonne', carre: true,
+            titre: 'MBA management &amp; stratégie', meta: 'IAE Paris · Panthéon-Sorbonne · 2026-2027' },
+          { logo: 'ece.png', alt: 'ECE Paris',
+            titre: 'Ingénieur santé &amp; innovation', meta: 'ECE Paris · 2020-2025' }
+        ]}
+      ],
+      tagsTitre: 'Il intervient sur',
+      tags: ["Design d'interface", 'Développement', 'Performance'],
+      linkedin: 'https://www.linkedin.com/in/matis-mur/'
+    }
+  };
+
+  const champ = (id) => document.getElementById(id);
+  const photo = champ('profilPhoto'), nom = champ('profilNom'), role = champ('profilRole');
+  const lieu = champ('profilLieu'), bio = champ('profilBio'), blocs = champ('profilBlocs');
+  const tagsTitre = champ('profilTagsTitre'), tags = champ('profilTags'), lien = champ('profilLien');
+
+  const ligneHTML = (l) => {
+    const img = l.logo
+      ? '<img class="profil-logo' + (l.carre ? ' profil-logo--carre' : '') + '" src="assets/logos/profils/'
+        + l.logo + '" alt="' + l.alt + '" loading="lazy">'
+      : '';
+    return '<div class="profil-ligne">' + img + '<div>'
+         + '<p class="profil-ligne-titre">' + l.titre + '</p>'
+         + '<p class="profil-ligne-meta">' + l.meta + '</p>'
+         + '</div></div>';
+  };
+
+  const remplir = (cle) => {
+    const p = PROFILS[cle];
+    if (!p) return false;
+    photo.style.backgroundImage = "url('" + p.photo + "')";
+    nom.textContent = p.nom;
+    role.innerHTML = p.role;
+    lieu.textContent = p.lieu;
+    bio.textContent = p.bio;
+    blocs.innerHTML = p.blocs.map(b =>
+      '<section class="profil-bloc"><h4>' + b.titre + '</h4>' + b.lignes.map(ligneHTML).join('') + '</section>'
+    ).join('');
+    tagsTitre.textContent = p.tagsTitre;
+    tags.innerHTML = p.tags.map(t => '<span>' + t + '</span>').join('');
+    lien.href = p.linkedin;
+    return true;
+  };
+
   let lastFocus = null;
 
-  const open = (trigger) => {
+  const open = (trigger, cle) => {
+    if (!remplir(cle)) return;
     lastFocus = trigger;
     overlay.hidden = false;
     void overlay.offsetWidth;          // force le reflow : la transition part de l'état fermé
@@ -1138,19 +1214,20 @@
   };
 
   document.querySelectorAll('[data-profil]').forEach(btn => {
-    btn.addEventListener('click', (e) => { e.stopPropagation(); open(btn); });
+    btn.addEventListener('click', (e) => { e.stopPropagation(); open(btn, btn.dataset.profil); });
   });
 
   // Toute la carte est cliquable, pas seulement le prénom
-  const carte = document.querySelector('[data-profil-card]');
-  if (carte) {
-    carte.addEventListener('click', () => open(carte.querySelector('[data-profil]') || carte));
+  document.querySelectorAll('[data-profil-card]').forEach(carte => {
+    const btn = carte.querySelector('[data-profil]');
+    if (!btn) return;
+    carte.addEventListener('click', () => open(btn, btn.dataset.profil));
     carte.setAttribute('role', 'button');
     carte.setAttribute('tabindex', '0');
     carte.addEventListener('keydown', (e) => {
       if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); carte.click(); }
     });
-  }
+  });
 
   closeBtn.addEventListener('click', close);
   overlay.addEventListener('click', (e) => { if (e.target === overlay) close(); });

@@ -131,12 +131,16 @@ body::after {
     border-color: var(--oxblood);
     background: rgba(58, 15, 18, 0.1);
   }
+  /* Anneau en or plein : à 50 % d'opacité il devenait invisible sur les
+     fonds oxblood, qui sont le fond par défaut du site. Le survol reste
+     distinct grâce à son remplissage. */
   .cursor-ring {
     position: fixed;
     top: 0; left: 0;
     width: 26px;
     height: 26px;
-    border: 1.5px solid rgba(212, 165, 55, 0.5);
+    border: 1.5px solid var(--gold);
+    background: rgba(212, 165, 55, 0.06);
     border-radius: 50%;
     pointer-events: none;
     z-index: 9999;
@@ -2550,12 +2554,14 @@ section { position: relative; }
   overflow: hidden;
   transition: max-height 0.5s var(--ease-out);
 }
+/* La réponse occupe exactement la colonne de la question : même retrait à
+   gauche, et à droite le dégagement de l'icône. Le plafond de 60ch la
+   coupait 219 px avant la fin de la question, d'où le déséquilibre. */
 .faq-answer-inner {
-  padding: 0 0 2rem 4rem;
+  padding: 0 4rem 2rem 4rem;
   font-size: var(--fs-body);
   line-height: 1.65;
   opacity: 0.78;
-  max-width: 60ch;
 }
 .faq-answer-inner em {
   font-family: var(--font-editorial);
@@ -2564,7 +2570,7 @@ section { position: relative; }
 }
 @media (max-width: 600px) {
   .faq-trigger .num { display: none; }
-  .faq-answer-inner { padding-left: 0; }
+  .faq-answer-inner { padding-left: 0; padding-right: 0; }
 }
 
 /* ============================================
@@ -3310,6 +3316,107 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
   animation: heroGlassIn 700ms var(--ease-out) 750ms forwards;
 }
 
+/* Promesse forte du hero : un cran au-dessus du texte courant qui la porte.
+   Un reflet oxblood balaie l'or toutes les trois secondes. La couleur pleine
+   reste la valeur de repli : si le rognage sur le texte n'est pas supporté,
+   la phrase s'affiche simplement en or. */
+.hero-glass-sub-fort {
+  display: inline-block;
+  margin-top: 0.35em;
+  font-size: 1.35em;
+  font-weight: 600;
+  line-height: 1.3;
+  color: var(--gold);
+}
+
+@supports ((-webkit-background-clip: text) or (background-clip: text)) {
+  .hero-glass-sub-fort {
+    background-color: var(--gold);
+    background-image: linear-gradient(
+      118deg,
+      var(--gold) 0%,
+      var(--oxblood) 44%,
+      var(--oxblood) 56%,
+      var(--gold) 100%
+    );
+    background-repeat: no-repeat;
+    background-size: 62% 260%;
+    -webkit-background-clip: text;
+            background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: balayage-or 4s linear infinite;
+  }
+}
+
+/* 2,2 s de passage puis 1,8 s de pause : le reflet traverse en oblique,
+   assez vite pour accrocher, assez espacé pour ne pas lasser. */
+@keyframes balayage-or {
+  0%   { background-position: -70% 0; }
+  55%  { background-position: 220% 0; }
+  100% { background-position: 220% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-glass-sub-fort { animation: none; background-image: none; -webkit-text-fill-color: var(--gold); }
+}
+
+/* Liens contextuels du manifeste.
+   Deux traits superposés : un filet constant qui signale le lien au repos,
+   et un trait dégradé qui se déploie de la gauche vers la droite au survol.
+   Le filet du repos passe par background-image plutôt que border-bottom,
+   pour que les deux traits partagent exactement la même ligne de base. */
+/* Mécanique partagée : trait fin permanent, puis soulignement dégradé qui
+   s'ouvre au survol. Le manifeste et les liens du cocon refonte doivent se
+   reconnaître pareil, un lien ne doit jamais dépendre de la page où il tombe. */
+.manifesto-text a,
+.lien-or {
+  position: relative;
+  color: var(--gold);
+  text-decoration: none;
+  padding-bottom: 3px;
+  background-image: linear-gradient(rgba(212, 165, 55, 0.32), rgba(212, 165, 55, 0.32));
+  background-size: 100% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: color 0.25s ease;
+}
+
+/* Satoshi 900 : le texte courant est en General Sans, plafonnée à 700.
+   Basculer sur la police d'affichage donne un vrai extra bold sans
+   télécharger de graisse supplémentaire. Réservé au manifeste, dont le
+   corps est assez gros pour le porter. */
+.manifesto-text a {
+  font-family: var(--font-display);
+  font-weight: 900;
+  letter-spacing: -0.015em;
+}
+
+.manifesto-text a::after,
+.lien-or::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 2px;
+  width: 0;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--burnt) 0%, var(--gold) 55%, #F0C557 100%);
+  transition: width 0.42s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.manifesto-text a:hover,
+.lien-or:hover { color: #F0C557; }
+.manifesto-text a:hover::after,
+.manifesto-text a:focus-visible::after,
+.lien-or:hover::after,
+.lien-or:focus-visible::after { width: 100%; }
+
+@media (prefers-reduced-motion: reduce) {
+  .manifesto-text a::after,
+  .lien-or::after { transition: none; }
+}
+
+
 /* ---- CTAs ---- */
 .hero-glass-ctas {
   display: flex;
@@ -3857,4 +3964,77 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
 .pillars-orbit.has-open .pillar--satellite,
 .pillars-orbit:has(.pillar-details.is-open) .pillar--satellite {
   animation-play-state: paused;
+}
+
+/* ============================================
+   APERÇU AU SURVOL · liens des piliers
+   Carte flottante qui suit le curseur. Passe sous le curseur
+   personnalisé (z-index 9999) et ne capte jamais la souris.
+   ============================================ */
+.apercu {
+  position: fixed;
+  top: 0; left: 0;
+  z-index: 9500;
+  width: 260px;
+  padding: 1rem 1rem 0.85rem;
+  background: var(--oxblood-deep);
+  border: 1px solid rgba(212, 165, 55, 0.28);
+  border-radius: 12px;
+  box-shadow: 0 24px 50px -20px rgba(0, 0, 0, 0.7),
+              0 0 60px -30px rgba(212, 165, 55, 0.5);
+  pointer-events: none;
+  opacity: 0;
+  transform: translateY(10px) scale(0.96);
+  transition: opacity 0.22s ease,
+              transform 0.28s cubic-bezier(0.34, 1.4, 0.64, 1);
+  will-change: transform, opacity;
+}
+.apercu.est-visible { opacity: 1; transform: translateY(0) scale(1); }
+
+.apercu-logo {
+  display: block;
+  height: 26px;
+  width: auto;
+  max-width: 100%;
+  margin-bottom: 0.7rem;
+}
+
+/* Variante sans logo : une page qui n'est pas un pilier n'a pas de pictogramme,
+   un titre texte tient le même rôle en haut de la carte. */
+.apercu-titre {
+  display: block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: 0.9375rem;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+  color: var(--cream);
+  margin-bottom: 0.6rem;
+}
+/* .apercu-logo est en display:block, l'attribut hidden ne suffit pas à le masquer. */
+.apercu-logo[hidden],
+.apercu-titre[hidden] { display: none; }
+
+.apercu-desc {
+  display: block;
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: rgba(242, 235, 220, 0.72);
+}
+
+.apercu-cta {
+  display: block;
+  margin-top: 0.7rem;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(242, 235, 220, 0.12);
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .apercu { transition: opacity 0.15s linear; transform: none; }
+  .apercu.est-visible { transform: none; }
 }

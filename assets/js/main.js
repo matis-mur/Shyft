@@ -103,7 +103,7 @@
   // l'or sur l'or devient invisible.
   const GOLD_SEL = [
     '.btn-primary', '.hero-glass-btn--primary', '.nav-cta',
-    '.contact-guarantees', '.pillar-badge',
+    '.contact-guarantees', '.contact-intro', '.pillar-badge',
     '.pillar--core .pillar-toggle:hover', '.faq-item.open .faq-trigger'
   ].join(',');
 
@@ -201,14 +201,19 @@
   const nodesWrap = document.getElementById('orbitalNodes');
   if (!stage || !nodesWrap) return;
 
+  /* Les six étapes épousent les cinq phases de la roadmap du pilier site web
+     (Comprendre, Montrer, Produire, Vérifier, Livrer), plus le suivi qui la
+     prolonge. Le vocabulaire diffère volontairement : ici on nomme ce qui est
+     produit, là-bas ce qui se passe. Les plages de jours, elles, sont les mêmes. */
   const STEPS = [
-    { id: 1, num: '01', title: 'Cadrage', date: 'Jour 1 · 2h', status: 'completed', content: "Atelier stratégique : positionnement, cibles, parcours de conversion. On comprend votre métier avant de dessiner quoi que ce soit.", relatedIds: [2] },
-    { id: 2, num: '02', title: 'Direction artistique', date: 'Jour 5', status: 'completed', content: "Deux propositions visuelles complètes. Vous tranchez. L'identité du site est verrouillée avant la production.", relatedIds: [1, 3] },
-    { id: 3, num: '03', title: 'Maquettes & copy', date: 'Jour 12', status: 'in-progress', content: "Pages clés validées avec vous, copywriting SEO inclus. Vous voyez exactement le rendu, mots compris.", relatedIds: [2, 4] },
-    { id: 4, num: '04', title: 'Développement', date: 'Jour 20', status: 'pending', content: "Pré-production accessible 24/7. Retours en continu, performance optimisée, mobile irréprochable.", relatedIds: [3, 5] },
-    { id: 5, num: '05', title: 'Mise en ligne', date: 'Jour 30', status: 'pending', content: "Tracking GA4, Search Console, SEO technique. Formation 30 minutes pour gérer le site en autonomie.", relatedIds: [4, 6] },
-    { id: 6, num: '06', title: 'Suivi inclus', date: 'J+30', status: 'pending', content: "Trente jours après la livraison, on corrige tout ce qui doit l'être. Sans facture supplémentaire.", relatedIds: [5] },
+    { id: 1, num: '01', title: 'Cadrage', date: 'Jours 1 à 6', status: 'completed', content: "Atelier stratégique : positionnement, cibles, parcours de conversion. Nous comprenons votre métier avant de dessiner quoi que ce soit.", relatedIds: [2] },
+    { id: 2, num: '02', title: 'Direction & maquettes', date: 'Jours 7 à 12', status: 'completed', content: "Trois propositions visuelles complètes, puis la maquette de l'accueil avec son copywriting SEO. Vous tranchez, l'identité est verrouillée avant la production.", relatedIds: [1, 3] },
+    { id: 3, num: '03', title: 'Développement', date: 'Jours 13 à 18', status: 'in-progress', content: "Pré-production accessible 24/7. Retours en continu, performance optimisée, mobile irréprochable.", relatedIds: [2, 4] },
+    { id: 4, num: '04', title: 'Recette', date: 'Jours 19 à 24', status: 'pending', content: "Tests sur tous les navigateurs et tous les écrans, puis recette avec vous. Rien ne part en ligne sans votre feu vert.", relatedIds: [3, 5] },
+    { id: 5, num: '05', title: 'Mise en ligne', date: 'Jours 25 à 30', status: 'pending', content: "Tracking GA4, Search Console, SEO technique. Formation 30 minutes si vos contenus sont modifiables.", relatedIds: [4, 6] },
+    { id: 6, num: '06', title: 'Suivi inclus', date: 'J+30', status: 'pending', content: "Trente jours après la livraison, nous corrigeons tout ce qui doit l'être. Sans facture supplémentaire.", relatedIds: [5] },
   ];
+
 
   const STATUS_LABEL = { 'completed': 'Validé', 'in-progress': 'En cours', 'pending': 'À venir' };
   const RADIUS_PCT = 32.5;
@@ -596,4 +601,110 @@
 
   // Repassage en desktop : on nettoie l'état
   window.addEventListener('resize', () => { if (!isMobile()) close(); }, { passive: true });
+})();
+
+
+/* ============================================
+   APERÇU AU SURVOL
+   Carte flottante qui suit le curseur sur tout lien portant data-apercu.
+   Vit ici et non en inline : les pages piliers en ont besoin aussi, et
+   les chemins de logo doivent rester absolus pour marcher depuis /piliers/.
+   ============================================ */
+(function () {
+  var liens = document.querySelectorAll('[data-apercu]');
+  if (!liens.length) return;
+
+  // Même garde que le curseur personnalisé : rien au doigt, uniquement à la souris.
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  var APERCUS = {
+    'strategie':   { logo: 'Strategie.svg',   desc: 'Positionnement, plateforme de marque, roadmap 12 mois.',  cta: 'Voir le pilier →' },
+    'identite':    { logo: 'Identite.svg',    desc: 'Logo, charte, design system. Trois directions abouties.', cta: 'Voir le pilier →' },
+    'site-web':    { logo: 'Site%20web.svg',  desc: 'Sur-mesure, pensé pour convertir. Livré en 30 jours.',    cta: 'Voir le pilier →' },
+    'acquisition': { logo: 'Acquisition.svg', desc: 'SEO, GEO, campagnes, cold email. Les bons prospects.',    cta: 'Voir le pilier →' },
+    'pilotage':    { logo: 'Pilotage.svg',    desc: 'Direction marketing externalisée, mesure et arbitrages.', cta: 'Voir le pilier →' },
+    // Pas un pilier, donc pas de logo : un titre texte tient le même rôle.
+    'refonte':     { titre: 'Refonte de site internet',
+                     desc: "Audit de l'existant, contenus repris, redirections. Votre référencement est préservé.",
+                     cta: 'Voir la page →' },
+    'prix':        { titre: "Prix d'une refonte",
+                     desc: 'Fourchettes réelles selon le périmètre, et ce qui fait varier la facture.',
+                     cta: 'Voir la page →' },
+    'devis':       { titre: 'Demander un devis',
+                     desc: 'Un formulaire court, une réponse chiffrée sous 24h ouvrées. Sans engagement.',
+                     cta: 'Ouvrir le formulaire →' }
+  };
+
+  var carte = document.createElement('div');
+  carte.className = 'apercu';
+  carte.setAttribute('aria-hidden', 'true');
+  carte.innerHTML = '<img class="apercu-logo" src="" alt="">' +
+                    '<span class="apercu-titre"></span>' +
+                    '<span class="apercu-desc"></span>' +
+                    '<span class="apercu-cta"></span>';
+  document.body.appendChild(carte);
+
+  var logo  = carte.querySelector('.apercu-logo');
+  var titre = carte.querySelector('.apercu-titre');
+  var desc  = carte.querySelector('.apercu-desc');
+  var cta   = carte.querySelector('.apercu-cta');
+  var visible = false, x = 0, y = 0, prevu = false;
+
+  // Les logos sont préchargés au premier survol pour éviter le clignotement.
+  var precharges = {};
+  function precharger(cle) {
+    if (precharges[cle] || !APERCUS[cle].logo) return;
+    precharges[cle] = new Image();
+    precharges[cle].src = '/assets/logos/' + APERCUS[cle].logo;
+  }
+
+  function placer() {
+    prevu = false;
+    var l = carte.offsetWidth, h = carte.offsetHeight;
+    var gx = x - l / 2;                 // centrée sur le curseur
+    var gy = y - h - 22;                // posée au-dessus
+    if (gx < 16) gx = 16;
+    if (gx + l > innerWidth - 16) gx = innerWidth - l - 16;
+    if (gy < 16) gy = y + 26;           // bascule dessous si le haut manque
+    carte.style.transform = 'translate3d(' + Math.round(gx) + 'px,' + Math.round(gy) + 'px,0)' +
+                            (visible ? '' : ' scale(0.96)');
+  }
+
+  function suivre(e) {
+    x = e.clientX; y = e.clientY;
+    if (!prevu) { prevu = true; requestAnimationFrame(placer); }
+  }
+
+  liens.forEach(function (lien) {
+    var cle = lien.getAttribute('data-apercu');
+    var item = APERCUS[cle];
+    if (!item) return;
+
+    lien.addEventListener('mouseenter', function (e) {
+      precharger(cle);
+      if (item.logo) {
+        logo.src = '/assets/logos/' + item.logo;
+        logo.alt = '';
+        logo.hidden = false;
+        titre.hidden = true;
+      } else {
+        logo.hidden = true;
+        titre.textContent = item.titre;
+        titre.hidden = false;
+      }
+      desc.textContent = item.desc;
+      cta.textContent = item.cta;
+      x = e.clientX; y = e.clientY;
+      placer();
+      visible = true;
+      carte.classList.add('est-visible');
+    });
+
+    lien.addEventListener('mousemove', suivre);
+
+    lien.addEventListener('mouseleave', function () {
+      visible = false;
+      carte.classList.remove('est-visible');
+    });
+  });
 })();
