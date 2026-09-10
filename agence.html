@@ -568,6 +568,28 @@
    à hauteur égale. On le laisse remplir l'emplacement en largeur. */
 .profil-logo--carre { height: 38px; }
 
+/* Seules les lignes des produits fondés pointent vers un site. La flèche prévient
+   que le clic sort de shyft.fr, rien d'autre dans la fiche ne le laisserait deviner. */
+a.profil-ligne {
+  text-decoration: none;
+  color: inherit;
+  margin-left: -0.55rem;
+  margin-right: -0.55rem;
+  padding: 0.35rem 0.55rem;
+  border-radius: 8px;
+  transition: background 0.25s ease;
+}
+a.profil-ligne:hover,
+a.profil-ligne:focus-visible { background: rgba(212, 165, 55, 0.09); }
+.profil-ligne-fleche {
+  display: inline-block;
+  margin-left: 0.3rem;
+  color: var(--gold);
+  font-size: 0.85em;
+  transition: transform 0.25s ease;
+}
+a.profil-ligne:hover .profil-ligne-fleche { transform: translate(2px, -2px); }
+
 .profil-ligne-titre {
   font-size: 0.9375rem;
   font-weight: 500;
@@ -778,7 +800,6 @@
 <section class="agence-team" id="equipe">
   <div class="agence-team-inner">
     <div class="agence-team-header reveal">
-      <span class="hub-section-eyebrow">Notre équipe</span>
       <h2 class="hub-section-header h2" style="font-family: var(--font-display); font-size: clamp(2rem, 4vw, 3rem); font-weight: 500; line-height: 1.05; letter-spacing: -0.03em; color: var(--cream);" data-split>Quatre artisans <em style="font-family: var(--font-emphasis); font-style: normal; color: var(--gold);">du web</em>.</h2>
     </div>
 
@@ -1122,9 +1143,9 @@
       bio: "SEO, LinkedIn, emailing, CRM : il construit les dispositifs qui font venir les prospects et mesure ce qu'ils rapportent. Fondateur de Sorell, un outil de veille sectorielle pour dirigeants.",
       blocs: [
         { titre: 'En parallèle', lignes: [
-          { logo: 'black-moutons.png', alt: 'Black Moutons',
+          { logo: 'black-moutons.png', alt: 'Les Blacks Moutons',
             titre: 'Chef de projets marketing et digital', meta: 'Les Blacks Moutons · depuis 2026' },
-          { logo: 'sorell.png', alt: 'Sorell', carre: true,
+          { logo: 'sorell.png', alt: 'Sorell', carre: true, lien: 'https://sorell.fr/',
             titre: 'Fondateur', meta: 'Sorell · Veille sectorielle automatisée' }
         ]},
         { titre: 'Formation', lignes: [
@@ -1145,7 +1166,9 @@
       blocs: [
         { titre: 'En parallèle', lignes: [
           { logo: 'onepoint.png', alt: 'onepoint',
-            titre: 'Associate, AI Builder', meta: 'onepoint · Agentic Studio · depuis 2026' }
+            titre: 'Associate, AI Builder', meta: 'onepoint · Agentic Studio · depuis 2026' },
+          { logo: 'classif-ai.png', alt: 'Classif.ai', lien: 'https://www.classif-ai.fr/',
+            titre: 'Fondateur', meta: 'Classif.ai · Classification automatique de documents par IA' }
         ]},
         { titre: 'Formation', lignes: [
           { logo: 'iae-sorbonne.png', alt: 'IAE Paris · Université Paris 1 Panthéon-Sorbonne', carre: true,
@@ -1170,10 +1193,14 @@
       ? '<img class="profil-logo' + (l.carre ? ' profil-logo--carre' : '') + '" src="assets/logos/profils/'
         + l.logo + '" alt="' + l.alt + '" loading="lazy">'
       : '';
-    return '<div class="profil-ligne">' + img + '<div>'
-         + '<p class="profil-ligne-titre">' + l.titre + '</p>'
+    const fleche = l.lien ? ' <span class="profil-ligne-fleche" aria-hidden="true">↗</span>' : '';
+    const ouvre = l.lien
+      ? '<a class="profil-ligne" href="' + l.lien + '" target="_blank" rel="noopener noreferrer">'
+      : '<div class="profil-ligne">';
+    return ouvre + img + '<div>'
+         + '<p class="profil-ligne-titre">' + l.titre + fleche + '</p>'
          + '<p class="profil-ligne-meta">' + l.meta + '</p>'
-         + '</div></div>';
+         + '</div>' + (l.lien ? '</a>' : '</div>');
   };
 
   const remplir = (cle) => {
