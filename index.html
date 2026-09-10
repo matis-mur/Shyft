@@ -866,31 +866,43 @@
        sizes="(max-width: 900px) 100vw, 100vw">
   <div class="equipe-overlay" aria-hidden="true"></div>
 
+  <div class="equipe-hitzones" aria-hidden="true">
+    <div class="equipe-hit" data-profil="noe"></div>
+    <div class="equipe-hit" data-profil="laurent"></div>
+    <div class="equipe-hit" data-profil="anne-carole"></div>
+    <div class="equipe-hit" data-profil="matis"></div>
+  </div>
+
+  <div class="equipe-apercu equipe-apercu--gauche" data-profil="noe" aria-hidden="true"></div>
+  <div class="equipe-apercu equipe-apercu--croise" data-profil="laurent" aria-hidden="true"></div>
+  <div class="equipe-apercu equipe-apercu--croise" data-profil="anne-carole" aria-hidden="true"></div>
+  <div class="equipe-apercu equipe-apercu--droite" data-profil="matis" aria-hidden="true"></div>
+
   <span class="equipe-team-label">Notre équipe</span>
 
   <div class="equipe-zones">
-    <div class="equipe-zone" data-person="1">
+    <div class="equipe-zone" data-person="1" data-profil="noe">
       <div class="equipe-member">
         <h4><a href="https://www.linkedin.com/in/noe-mur/" target="_blank" rel="noopener noreferrer" class="member-link">Noé<span class="sr-only"></span></a></h4>
         <p>Marketing digital &amp; acquisition</p>
       </div>
     </div>
 
-    <div class="equipe-zone" data-person="2">
+    <div class="equipe-zone" data-person="2" data-profil="laurent">
       <div class="equipe-member">
         <h4><a href="https://www.linkedin.com/in/laurent-mur/" target="_blank" rel="noopener noreferrer" class="member-link">Laurent<span class="sr-only"></span></a></h4>
         <p>Directeur Marketing &amp; Stratégie</p>
       </div>
     </div>
 
-    <div class="equipe-zone" data-person="3">
+    <div class="equipe-zone" data-person="3" data-profil="anne-carole">
       <div class="equipe-member">
         <h4><a href="https://www.linkedin.com/in/anne-carole-mur-6aa54679/" target="_blank" rel="noopener noreferrer" class="member-link">Anne-Carole<span class="sr-only"></span></a></h4>
-        <p>Art Director &amp; Project Manager</p>
+        <p>Marketing &amp; Project management</p>
       </div>
     </div>
 
-    <div class="equipe-zone" data-person="4">
+    <div class="equipe-zone" data-person="4" data-profil="matis">
       <div class="equipe-member">
         <h4><a href="https://www.linkedin.com/in/matis-mur/" target="_blank" rel="noopener noreferrer" class="member-link">Matis<span class="sr-only"></span></a></h4>
         <p>UX/UI Designer &amp; Full Stack Developer</p>
@@ -1169,6 +1181,7 @@
   </div>
 </footer>
 
+<script src="assets/js/profils.js"></script>
 <script src="assets/js/main.js" defer></script>
 <script src="assets/js/motion.js" defer></script>
 </body>

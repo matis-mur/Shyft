@@ -1480,6 +1480,7 @@ section { position: relative; }
   grid-template-columns: repeat(4, 1fr);
   padding: 0 clamp(1.5rem, 6vw, 5rem) clamp(7rem, 14vh, 11rem);
   align-items: end;
+  pointer-events: none;   /* voir .equipe-zone : seul le bloc nom reste sensible */
 }
 
 .equipe-zone {
@@ -1488,13 +1489,19 @@ section { position: relative; }
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  cursor: pointer;
   padding: 0 0.75rem;
+  /* La colonne monte jusqu'en haut de la photo et intercepterait le survol des
+     personnes. Or elle occupe un quart exact de la largeur, alors que les quatre
+     ne sont pas répartis régulièrement : survoler Matis réveillait Anne-Carole.
+     Seul le bloc nom reste sensible, le reste laisse passer vers la découpe. */
+  pointer-events: none;
 }
 /* Membre (nom + rôle), légèrement atténué par défaut · réveille au hover */
 .equipe-member {
   position: relative;
   z-index: 5;
+  pointer-events: auto;
+  cursor: pointer;
   color: var(--cream);
   opacity: 0.88;
   transition:
@@ -1531,6 +1538,132 @@ section { position: relative; }
 }
 .equipe-zone:hover .equipe-member h4::after {
   width: 38px;
+}
+
+/* Découpe de la photo en quatre. Les rectangles sont exprimés en coordonnées
+   de l'image et repositionnés en JS : object-fit:cover recadre l'image
+   différemment à chaque format d'écran, des pourcentages du conteneur se
+   décaleraient donc des personnes. */
+.equipe-hitzones {
+  position: absolute;
+  inset: 0;
+  z-index: 2;   /* sous la rangée des noms (3), qui reste cliquable */
+}
+.equipe-hit {
+  position: absolute;
+  cursor: pointer;
+}
+@media (max-width: 900px) { .equipe-hitzones { display: none; } }
+
+/* Aperçu d'une personne. Épinglé en haut de la section, du côté où la personne
+   se trouve : Noé et Laurent à gauche, Anne-Carole et Matis à droite. Le haut
+   de l'image ne montre que le ciel et les façades, la carte ne masque donc
+   jamais un visage. Elle porte le nom et le rôle parce qu'à cette hauteur les
+   noms du bas sont loin. */
+.equipe-apercu {
+  position: absolute;
+  z-index: 6;
+  top: clamp(6rem, 13vh, 9rem);
+  width: min(320px, 40vw);
+  padding: 1.15rem 1.25rem;
+  background: rgba(31, 6, 8, 0.9);
+  border: 1px solid rgba(212, 165, 55, 0.3);
+  border-radius: 12px;
+  box-shadow: 0 26px 60px -26px rgba(0, 0, 0, 0.75),
+              0 0 70px -34px rgba(212, 165, 55, 0.55);
+  opacity: 0;
+  pointer-events: none;   /* le clic reste celui du nom, qui part vers LinkedIn */
+}
+.equipe-apercu--gauche { left: clamp(1.5rem, 6vw, 5rem); }
+.equipe-apercu--droite { right: clamp(1.5rem, 6vw, 5rem); }
+/* Les deux du milieu se croisent : la carte de Laurent se pose au-dessus
+   d'Anne-Carole et inversement, pour ne jamais couvrir la personne survolée.
+   Leur abscisse est calculée en JS, au même moment que la découpe, faute de
+   quoi elle ne suivrait pas le recadrage de l'image. */
+.equipe-apercu--croise { left: 0; right: auto; }
+@supports (backdrop-filter: blur(8px)) {
+  .equipe-apercu { background: rgba(31, 6, 8, 0.74); backdrop-filter: blur(10px); }
+}
+.equipe-apercu-nom {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 1.25rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin-bottom: 0.15rem;
+  text-shadow: none;
+}
+.equipe-apercu-role {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.625rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 0.75rem;
+  text-shadow: none;
+}
+.equipe-apercu-bio {
+  display: block;
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: rgba(242, 235, 220, 0.82);
+  text-shadow: none;
+}
+.equipe-apercu-logos {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1rem;
+  margin-top: 0.9rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(242, 235, 220, 0.14);
+}
+.equipe-apercu-logos img {
+  height: 16px;
+  width: auto;
+  max-width: 78px;
+  object-fit: contain;
+  opacity: 0.8;
+}
+/* Un blason quasi carré paraît deux fois plus petit à hauteur égale. */
+.equipe-apercu-logos img.est-carre { height: 24px; }
+.equipe-apercu-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem;
+  margin-top: 0.9rem;
+}
+.equipe-apercu-tags span {
+  font-family: var(--font-mono);
+  font-size: 0.5625rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(242, 235, 220, 0.78);
+  padding: 0.28rem 0.55rem;
+  border: 1px solid rgba(242, 235, 220, 0.18);
+  border-radius: 100px;
+  text-shadow: none;
+}
+
+/* Uniquement à la souris. Au doigt le survol reste collé après un appui, et la
+   mise en page bascule de toute façon en 2x2 sous la photo. */
+@media (hover: hover) and (pointer: fine) {
+  .equipe-apercu {
+    transform: translateY(12px);
+    transition: opacity 0.34s var(--ease-out), transform 0.34s var(--ease-out);
+  }
+  .equipe-apercu.est-visible { opacity: 1; transform: translateY(0); }
+
+  /* Survoler la personne dans la photo réveille son nom en bas, et
+     inversement : les deux désignent la même personne. */
+  .equipe-zone.est-actif .equipe-member { opacity: 1; transform: translateY(-8px); }
+  .equipe-zone.est-actif .equipe-member h4::after { width: 38px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .equipe-apercu { transition: opacity 0.2s linear; transform: none !important; }
 }
 
 .equipe-member p {

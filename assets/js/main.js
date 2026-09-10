@@ -708,3 +708,121 @@
     });
   });
 })();
+
+/* ============================================
+   APERÇU ÉQUIPE · photo d'accueil
+   La photo est découpée en quatre rectangles, un par personne. Ils sont
+   exprimés en fractions de l'image d'origine puis reprojetés à l'écran :
+   object-fit:cover recadre l'image autrement à chaque format de fenêtre,
+   des pourcentages du conteneur se décaleraient des visages.
+   ============================================ */
+(function () {
+  var section = document.getElementById('equipe');
+  var fond = section && section.querySelector('.equipe-bg');
+  if (!section || !fond || !window.SHYFT_PROFILS) return;
+
+  // Même garde que le curseur personnalisé : rien au doigt, uniquement à la souris.
+  if (!matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+
+  /* Rectangles relevés sur team.jpg (1582x1282), de gauche à droite.
+     x1/x2 : bornes horizontales, coupées à mi-chemin entre deux visages.
+     y1 : juste au-dessus des têtes, le bras levé d'Anne-Carole monte plus haut. */
+  var DECOUPE = {
+    'noe':         { x1: 0.06, x2: 0.36, y1: 0.33, y2: 1 },
+    'laurent':     { x1: 0.36, x2: 0.49, y1: 0.33, y2: 1 },
+    'anne-carole': { x1: 0.49, x2: 0.62, y1: 0.31, y2: 1 },
+    'matis':       { x1: 0.62, x2: 0.97, y1: 0.33, y2: 1 }
+  };
+
+  /* Les deux du milieu se croisent : la carte de Laurent se pose au-dessus
+     d'Anne-Carole et inversement. Noé et Matis gardent leur coin. */
+  var CROISEMENT = { 'laurent': 'anne-carole', 'anne-carole': 'laurent' };
+
+  var hits = {}, cartes = {}, noms = {};
+  section.querySelectorAll('.equipe-hit').forEach(function (el) { hits[el.dataset.profil] = el; });
+  section.querySelectorAll('.equipe-apercu').forEach(function (el) { cartes[el.dataset.profil] = el; });
+  section.querySelectorAll('.equipe-zone[data-profil]').forEach(function (el) { noms[el.dataset.profil] = el; });
+
+  // ---- Contenu des cartes, depuis la même source que la fiche de /agence ----
+  Object.keys(cartes).forEach(function (cle) {
+    var p = window.SHYFT_PROFILS[cle];
+    if (!p) return;
+    var logos = p.blocs.reduce(function (acc, b) { return acc.concat(b.lignes); }, [])
+                       .filter(function (l) { return l.logo; });
+    var html = '<span class="equipe-apercu-nom">' + p.nom + '</span>'
+             + '<span class="equipe-apercu-role">' + p.role + '</span>'
+             + '<span class="equipe-apercu-bio">' + p.bio + '</span>';
+    if (logos.length) {
+      html += '<div class="equipe-apercu-logos">' + logos.map(function (l) {
+        return '<img src="assets/logos/profils/' + l.logo + '" alt="' + l.alt + '"'
+             + (l.carre ? ' class="est-carre"' : '') + ' loading="lazy" decoding="async">';
+      }).join('') + '</div>';
+    }
+    html += '<div class="equipe-apercu-tags">'
+          + p.tags.map(function (t) { return '<span>' + t + '</span>'; }).join('')
+          + '</div>';
+    cartes[cle].innerHTML = html;
+  });
+
+  // ---- Reprojection des rectangles selon le recadrage réel ----
+  function placer() {
+    var iw = fond.naturalWidth, ih = fond.naturalHeight;
+    if (!iw || !ih) return;
+    var cw = section.clientWidth, ch = section.clientHeight;
+    var pos = getComputedStyle(fond).objectPosition.split(' ');
+    var px = parseFloat(pos[0]), py = parseFloat(pos[1]);
+    if (isNaN(px)) px = 50;
+    if (isNaN(py)) py = 50;
+    var k = Math.max(cw / iw, ch / ih);          // cover : on remplit le plus contraint
+    var rw = iw * k, rh = ih * k;
+    var ox = (cw - rw) * (px / 100), oy = (ch - rh) * (py / 100);
+    Object.keys(DECOUPE).forEach(function (cle) {
+      var z = DECOUPE[cle], el = hits[cle];
+      if (!el) return;
+      el.style.left = (ox + z.x1 * rw) + 'px';
+      el.style.top = (oy + z.y1 * rh) + 'px';
+      el.style.width = ((z.x2 - z.x1) * rw) + 'px';
+      el.style.height = ((z.y2 - z.y1) * rh) + 'px';
+    });
+    Object.keys(CROISEMENT).forEach(function (cle) {
+      var carte = cartes[cle], ref = DECOUPE[CROISEMENT[cle]];
+      if (!carte || !ref) return;
+      var centre = ox + (ref.x1 + ref.x2) / 2 * rw;
+      var largeur = carte.offsetWidth;
+      var marge = 24;
+      var g = Math.max(marge, Math.min(centre - largeur / 2, cw - largeur - marge));
+      carte.style.left = Math.round(g) + 'px';
+    });
+  }
+
+  if (fond.complete) placer(); else fond.addEventListener('load', placer);
+  /* Appel direct plutôt que reporté à la frame suivante : requestAnimationFrame
+     est suspendu quand l'onglet passe en arrière-plan, et un redimensionnement
+     survenu pendant ce temps laisserait les rectangles décalés des visages.
+     Quatre écritures de style, le coût est nul. */
+  addEventListener('resize', placer, { passive: true });
+
+  // ---- Survol : la zone de la photo et le nom en bas désignent la même personne ----
+  function montrer(cle, actif) {
+    if (cartes[cle]) cartes[cle].classList.toggle('est-visible', actif);
+    if (noms[cle]) noms[cle].classList.toggle('est-actif', actif);
+  }
+  Object.keys(DECOUPE).forEach(function (cle) {
+    [hits[cle], noms[cle]].forEach(function (el) {
+      if (!el) return;
+      el.addEventListener('mouseenter', function () { montrer(cle, true); });
+      el.addEventListener('mouseleave', function () { montrer(cle, false); });
+    });
+    if (noms[cle]) {
+      noms[cle].addEventListener('focusin', function () { montrer(cle, true); });
+      noms[cle].addEventListener('focusout', function () { montrer(cle, false); });
+    }
+    if (hits[cle]) {
+      // Cliquer la personne dans la photo ouvre le même profil que son nom.
+      hits[cle].addEventListener('click', function () {
+        var a = noms[cle] && noms[cle].querySelector('a[href]');
+        if (a) a.click();
+      });
+    }
+  });
+})();
