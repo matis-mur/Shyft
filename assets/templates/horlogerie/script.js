@@ -31,3 +31,32 @@ els.forEach((sel, i) => {
     el.style.transform = '';
   }));
 });
+
+// Apparition au défilement des sections sous le hero
+const aReveler = document.querySelectorAll('.r');
+if (aReveler.length) {
+  if (!window.IntersectionObserver || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    aReveler.forEach(el => el.classList.add('vu'));
+  } else {
+    const oeil = new IntersectionObserver((entrees) => {
+      entrees.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const freres = [...e.target.parentElement.querySelectorAll(':scope > .r')];
+        e.target.style.transitionDelay = (Math.max(0, freres.indexOf(e.target)) * 70) + 'ms';
+        e.target.classList.add('vu');
+        oeil.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+    aReveler.forEach(el => oeil.observe(el));
+  }
+}
+
+// Maquette : le formulaire ne part nulle part, il confirme sur place.
+const formEstimation = document.getElementById('formEstimation');
+if (formEstimation) {
+  formEstimation.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const ok = document.getElementById('formOk');
+    if (ok) ok.hidden = false;
+  });
+}

@@ -24,3 +24,22 @@ els.forEach((sel, i) => {
     el.style.transform = '';
   }));
 });
+
+// Apparition au défilement des panneaux sous le hero
+const aReveler = document.querySelectorAll('.r');
+if (aReveler.length) {
+  if (!window.IntersectionObserver || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    aReveler.forEach(el => el.classList.add('vu'));
+  } else {
+    const oeil = new IntersectionObserver((entrees) => {
+      entrees.forEach((e) => {
+        if (!e.isIntersecting) return;
+        const freres = [...e.target.parentElement.querySelectorAll(':scope > .r')];
+        e.target.style.transitionDelay = (Math.max(0, freres.indexOf(e.target)) * 60) + 'ms';
+        e.target.classList.add('vu');
+        oeil.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.12 });
+    aReveler.forEach(el => oeil.observe(el));
+  }
+}

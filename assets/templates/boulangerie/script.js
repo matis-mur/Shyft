@@ -22,3 +22,24 @@ els.forEach((el, i) => {
     });
   });
 });
+
+// Apparition au défilement des sections sous le hero
+const aReveler = document.querySelectorAll('.r');
+if (aReveler.length) {
+  if (!window.IntersectionObserver || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    aReveler.forEach(el => el.classList.add('vu'));
+  } else {
+    const oeil = new IntersectionObserver((entrees) => {
+      entrees.forEach((e) => {
+        if (!e.isIntersecting) return;
+        // Décalage en cascade entre voisins immédiats
+        const freres = [...e.target.parentElement.querySelectorAll(':scope > .r')];
+        const rang = Math.max(0, freres.indexOf(e.target));
+        e.target.style.transitionDelay = (rang * 70) + 'ms';
+        e.target.classList.add('vu');
+        oeil.unobserve(e.target);
+      });
+    }, { rootMargin: '0px 0px -12% 0px', threshold: 0.15 });
+    aReveler.forEach(el => oeil.observe(el));
+  }
+}

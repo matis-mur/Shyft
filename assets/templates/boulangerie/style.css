@@ -15,13 +15,14 @@
 }
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
-html, body { height: 100%; }
+html { scroll-behavior: smooth; }
+body { min-height: 100%; }
 
 body {
   font-family: var(--font-body);
   color: var(--cream);
   background: var(--ink-deep);
-  overflow: hidden;
+  overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
@@ -323,4 +324,318 @@ a { color: inherit; text-decoration: none; }
     width: 92px; height: 64px;
     bottom: 1rem; right: 1rem;
   }
+}
+
+
+/* ============================================
+   PAGE · sections sous le hero
+   ============================================ */
+
+.wrap {
+  width: min(1240px, 100% - 6vw);
+  margin: 0 auto;
+}
+
+/* Étiquette mono, reprise de la typo du hero */
+.label {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.24em;
+  color: var(--cream);
+  opacity: 0.7;
+}
+.label--ink { color: var(--ink); opacity: 0.55; }
+
+/* Apparition au défilement, posée par script.js */
+.r {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity .7s cubic-bezier(.16,1,.3,1), transform .7s cubic-bezier(.16,1,.3,1);
+}
+.r.vu { opacity: 1; transform: none; }
+@media (prefers-reduced-motion: reduce) {
+  .r { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
+}
+
+/* ============ 01 · INTRO ============ */
+.intro {
+  background: var(--cream);
+  color: var(--ink);
+  padding: clamp(6rem, 12vh, 10rem) 0 clamp(5rem, 10vh, 8rem);
+}
+.intro__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 7.5vw, 6.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  margin: 1.6rem 0 clamp(2.5rem, 6vh, 4rem);
+}
+.intro__grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 4rem);
+  max-width: 900px;
+  margin-left: auto;
+}
+.intro__grid p {
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  line-height: 1.65;
+  color: rgba(26, 20, 16, 0.78);
+}
+
+/* Chiffres : le contrepoint sec du texte courant */
+.figures {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.5rem;
+  margin-top: clamp(3.5rem, 9vh, 6rem);
+  border-top: 1px solid rgba(26, 20, 16, 0.18);
+  padding-top: 2.2rem;
+}
+.figures__n {
+  display: block;
+  font-family: var(--font-display);
+  font-size: clamp(2.4rem, 5vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--ink);
+}
+.figures__l {
+  display: block;
+  margin-top: 0.7rem;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  color: rgba(26, 20, 16, 0.55);
+}
+
+/* ============ 02 · LA CARTE ============ */
+.carte {
+  background: var(--ink-deep);
+  color: var(--cream);
+  padding: clamp(6rem, 12vh, 10rem) 0;
+}
+.carte__head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-bottom: 2.4rem;
+  border-bottom: 1px solid rgba(242, 234, 211, 0.16);
+}
+.carte__note {
+  font-size: 0.9rem;
+  color: rgba(242, 234, 211, 0.6);
+  max-width: 34ch;
+}
+.menu { list-style: none; }
+.menu__row {
+  display: grid;
+  grid-template-columns: minmax(180px, 0.9fr) minmax(0, 1.4fr) auto;
+  align-items: baseline;
+  gap: clamp(1rem, 3vw, 3rem);
+  padding: 1.5rem 1.2rem;
+  margin: 0 -1.2rem;
+  border-bottom: 1px solid rgba(242, 234, 211, 0.1);
+  transition: background .3s ease, color .3s ease;
+}
+.menu__row:hover {
+  background: var(--cream);
+  color: var(--ink);
+}
+.menu__name {
+  font-family: var(--font-display);
+  font-size: clamp(1.1rem, 1.7vw, 1.5rem);
+  letter-spacing: -0.02em;
+  line-height: 1.15;
+}
+.menu__desc {
+  font-size: 0.9rem;
+  line-height: 1.5;
+  opacity: 0.62;
+}
+.menu__price {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  letter-spacing: 0.04em;
+  justify-self: end;
+  white-space: nowrap;
+}
+.carte__foot {
+  margin-top: 2.6rem;
+  font-size: 0.9rem;
+  color: rgba(242, 234, 211, 0.6);
+}
+.carte__foot em { font-style: normal; color: var(--cream); }
+
+/* ============ 03 · L'ATELIER ============ */
+.atelier {
+  position: relative;
+  background: var(--ink);
+  color: var(--cream);
+  padding: clamp(6rem, 12vh, 10rem) 0;
+  overflow: hidden;
+}
+/* La photo du hero revient en filigrane : pas de nouvel actif à charger. */
+.atelier__media {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+}
+.atelier__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 60% 40%;
+  filter: brightness(0.22) saturate(1.1) blur(2px);
+}
+.atelier .wrap { position: relative; z-index: 1; }
+.atelier__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.4rem, 6.5vw, 5.4rem);
+  line-height: 0.95;
+  letter-spacing: -0.035em;
+  margin: 1.4rem 0 clamp(3rem, 7vh, 5rem);
+}
+.timeline {
+  list-style: none;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+.timeline__step {
+  padding-top: 1.6rem;
+  border-top: 2px solid rgba(242, 234, 211, 0.3);
+}
+.timeline__hour {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+  color: var(--cream-bright);
+  opacity: 0.75;
+}
+.timeline__step h3 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(1.1rem, 1.6vw, 1.4rem);
+  letter-spacing: -0.02em;
+  margin: 0.9rem 0 0.7rem;
+}
+.timeline__step p {
+  font-size: 0.9rem;
+  line-height: 1.6;
+  color: rgba(242, 234, 211, 0.68);
+}
+
+/* ============ 04 · CONTACT ============ */
+.contact {
+  background: var(--cream);
+  color: var(--ink);
+  padding: clamp(6rem, 12vh, 10rem) 0 0;
+}
+.contact__title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(2.6rem, 7.5vw, 6.4rem);
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  margin-bottom: clamp(3rem, 7vh, 5rem);
+}
+.contact__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 4vw, 4rem);
+  border-top: 1px solid rgba(26, 20, 16, 0.18);
+  padding-top: 2.4rem;
+}
+.contact__bloc p {
+  margin-top: 1rem;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+.contact__bloc a { text-decoration: underline; text-underline-offset: 3px; }
+.contact__off {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  opacity: 0.5;
+}
+.contact__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 1.2rem;
+  margin-top: clamp(3rem, 7vh, 5rem);
+  padding: 1.2rem 2rem;
+  background: var(--ink);
+  color: var(--cream);
+  border-radius: 2px;
+  font-family: var(--font-mono);
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  transition: background .3s ease;
+}
+.contact__cta:hover { background: var(--ink-deep); }
+.contact__arrow { transition: transform .3s ease; }
+.contact__cta:hover .contact__arrow { transform: translateX(5px); }
+
+/* ============ PIED DE PAGE ============ */
+.foot {
+  margin-top: clamp(4rem, 9vh, 7rem);
+  background: var(--ink-deep);
+  color: var(--cream);
+  padding: clamp(2.5rem, 5vh, 4rem) 3vw;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 2rem;
+}
+.foot__brand {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 6vw, 4rem);
+  letter-spacing: -0.04em;
+  line-height: 0.9;
+  color: var(--cream-bright);
+}
+.foot__meta {
+  text-align: right;
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  letter-spacing: 0.12em;
+  line-height: 1.9;
+  color: rgba(242, 234, 211, 0.55);
+}
+.foot__meta a { text-decoration: underline; text-underline-offset: 3px; }
+
+/* ============ Responsive ============ */
+@media (max-width: 920px) {
+  .intro__grid { grid-template-columns: 1fr; }
+  .figures { grid-template-columns: repeat(2, 1fr); gap: 2rem 1.5rem; }
+  .timeline { grid-template-columns: repeat(2, 1fr); }
+  .contact__grid { grid-template-columns: 1fr; gap: 2rem; }
+  .menu__row {
+    grid-template-columns: 1fr auto;
+    grid-template-areas: "nom prix" "desc desc";
+    gap: 0.5rem 1rem;
+  }
+  .menu__name { grid-area: nom; }
+  .menu__price { grid-area: prix; }
+  .menu__desc { grid-area: desc; }
+  .foot { flex-direction: column; align-items: flex-start; }
+  .foot__meta { text-align: left; }
+}
+@media (max-width: 560px) {
+  .figures { grid-template-columns: 1fr 1fr; }
+  .timeline { grid-template-columns: 1fr; }
 }
