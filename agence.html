@@ -23,7 +23,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<!-- Un lien par famille : l'API fontshare ignore silencieusement le second f[] d'une URL combinee. -->
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="assets/css/styles.css">
 <link rel="stylesheet" href="assets/css/subpages.css">
@@ -36,29 +38,51 @@
    SVG inline (<use href="#shyftWord">) plutôt que mask ou <img> : le path
    est peint en currentColor, donc le mot prend automatiquement la couleur
    du texte qui l'entoure : cream dans le manifeste, gold dans un accent. */
+/* Le mot-symbole en ligne.
+   --wm-h est posée par main.js à partir de la hauteur d'x de la police
+   environnante, pour que le logo ait la même présence optique que le texte
+   quelle que soit la police, la taille ou le contexte. La valeur ci-dessous
+   n'est que le repli si le script ne tourne pas : elle correspond au corps de
+   texte en General Sans. */
+.shyft-mot {
+  position: relative;
+  display: inline-block;
+  margin: 0 0.06em;
+}
+/* Le mot réel, laissé dans le document : il se sélectionne avec la phrase, se
+   copie avec elle et se lit comme du texte par les moteurs. Transparent et
+   superposé, pas masqué : un display:none ne serait ni copié ni indexé. */
+.shyft-mot-texte {
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: transparent;
+  white-space: nowrap;
+  line-height: 1;
+  /* Ni overflow:hidden ni hauteur imposée : un texte entièrement rogné est
+     exclu de la copie par le navigateur, et c'est précisément ce qu'on veut
+     éviter. Sa taille est ajustée par main.js pour épouser le tracé. */
+  font-size: 0.8em;
+}
 .shyft-word {
-  --wm-h: 0.74em;                          /* hauteur, calée sur le texte */
+  --wm-h: 0.847em;
+  position: relative;                      /* passe au-dessus du surlignage */
   display: inline-block;
   height: var(--wm-h);
   width: calc(var(--wm-h) * 2.668);        /* ratio natif 862 / 323 */
-  vertical-align: -0.04em;
-  margin: 0 0.06em;
+  vertical-align: calc(var(--wm-h) * -0.1455);  /* 14,55 % du tracé descend sous la ligne de base */
   fill: currentColor;
   overflow: visible;
 }
 /* Variante accentuée (remplace un <em> gold dans un titre) */
-.shyft-word--accent {
-  color: var(--gold);
-  --wm-h: 0.82em;
-  transform: translateY(5px);   /* recalé sur la ligne de base du titre */
-}
+.shyft-mot--accent { color: var(--gold); }
 
 /* En-tête du tableau comparatif : la cellule est en mono 0.6875rem,
    le wordmark y serait minuscule. On le fixe en rem pour qu'il pèse
    autant que les intitulés des colonnes voisines. */
-.agence-compare-row--head .shyft-word {
+.shyft-mot--fixe .shyft-word {
   --wm-h: 1.6rem;
-  vertical-align: -0.5rem;
+  vertical-align: -0.42rem;
 }
 
 .agence-manifesto {
@@ -776,7 +800,7 @@ a.profil-ligne:hover .profil-ligne-fleche { transform: translate(2px, -2px); }
       qu'il doit déclencher qui compte.
     </p>
     <p>
-      <svg class="shyft-word" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg> se positionne sur <strong>toute la chaîne</strong>&nbsp;: positionnement,
+      <span class="shyft-mot"><span class="shyft-mot-texte">Shyft</span><svg class="shyft-word" viewBox="0 0 862 323" aria-hidden="true"><use href="#shyftWord"/></svg></span> se positionne sur <strong>toute la chaîne</strong>&nbsp;: positionnement,
       identité, site web, acquisition, pilotage. Quatre profils complémentaires (stratégie,
       marketing, design, développement) réunis sous une même marque, <em>sans sous-traitance</em>,
       sans agence opaque.
@@ -810,7 +834,7 @@ a.profil-ligne:hover .profil-ligne-fleche { transform: translate(2px, -2px); }
         <h3 class="agence-member-name"><button type="button" class="member-link" data-profil="laurent" aria-haspopup="dialog">Laurent</button></h3>
         <p class="agence-member-bio">
           Plus de 25 ans de direction marketing dans des environnements complexes (pharma,
-          retail, finance, énergie). Pilote la stratégie et le positionnement chez <svg class="shyft-word" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg>.
+          retail, finance, énergie). Pilote la stratégie et le positionnement chez <span class="shyft-mot"><span class="shyft-mot-texte">Shyft</span><svg class="shyft-word" viewBox="0 0 862 323" aria-hidden="true"><use href="#shyftWord"/></svg></span>.
           La rigueur d'une grande agence, sans le coût ni les délais.
         </p>
       </article>
@@ -886,7 +910,7 @@ a.profil-ligne:hover .profil-ligne-fleche { transform: translate(2px, -2px); }
         <h3>Prix &amp; délai tenus</h3>
         <p>
           Devis complet et plafonné dès le départ. Pas de coûts cachés, pas de
-          rallonges surprises. Si un retard vient de notre fait, nous continuons à travailler
+          rallonges surprises. Et si le délai devait glisser de notre côté, nous continuons
           sans surcoût jusqu'à la livraison.<sup>*</sup>
         </p>
         <p class="agence-valeur-note">
@@ -915,11 +939,11 @@ a.profil-ligne:hover .profil-ligne-fleche { transform: translate(2px, -2px); }
 <section class="agence-compare">
   <div class="agence-compare-inner">
     <div class="agence-compare-header reveal">
-      <h2 data-split>Agence, freelance, ou <svg class="shyft-word shyft-word--accent" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg>&nbsp;?</h2>
+      <h2 data-split>Agence, freelance, ou <span class="shyft-mot shyft-mot--accent"><span class="shyft-mot-texte">Shyft</span><svg class="shyft-word" viewBox="0 0 862 323" aria-hidden="true"><use href="#shyftWord"/></svg></span>&nbsp;?</h2>
       <p class="agence-compare-lede">
         Trois façons de faire refaire son site web quand vous dirigez une PME.
         Voici honnêtement ce qui les sépare, et pourquoi nous avons construit
-        <svg class="shyft-word" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg> comme une troisième voie.
+        <span class="shyft-mot"><span class="shyft-mot-texte">Shyft</span><svg class="shyft-word" viewBox="0 0 862 323" aria-hidden="true"><use href="#shyftWord"/></svg></span> comme une troisième voie.
       </p>
     </div>
 
@@ -928,7 +952,7 @@ a.profil-ligne:hover .profil-ligne-fleche { transform: translate(2px, -2px); }
         <span class="agence-compare-crit"></span>
         <span class="agence-compare-cell">Agence classique</span>
         <span class="agence-compare-cell">Freelance</span>
-        <span class="agence-compare-cell agence-compare-cell--us"><svg class="shyft-word" viewBox="0 0 862 323" role="img" aria-label="Shyft"><use href="#shyftWord"/></svg></span>
+        <span class="agence-compare-cell agence-compare-cell--us"><span class="shyft-mot shyft-mot--fixe"><span class="shyft-mot-texte">Shyft</span><svg class="shyft-word" viewBox="0 0 862 323" aria-hidden="true"><use href="#shyftWord"/></svg></span></span>
       </div>
 
       <div class="agence-compare-row">

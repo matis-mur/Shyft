@@ -29,7 +29,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<!-- Un lien par famille : l'API fontshare ignore silencieusement le second f[] d'une URL combinee. -->
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <!-- Styles -->
@@ -962,10 +964,10 @@
         </button>
         <div class="faq-answer">
           <div class="faq-answer-inner">
-            Si le retard vient <em>de notre fait</em>, nous continuons à travailler sans
-            surcoût jusqu'à la livraison. Si le retard vient de votre côté (validations en
-            attente, contenus manquants), le compteur est mis en pause le temps que ce soit
-            débloqué. Juste, des deux côtés.
+            Le délai court sur nos phases de production. Il est mis en pause pendant vos
+            validations et tant qu'un contenu manque. <em>À périmètre constant, il tient.</em>
+            Et s'il devait glisser de notre côté, nous continuons sans surcoût jusqu'à la
+            livraison. Juste, des deux côtés.
           </div>
         </div>
       </div>

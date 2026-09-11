@@ -23,7 +23,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<!-- Un lien par famille : l'API fontshare ignore silencieusement le second f[] d'une URL combinee. -->
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/styles.css">
 <link rel="stylesheet" href="../assets/css/subpages.css">
@@ -657,36 +659,24 @@
 
     <div class="pilier-combos-grid" data-stagger>
       <a href="/piliers/strategie" class="pilier-combo reveal">
-        <span class="pilier-combo-direction">
-          <span class="pilier-combo-direction-arrow">←</span> En amont
-        </span>
         <span class="pilier-combo-name">Stratégie</span>
         <span class="pilier-combo-desc">Ce que nous visons, pour qui, contre qui. Le socle de tout le reste.</span>
         <span class="pilier-combo-cta">Voir le pilier →</span>
       </a>
 
       <a href="/piliers/identite" class="pilier-combo reveal">
-        <span class="pilier-combo-direction">
-          <span class="pilier-combo-direction-arrow">←</span> En amont
-        </span>
         <span class="pilier-combo-name">Identité</span>
         <span class="pilier-combo-desc">Logo, charte, ton de voix. Ce que voient vos clients avant même de vous parler.</span>
         <span class="pilier-combo-cta">Voir le pilier →</span>
       </a>
 
       <a href="/piliers/acquisition" class="pilier-combo reveal">
-        <span class="pilier-combo-direction">
-          <span class="pilier-combo-direction-arrow">→</span> En aval
-        </span>
         <span class="pilier-combo-name">Acquisition</span>
         <span class="pilier-combo-desc">Faire venir les bons prospects sur votre site, par les bons canaux.</span>
         <span class="pilier-combo-cta">Voir le pilier →</span>
       </a>
 
       <a href="/piliers/pilotage" class="pilier-combo reveal">
-        <span class="pilier-combo-direction">
-          <span class="pilier-combo-direction-arrow">→</span> En aval
-        </span>
         <span class="pilier-combo-name">Pilotage</span>
         <span class="pilier-combo-desc">Mesurer, ajuster, faire vivre votre dispositif dans la durée.</span>
         <span class="pilier-combo-cta">Voir le pilier →</span>
@@ -727,11 +717,11 @@
         </button>
         <div class="faq-answer"><div class="faq-answer-inner">
           Par défaut, non&nbsp;: nos sites sont en code, ce qui les rend rapides et robustes,
-          mais pas administrables. Si l'édition autonome vous est indispensable, dites-le nous
-          <em>au cadrage</em>&nbsp;: nous partons alors sur un site administrable, avec son
-          propre délai et son propre budget, distincts du forfait 30 jours. Ce n'est pas une
-          option qui s'ajoute en cours de route. Dans tous les cas, le code source vous
-          appartient.
+          mais pas administrables. Ils restent modifiables, <em>à condition de savoir coder</em>.
+          Si l'édition autonome vous est indispensable, dites-le nous au cadrage&nbsp;: nous
+          partons alors sur un site administrable, avec son propre délai et son propre budget,
+          distincts du forfait 30 jours. Ce n'est pas une option qui s'ajoute en cours de
+          route. Dans tous les cas, le code source vous appartient.
         </div></div>
       </div>
       <div class="faq-item reveal">

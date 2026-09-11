@@ -483,36 +483,137 @@
 })();
 
 /* ============================================
-   CONTACT FORM · soumission via mailto enrichi
-   À remplacer plus tard par Formspree / Netlify Forms / API custom.
+   FORMULAIRES DE CONTACT
+   Envoi réel via /api/contact. Le mailto: n'est plus le mécanisme principal :
+   il ouvrait le logiciel de messagerie du visiteur, donc rien ne partait chez
+   les gens qui n'en ont pas de configuré. Il ne sert plus que de secours si
+   la fonction serverless est indisponible ou pas encore branchée.
    ============================================ */
-(function() {
-  const form = document.getElementById('contactForm');
-  if (!form) return;
+(function () {
+  var formulaires = document.querySelectorAll('#contactForm, #contactLongForm');
+  if (!formulaires.length) return;
 
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
+  var ADRESSE = ['contact', ['shyft', 'fr'].join('.')].join('@');
+
+  function lire(form, nom) {
+    var el = form.querySelector('[name="' + nom + '"]');
+    return el ? el.value.trim() : '';
+  }
+
+  function donnees(form) {
+    var perimetre = Array.prototype.map.call(
+      form.querySelectorAll('input[name="perimetre"]:checked'),
+      function (el) { return el.value; }
+    );
+    return {
+      source: location.pathname,
+      prenom: lire(form, 'prenom'),
+      nom: lire(form, 'nom'),
+      societe: lire(form, 'societe'),
+      email: lire(form, 'email'),
+      message: lire(form, 'message'),
+      perimetre: perimetre,
+      site: lire(form, 'site'),              // pot de miel
+      ouvertA: Number(form.dataset.ouvertA || 0)
+    };
+  }
+
+  // Dernier recours : on rouvre le mailto d'avant plutôt que de laisser
+  // le visiteur sans issue.
+  function secoursMailto(d) {
+    var sujet = 'Projet Shyft · ' + (d.societe || [d.prenom, d.nom].filter(Boolean).join(' '));
+    var corps = [
+      [d.prenom, d.nom].filter(Boolean).join(' ') + (d.societe ? ' · ' + d.societe : ''),
+      'Email : ' + d.email,
+      d.perimetre.length ? 'Périmètre : ' + d.perimetre.join(', ') : '',
+      '',
+      'Message :',
+      d.message
+    ].filter(Boolean).join('\n');
+    location.href = 'mailto:' + ADRESSE + '?subject=' + encodeURIComponent(sujet) +
+                    '&body=' + encodeURIComponent(corps);
+  }
+
+  formulaires.forEach(function (form) {
+    form.dataset.ouvertA = String(Date.now());
+
+    // Pot de miel : invisible à l'œil, atteignable par un robot, et retiré
+    // du parcours clavier comme de la vocalisation.
+    var piege = document.createElement('div');
+    piege.className = 'champ-piege';
+    piege.setAttribute('aria-hidden', 'true');
+    piege.innerHTML = '<label for="piege-' + form.id + '">Ne remplissez pas ce champ</label>' +
+                      '<input type="text" id="piege-' + form.id + '" name="site" tabindex="-1" autocomplete="off">';
+    form.appendChild(piege);
+
+    var bouton = form.querySelector('[type="submit"]');
+    var etiquette = bouton && bouton.querySelector('.label-text');
+    var texteInitial = etiquette ? etiquette.textContent : '';
+
+    var etat = document.createElement('p');
+    etat.className = 'form-etat';
+    etat.setAttribute('role', 'status');
+    etat.setAttribute('aria-live', 'polite');
+    etat.hidden = true;
+    if (bouton && bouton.parentNode) bouton.parentNode.insertBefore(etat, bouton.nextSibling);
+
+    function dire(texte, type) {
+      etat.textContent = texte;
+      etat.className = 'form-etat' + (type ? ' form-etat--' + type : '');
+      etat.hidden = !texte;
     }
-    const data = new FormData(form);
-    const subject = `Projet Shyft · ${data.get('societe') || data.get('nom') || 'Nouveau contact'}`;
-    const body =
-      `Prénom : ${data.get('prenom')}\n` +
-      `Nom : ${data.get('nom')}\n` +
-      `Société : ${data.get('societe')}\n` +
-      `Email : ${data.get('email')}\n\n` +
-      `Message :\n${data.get('message')}\n`;
-    // Obfuscation : on assemble l'adresse en runtime, pas de chaîne directe
-    const mailUser = ['c','o','n','t','a','c','t'].join('');
-    const mailDomain = ['shyft','fr'].join('.');
-    window.location.href =
-      'mailto:' + mailUser + '@' + mailDomain + '?subject=' +
-      encodeURIComponent(subject) +
-      '&body=' +
-      encodeURIComponent(body);
-    form.classList.add('is-sent');
+
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      if (!form.checkValidity()) { form.reportValidity(); return; }
+      if (form.classList.contains('est-en-cours')) return;
+
+      var d = donnees(form);
+      form.classList.add('est-en-cours');
+      if (bouton) bouton.disabled = true;
+      if (etiquette) etiquette.textContent = 'Envoi…';
+      dire('', '');
+
+      fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(d)
+      }).then(function (r) {
+        return r.json().catch(function () { return {}; }).then(function (j) {
+          return { ok: r.ok, statut: r.status, corps: j };
+        });
+      }).then(function (r) {
+        form.classList.remove('est-en-cours');
+
+        if (r.ok) {
+          form.classList.add('is-sent');
+          if (etiquette) etiquette.textContent = 'Message envoyé';
+          dire('Message bien reçu. Nous revenons vers vous sous 24h ouvrées.', 'ok');
+          form.reset();
+          return;
+        }
+
+        // 400 : le visiteur peut corriger lui-même.
+        if (r.statut === 400) {
+          if (bouton) bouton.disabled = false;
+          if (etiquette) etiquette.textContent = texteInitial;
+          dire(r.corps.erreur || 'Un champ est incomplet.', 'erreur');
+          return;
+        }
+
+        // 503 (pas configuré) ou 502 (l'envoi a échoué) : on bascule.
+        if (etiquette) etiquette.textContent = texteInitial;
+        if (bouton) bouton.disabled = false;
+        dire('Envoi direct indisponible, votre messagerie prend le relais.', 'erreur');
+        secoursMailto(d);
+      }).catch(function () {
+        form.classList.remove('est-en-cours');
+        if (bouton) bouton.disabled = false;
+        if (etiquette) etiquette.textContent = texteInitial;
+        dire('Envoi direct indisponible, votre messagerie prend le relais.', 'erreur');
+        secoursMailto(d);
+      });
+    });
   });
 })();
 
@@ -825,4 +926,65 @@
       });
     }
   });
+})();
+
+/* ============================================
+   MOT-SYMBOLE EN LIGNE
+   Le logo inséré dans une phrase se cale tout seul sur la police qui
+   l'entoure : on mesure la hauteur d'x du texte voisin et on en déduit la
+   taille du tracé. Plus de réglage à la main à chaque apparition, et le logo
+   suit automatiquement un changement de police ou de corps.
+   Le mot « Shyft » reste présent dans le document, transparent sous le tracé,
+   pour être sélectionné, copié et indexé comme du vrai texte.
+   ============================================ */
+(function () {
+  var blocs = document.querySelectorAll('.shyft-mot');
+  if (!blocs.length) return;
+
+  /* Proportions relevées sur le tracé (viewBox 862 x 323) :
+     la bande de hauteur d'x occupe 62,2 % de la boîte,
+     et 14,55 % de la boîte descend sous la ligne de base. */
+  var PART_X = 0.622;
+
+  var pinceau = document.createElement('canvas').getContext('2d');
+
+  function mesurer(police, texte) {
+    pinceau.font = police;
+    var m = pinceau.measureText(texte);
+    return { largeur: m.width, hautX: m.actualBoundingBoxAscent || 0 };
+  }
+
+  function caler() {
+    blocs.forEach(function (bloc) {
+      var trace = bloc.querySelector('.shyft-word');
+      var mot = bloc.querySelector('.shyft-mot-texte');
+      if (!trace || !mot) return;
+
+      var cs = getComputedStyle(bloc.parentElement);
+      var police = cs.fontStyle + ' ' + cs.fontWeight + ' 100px ' + cs.fontFamily;
+
+      /* Hauteur : seulement pour les logos automatiques. Ceux marqués
+         shyft-mot--fixe ont une taille voulue, posée en CSS. */
+      if (!bloc.classList.contains('shyft-mot--fixe')) {
+        var hautX = mesurer(police, 'x').hautX / 100;
+        if (hautX) trace.style.setProperty('--wm-h', (hautX / PART_X).toFixed(4) + 'em');
+      }
+
+      /* Largeur du mot invisible : calée sur la largeur réellement rendue du
+         tracé, transform de révélation exclue, pour que le surlignage épouse
+         le logo au lieu de déborder. */
+      var largeurTrace = parseFloat(getComputedStyle(trace).width);
+      var largeurMot = mesurer(police, mot.textContent).largeur / 100;
+      if (largeurTrace > 0 && largeurMot > 0) {
+        mot.style.fontSize = (largeurTrace / largeurMot).toFixed(3) + 'px';
+      }
+    });
+  }
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(caler);
+  } else {
+    caler();
+  }
+  addEventListener('resize', caler, { passive: true });
 })();

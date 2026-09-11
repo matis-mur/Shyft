@@ -2987,6 +2987,41 @@ section { position: relative; }
 /* État succès / erreur (léger) */
 .contact-form.is-sent .contact-submit { background: var(--gold); color: var(--oxblood); border-color: var(--gold); }
 
+/* ---- États d'envoi du formulaire ---- */
+/* Pot de miel : sorti du flux sans display:none, que certains robots détectent. */
+.champ-piege {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+}
+.contact-long-form.is-sent .contact-submit,
+.contact-form.is-sent .contact-submit {
+  background: var(--gold);
+  color: var(--oxblood);
+  border-color: var(--gold);
+}
+.est-en-cours .contact-submit { opacity: 0.7; cursor: progress; }
+.contact-submit[disabled] { pointer-events: none; }
+.est-en-cours .contact-submit .arrow { animation: pulse-envoi 1s ease-in-out infinite; }
+@keyframes pulse-envoi {
+  0%, 100% { transform: translateX(0); opacity: 1; }
+  50%      { transform: translateX(4px); opacity: 0.5; }
+}
+.form-etat {
+  margin-top: 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  line-height: 1.6;
+}
+.form-etat--ok { color: var(--gold); }
+.form-etat--erreur { color: #E8A0A0; }
+@media (prefers-reduced-motion: reduce) {
+  .est-en-cours .contact-submit .arrow { animation: none; }
+}
+
 /* ============================================
    18. FOOTER
    ============================================ */

@@ -23,7 +23,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<!-- Un lien par famille : l'API fontshare ignore silencieusement le second f[] d'une URL combinee. -->
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="../assets/css/styles.css">
 <link rel="stylesheet" href="../assets/css/subpages.css">
@@ -219,7 +221,7 @@
     <span class="pilier-prix-amount" data-price="acquisition"><span data-price-amount>900€</span></span>
     <span class="pilier-prix-unit" data-price="acquisition"><span data-price-unit>/mois HT</span></span>
     <p class="pilier-prix-note">
-      Tarif pour une PME avec un objectif de 20 à 50 leads qualifiés par mois.
+      Tarif pour une PME moyenne.
       Devis adapté selon ampleur (canaux activés, volume cible, géographie).
     </p>
     <span class="pilier-prix-delai">Engagement minimum recommandé · 6 mois</span>
@@ -234,19 +236,16 @@
     </div>
     <div class="pilier-combos-grid pilier-combos-grid--three" data-stagger>
       <a href="/piliers/site-web" class="pilier-combo reveal">
-        <span class="pilier-combo-direction"><span class="pilier-combo-direction-arrow">←</span> En amont</span>
         <span class="pilier-combo-name">Site web</span>
         <span class="pilier-combo-desc">Sans site qui convertit, l'acquisition est un puits sans fond.</span>
         <span class="pilier-combo-cta">Voir le pilier →</span>
       </a>
       <a href="/piliers/identite" class="pilier-combo reveal">
-        <span class="pilier-combo-direction"><span class="pilier-combo-direction-arrow">←</span> En amont</span>
         <span class="pilier-combo-name">Identité</span>
         <span class="pilier-combo-desc">Une image cohérente sur tous les canaux d'acquisition.</span>
         <span class="pilier-combo-cta">Voir le pilier →</span>
       </a>
       <a href="/piliers/pilotage" class="pilier-combo reveal">
-        <span class="pilier-combo-direction"><span class="pilier-combo-direction-arrow">→</span> En aval</span>
         <span class="pilier-combo-name">Pilotage</span>
         <span class="pilier-combo-desc">Faire évoluer les leviers selon les résultats observés.</span>
         <span class="pilier-combo-cta">Voir le pilier →</span>

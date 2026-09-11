@@ -29,7 +29,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preconnect" href="https://api.fontshare.com" crossorigin>
-<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<!-- Un lien par famille : l'API fontshare ignore silencieusement le second f[] d'une URL combinee. -->
+<link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,600,700,900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,700;1,9..144,300;1,9..144,400;1,9..144,700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
 <!-- Styles -->
@@ -376,57 +378,6 @@
 <script src="assets/js/main.js" defer></script>
 <script src="assets/js/motion.js" defer></script>
 
-<!-- Soumission via mailto, identique à la page contact -->
-<script defer>
-document.addEventListener('DOMContentLoaded', () => {
-  const form = document.getElementById('contactLongForm');
-  if (!form) return;
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-
-    if (!form.checkValidity()) {
-      form.reportValidity();
-      return;
-    }
-
-    const get = (name) => {
-      const el = form.querySelector(`[name="${name}"]`);
-      return el ? el.value.trim() : '';
-    };
-
-    const nom     = get('nom');
-    const email   = get('email');
-    const societe = get('societe');
-    const message = get('message');
-
-    const perimetres = Array.from(form.querySelectorAll('input[name="perimetre"]:checked'))
-      .map(el => el.value)
-      .join(', ') || '(aucun)';
-
-    const subject = `Demande de devis · ${societe}`;
-
-    const body = [
-      `Bonjour Shyft,`,
-      ``,
-      `${nom} (${societe})`,
-      `Email : ${email}`,
-      `Centres d'intérêt : ${perimetres}`,
-      ``,
-      `Message :`,
-      message,
-      ``,
-      `···`,
-      `Envoyé depuis shyft.fr/devis-site-internet`
-    ].join('\n');
-
-    const mailto = `mailto:contact@shyft.fr?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    window.location.href = mailto;
-    form.classList.add('is-sent');
-  });
-});
-</script>
 
 </body>
 </html>
