@@ -691,17 +691,48 @@
     logo.setAttribute('aria-expanded', String(open));
   });
 
+  /* Services et Secteurs deviennent des déroulants au toucher : l'intitulé
+     ouvre sa liste au lieu de naviguer. La page hub reste accessible par le
+     lien « Voir tous les… » en bas de chaque liste. */
+  const auToucher = () => window.matchMedia('(max-width: 900px), (hover: none)').matches;
+  const groupes = [].slice.call(nav.querySelectorAll('.nav-group'));
+
+  const fermerGroupes = () => groupes.forEach((g) => {
+    g.classList.remove('est-ouvert');
+    const t = g.querySelector('.nav-group-trigger');
+    if (t) t.setAttribute('aria-expanded', 'false');
+  });
+
+  groupes.forEach((groupe) => {
+    const declencheur = groupe.querySelector('.nav-group-trigger');
+    if (!declencheur) return;
+    declencheur.setAttribute('aria-expanded', 'false');
+    declencheur.addEventListener('click', (e) => {
+      if (!auToucher()) return;        // desktop : le lien mène à la page hub
+      e.preventDefault();
+      e.stopPropagation();
+      const ouvert = groupe.classList.contains('est-ouvert');
+      fermerGroupes();
+      if (!ouvert) {
+        groupe.classList.add('est-ouvert');
+        declencheur.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
   // Fermeture : clic à l'extérieur, touche Échap, ou navigation
   document.addEventListener('click', (e) => {
-    if (nav.classList.contains('is-open') && !nav.contains(e.target)) close();
+    if (nav.classList.contains('is-open') && !nav.contains(e.target)) { close(); fermerGroupes(); }
   });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') close();
+    if (e.key === 'Escape') { close(); fermerGroupes(); }
   });
-  nav.querySelectorAll('.nav-links a').forEach(a => a.addEventListener('click', close));
+  // Les intitulés déroulants sont exclus : ils ouvrent une liste, ils ne naviguent pas.
+  nav.querySelectorAll('.nav-links a:not(.nav-group-trigger)')
+     .forEach(a => a.addEventListener('click', () => { close(); fermerGroupes(); }));
 
   // Repassage en desktop : on nettoie l'état
-  window.addEventListener('resize', () => { if (!isMobile()) close(); }, { passive: true });
+  window.addEventListener('resize', () => { if (!isMobile()) { close(); fermerGroupes(); } }, { passive: true });
 })();
 
 
@@ -987,4 +1018,46 @@
     caler();
   }
   addEventListener('resize', caler, { passive: true });
+})();
+
+/* ============================================
+   ANNÉE DU COPYRIGHT
+   Écrite en dur dans le HTML pour rester juste sans JavaScript, et remise à
+   jour ici pour ne pas vieillir au 1er janvier.
+   ============================================ */
+(function () {
+  var annees = document.querySelectorAll('[data-annee]');
+  if (!annees.length) return;
+  var courante = String(new Date().getFullYear());
+  annees.forEach(function (el) { el.textContent = courante; });
+})();
+
+/* ============================================
+   MÉTHODE · accordéon mobile
+   Sous 900px la roue orbitale laisse la place à cette liste dépliante. Le CSS
+   attendait une classe is-open que rien ne posait : les six étapes restaient
+   donc fermées, et la section paraissait morte. La première est ouverte au
+   chargement pour que la section montre quelque chose sans action du visiteur.
+   ============================================ */
+(function () {
+  var etapes = [].slice.call(document.querySelectorAll('.duo-step'));
+  if (!etapes.length) return;
+
+  function basculer(etape, ouvert) {
+    etape.classList.toggle('is-open', ouvert);
+    var tete = etape.querySelector('.duo-head');
+    if (tete) tete.setAttribute('aria-expanded', String(ouvert));
+  }
+
+  etapes.forEach(function (etape, rang) {
+    var tete = etape.querySelector('.duo-head');
+    if (!tete) return;
+    basculer(etape, rang === 0);
+    tete.addEventListener('click', function () {
+      var etaitOuverte = etape.classList.contains('is-open');
+      // Une seule étape ouverte à la fois : la liste reste lisible d'un coup d'œil.
+      etapes.forEach(function (autre) { basculer(autre, false); });
+      basculer(etape, !etaitOuverte);
+    });
+  });
 })();

@@ -447,11 +447,81 @@ body .contact-intro h2 em {
 }
 .nav-links .nav-mega-all:hover { opacity: 1; letter-spacing: 0.2em; }
 
-/* Mobile / tablette : pas de survol fiable → le méga-menu est désactivé,
-   le lien parent reste cliquable et mène à la page hub. */
+/* Mobile / tablette : pas de survol fiable. Le méga-menu ne disparaît plus,
+   il se déplie au toucher sous son intitulé. Le masquer revenait à cacher les
+   cinq piliers et les six secteurs à la moitié des visiteurs, qui ne voyaient
+   donc qu'une agence de sites web. La page hub reste atteignable par le lien
+   « Voir tous les… » en bas de chaque bloc. */
+/* Mobile / tablette : pas de survol fiable. Le méga-menu n'est plus un panneau
+   flottant mais une simple sous-liste, toujours dépliée sous son intitulé.
+   Aucun JavaScript, aucune animation : rien ne peut rester coincé. Le masquer
+   revenait à cacher les cinq piliers et les six secteurs à la moitié des
+   visiteurs, qui ne voyaient donc qu'une agence de sites web. */
 @media (max-width: 900px), (hover: none) {
-  .nav-mega { display: none; }
   .nav-group-trigger::after { display: none; }
+
+  /* Le groupe est une rangée en mode bureau : ici l'intitulé et sa liste
+     doivent s'empiler. */
+  .nav-links .nav-group { display: block; }
+
+  .nav-links .nav-mega {
+    position: static;
+    /* Déroulant en tout ou rien : pas de hauteur à animer, donc rien qui
+       puisse rester bloqué à mi-chemin. */
+    display: none;
+    transform: none;
+    margin: 0;
+    padding: 0 0 0.5rem;
+    min-width: 0;
+    border: 0;
+    border-radius: 0;
+    background: none;
+    -webkit-backdrop-filter: none;
+            backdrop-filter: none;
+    box-shadow: none;
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;
+    transition: none;
+  }
+  .nav-links .nav-mega::before { display: none; }
+  .nav-group.est-ouvert .nav-mega { display: block; }
+
+  /* La règle de survol du bureau, .nav-group:hover .nav-mega, pèse (0,3,0)
+     car une pseudo-classe compte comme une classe. Elle l'emportait sur la
+     règle ci-dessus en (0,2,0) et réappliquait le décalage de moitié qui
+     projetait le panneau hors de l'écran. On la neutralise explicitement. */
+  .nav-links .nav-group:hover .nav-mega,
+  .nav-links .nav-group:focus-within .nav-mega {
+    position: static;
+    transform: none;
+    margin: 0;
+  }
+
+  /* Chevron sur l'intitulé déroulant, qui pivote une fois ouvert */
+  .nav-links .nav-group-trigger { position: relative; }
+  .nav-links .nav-group-trigger::before {
+    content: '';
+    position: absolute;
+    right: 1.1rem;
+    top: 50%;
+    width: 7px;
+    height: 7px;
+    border-right: 1.5px solid var(--gold);
+    border-bottom: 1.5px solid var(--gold);
+    transform: translateY(-70%) rotate(45deg);
+    transition: transform 0.3s var(--ease-out);
+    opacity: 0.8;
+  }
+  .nav-group.est-ouvert > .nav-group-trigger::before {
+    transform: translateY(-30%) rotate(-135deg);
+  }
+  .nav-group.est-ouvert > .nav-group-trigger { color: var(--gold); opacity: 1; }
+
+  /* Entrées décalées, pour se lire comme une sous-liste de l'intitulé */
+  .nav-links .nav-mega-item,
+  .nav-links .nav-mega-all { padding-left: 2rem; }
+  .nav-links .nav-mega-all { padding-top: 0.7rem; padding-bottom: 0.3rem; }
 }
 .nav-cta {
   background: var(--cream);
@@ -489,6 +559,12 @@ body .contact-intro h2 em {
     border: 1px solid rgba(212, 165, 55, 0.22);
     border-radius: 18px;
     box-shadow: 0 24px 50px -18px rgba(0, 0, 0, 0.65);
+    /* Quinze entrées une fois les sous-listes dépliées : le panneau doit
+       pouvoir défiler plutôt que déborder de l'écran. */
+    max-height: calc(100vh - 6rem);
+    max-height: calc(100dvh - 6rem);
+    overflow-y: auto;
+    overscroll-behavior: contain;
     opacity: 0;
     visibility: hidden;
     transform: translateY(-8px);
@@ -3089,7 +3165,89 @@ footer:hover .footer-mark-svg--spot { opacity: 0.55; }
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   gap: 3rem 2.5rem;
-  margin-bottom: 3.5rem;
+  margin-bottom: 3rem;
+}
+
+/* ---- Barre du bas : marque à gauche, mentions à droite ----
+   Une ligne centrée mettait les trois informations sur le même plan et
+   entrait en concurrence avec le wordmark en fond. Ici la marque ancre le
+   coin gauche, l'administratif file à droite, et le centre reste vide. */
+.footer-bar {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1.5rem 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid rgba(212, 165, 55, 0.12);
+}
+.footer-bar-mark {
+  display: block;
+  line-height: 0;
+  flex-shrink: 0;
+}
+.footer-bar-mark svg {
+  width: 104px;
+  height: auto;
+  fill: var(--cream);
+  opacity: 0.85;
+  transition: opacity 0.3s ease;
+}
+.footer-bar-mark:hover svg { opacity: 1; }
+
+.footer-bar-liens {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.75rem 2.25rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.footer-bar-copy {
+  color: var(--cream);
+  opacity: 0.42;
+  white-space: nowrap;
+}
+.footer-bar-liens a {
+  color: var(--cream);
+  opacity: 0.62;
+  text-decoration: none;
+  transition: opacity 0.25s ease, color 0.25s ease;
+}
+.footer-bar-liens a:hover,
+.footer-bar-liens a:focus-visible { opacity: 1; color: var(--gold); }
+
+/* Le logo LinkedIn : seule tache pleine de la barre, il attire l'œil en bout
+   de ligne sans avoir besoin d'être gros. Le tracé porte lui-même son carré et
+   ses coins arrondis, on ne lui met donc aucun fond, sinon deux carrés se
+   superposeraient. La couleur vient de currentColor, pour virer à l'or. */
+.footer-bar-in {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--cream);
+  opacity: 0.9;
+  transition: color 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
+}
+.footer-bar-in svg {
+  display: block;
+  width: 30px;
+  height: 30px;
+}
+.footer-bar-in:hover,
+.footer-bar-in:focus-visible {
+  color: var(--gold);
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+@media (max-width: 680px) {
+  .footer-bar { justify-content: center; text-align: center; }
+  .footer-bar-liens { justify-content: center; gap: 0.75rem 1.5rem; }
 }
 @media (max-width: 980px) {
   .footer-cols { grid-template-columns: repeat(2, 1fr); gap: 3rem 2.5rem; }
