@@ -1577,7 +1577,6 @@ section { position: relative; }
   position: relative;
   z-index: 5;
   pointer-events: auto;
-  cursor: pointer;
   color: var(--cream);
   opacity: 0.88;
   transition:
@@ -1625,10 +1624,9 @@ section { position: relative; }
   inset: 0;
   z-index: 2;   /* sous la rangée des noms (3), qui reste cliquable */
 }
-.equipe-hit {
-  position: absolute;
-  cursor: pointer;
-}
+/* Aucun curseur de clic : les prénoms ne mènent plus nulle part, la zone ne
+   sert qu'à faire apparaître la fiche au survol. */
+.equipe-hit { position: absolute; }
 @media (max-width: 900px) { .equipe-hitzones { display: none; } }
 
 /* Aperçu d'une personne. Épinglé en haut de la section, du côté où la personne

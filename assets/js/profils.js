@@ -10,7 +10,7 @@ window.SHYFT_PROFILS = {
       nom: 'Laurent Mur',
       role: 'Directeur marketing &amp; digital',
       lieu: 'France',
-      bio: "Il définit la stratégie et la met en œuvre lui-même, rédaction et design compris, puis transmet les méthodes aux équipes internes. Vingt-cinq ans de direction marketing en pharma, retail, finance et énergie.",
+      bio: "Il définit la stratégie et la met en œuvre, rédaction et design compris, puis transmet les méthodes aux équipes internes. Vingt-cinq ans de direction marketing en pharma, retail, finance et énergie.",
       blocs: [
         { titre: 'En parallèle', lignes: [
           { titre: 'Directeur marketing freelance', meta: 'Conseil et accompagnement opérationnel · depuis 2020' }

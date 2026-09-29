@@ -949,13 +949,6 @@
       noms[cle].addEventListener('focusin', function () { montrer(cle, true); });
       noms[cle].addEventListener('focusout', function () { montrer(cle, false); });
     }
-    if (hits[cle]) {
-      // Cliquer la personne dans la photo ouvre le même profil que son nom.
-      hits[cle].addEventListener('click', function () {
-        var a = noms[cle] && noms[cle].querySelector('a[href]');
-        if (a) a.click();
-      });
-    }
   });
 })();
 
